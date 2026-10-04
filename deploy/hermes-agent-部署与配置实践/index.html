@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+
+    
+<meta http-equiv='Content-Security-Policy' content="script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'">
+
+    
+
+<link rel="stylesheet" href="../../css/style.7146bb5d410f5db4e7376460bb67bb578ab9578629665e69825acbaa68fe84ae82fb3b12be15fcb3fe3c9752f7d970600d538eb8bbbe5bfc658484f88f7ca79d.css" media="screen" integrity="sha512-cUa7XUEPXbTnN2Rgu2e7V4q5V4YpZl5pglrLqmj&#43;hK6C&#43;zsSvhX8s/48l1L32XBgDVOOuLu&#43;W/xlhIT4j3ynnQ==" crossorigin="anonymous">
+
+    <title>Hermes Agent 部署与配置实践😸	</title>
+
+<meta name="description" content=" ">
+
+
+
+<link rel="canonical" href="http://106.53.54.249:20683/deploy/hermes-agent-%E9%83%A8%E7%BD%B2%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/">
+
+
+<link rel="alternate" hreflang="zh" href="http://106.53.54.249:20683/deploy/hermes-agent-%E9%83%A8%E7%BD%B2%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/">
+
+
+
+<link rel="alternate" hreflang="x-default" href="http://106.53.54.249:20683/deploy/hermes-agent-%E9%83%A8%E7%BD%B2%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="Hermes Agent 部署与配置实践😸	">
+<meta property="og:description" content=" "><meta property="og:type" content="article">
+<meta property="og:url" content="http://106.53.54.249:20683/deploy/hermes-agent-%E9%83%A8%E7%BD%B2%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/">
+<meta property="og:image" content="http://106.53.54.249:20683/deploy/hermes-agent-%E9%83%A8%E7%BD%B2%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/9_hu_f2de99b25fcacc5f.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="600">
+  
+    <meta property="article:section" content="deploy">
+  
+  
+    <meta property="article:published_time" content="2026-09-27T18:50:00+08:00">
+  
+  
+    <meta property="article:modified_time" content="2026-09-27T18:51:15+08:00">
+  
+  <meta property="og:locale" content="zh">
+
+  <meta property="og:site_name" content="于鹏飞的个人主页">
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://106.53.54.249:20683/deploy/hermes-agent-%E9%83%A8%E7%BD%B2%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/9_hu_df6b9198b67f104.jpg">
+
+<meta name="twitter:title" content="Hermes Agent 部署与配置实践😸	">
+<meta name="twitter:description" content=" ">
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+    
+    
+    
+    
+    
+  
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","author":[{"@type":"Person","name":"于鹏飞"}],"dateModified":"2026-09-27T18:51:15+08:00","datePublished":"2026-09-27T18:50:00+08:00","description":" ","headline":"Hermes Agent 部署与配置实践😸\t","image":["http://106.53.54.249:20683/deploy/hermes-agent-%E9%83%A8%E7%BD%B2%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/9.jpg"],"inLanguage":"zh","keywords":["IT技术"],"mainEntityOfPage":"http://106.53.54.249:20683/deploy/hermes-agent-%E9%83%A8%E7%BD%B2%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://106.53.54.249:20683/images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg"},"name":"于鹏飞的个人主页"},"wordcount":6579}
+</script>
+
+
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"http://106.53.54.249:20683/","name":"于鹏飞的个人主页","position":1},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/","name":"项目配置攻略","position":2},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/hermes-agent-%E9%83%A8%E7%BD%B2%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/","name":"Hermes Agent 部署与配置实践😸\t","position":3}]}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="icon" type="image/svg+xml" href="http://106.53.54.249:20683/favicon.svg"><link rel="icon" type="image/png" href="http://106.53.54.249:20683/favicon.png"><link rel="shortcut icon" href="http://106.53.54.249:20683/favicon.ico">
+  <meta name="theme-color" content="#fff">
+</head>
+
+
+
+<body class="deploy single d-flex flex-column min-vh-100"><header class="main-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="../../">
+        <img src="../../images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg" alt="logo" width="30" height="24"
+          class="d-inline-block align-text-top">
+        于鹏飞的个人主页
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="menu-main navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../method">方法论</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../note">论文笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../deploy">工程笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../program">开源项目</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../notice">最新通知</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../contact">联系方式</a>
+          </li>
+          
+          </ul>
+
+        
+        
+        
+
+      </div>
+    </div>
+  </nav>
+</header><main id="content">
+        <nav class="header-breadcrumb my-2" aria-label="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb my-0">
+            
+            
+                
+                
+                    
+                
+                    
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../">Home</a> </li>
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../deploy/">项目配置攻略</a> </li>
+                
+            
+                <li class="breadcrumb-item active" aria-current="page">  Hermes Agent 部署与配置实践😸	</li>
+            
+        </ol>
+    </div>
+</nav>
+
+
+<div class="container py-3">
+
+ 
+  <h1 id="hermes-的使用">Hermes 的使用</h1>
+<blockquote>
+<p>Nous Research 的 Hermes Agent 部署与配置实践。内容依据官方文档整理，核对日期：2026-09-27。。</p>
+</blockquote>
+<h2 id="一hermes-agent-架构">一、Hermes Agent 架构</h2>
+<p>Hermes 是以大语言模型为推理核心、可以调用工具并在本地保存会话状态的 Agent。它不是一个模型本身：模型由云端 API 或本地推理服务提供，Hermes 负责提示词组装、模型请求、工具调用、上下文维护和多种交互入口。[1][2]</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">flowchart LR
+    U[用户] --&gt; E[交互入口：CLI / TUI / 消息网关 / ACP]
+    E --&gt; A[Agent 主循环]
+    A --&gt; P[模型提供方解析]
+    P --&gt; L[云端 LLM 或本地 OpenAI 兼容服务]
+    L --&gt; A
+    A --&gt; T[工具注册表与工具集]
+    T --&gt; B[内置工具 / MCP 服务 / 终端后端]
+    B --&gt; A
+    A &lt;--&gt; S[SQLite 会话状态与 FTS5 搜索]
+    A &lt;--&gt; M[MEMORY.md、USER.md 与可选外部记忆插件]
+    A &lt;--&gt; K[Skills：按需加载的操作流程]
+</code></pre><table>
+	<thead>
+			<tr>
+					<th>子系统</th>
+					<th>作用</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>入口层</td>
+					<td>CLI/TUI 适合交互；Gateway 连接 Telegram、Discord 等平台；ACP 用于 IDE 集成。</td>
+			</tr>
+			<tr>
+					<td>Agent 主循环</td>
+					<td>构建系统提示词、请求模型、执行工具调用、接收结果，再决定继续调用还是回答。</td>
+			</tr>
+			<tr>
+					<td>Provider</td>
+					<td>统一解析服务商、模型标识、API 协议、端点和凭证；可切换云端模型或自托管模型。</td>
+			</tr>
+			<tr>
+					<td>工具与执行环境</td>
+					<td>工具注册表提供文件、网页、终端等能力；MCP 用于连接外部工具；终端可在本机、Docker 或远端运行。</td>
+			</tr>
+			<tr>
+					<td>状态与记忆</td>
+					<td>SQLite 保存会话并支持 FTS5 全文检索；MEMORY.md/USER.md 保存有限的长期记忆；外部 Memory Provider 可添加语义检索或知识图谱能力。</td>
+			</tr>
+			<tr>
+					<td>Skills 与插件</td>
+					<td>Skills 为按需调用的流程说明；插件可扩展工具、记忆提供方、上下文引擎等。</td>
+			</tr>
+	</tbody>
+</table>
+<p><strong>一次 Agent 工具调用</strong>：用户提出目标 → 模型决定是否调用工具 → Hermes 分发工具请求 → 工具结果返回模型 → 模型继续执行或给出结论。Hermes 提供执行框架，但能否可靠使用工具仍取决于模型及推理服务对 tool calling 的支持。[2][3]</p>
+<h2 id="二部署方案wsl2-与-docker">二、部署方案：WSL2 与 Docker</h2>
+<h3 id="21-方案选择">2.1 方案选择</h3>
+<ul>
+<li><strong>WSL2 安装 Hermes</strong>：适合个人开发机、需要直接访问 WSL 文件系统和 Windows 上 LM Studio 的场景。Hermes 在 WSL Linux 环境运行，配置与数据放在 WSL 用户目录的 <code>~/.hermes/</code>。</li>
+<li><strong>Docker 运行 Hermes</strong>：适合常驻 Gateway、服务化部署和隔离运行。容器中的用户数据通过 <code>/opt/data</code> 持久化；升级 Hermes 镜像不应丢失配置、密钥和会话。</li>
+<li><strong>本地模型跨边界访问</strong>：Hermes 在 WSL2、LM Studio 在 Windows 时，两者之间必须先有可达的 HTTP 网络路径；Hermes 在 Docker 时，Windows 主机通常通过 <code>host.docker.internal</code> 访问。[4][5]</li>
+</ul>
+<p>不要让两个 Hermes Gateway 同时写同一个 <code>HERMES_HOME</code>。个人使用可选 WSL2 或 Docker 其中一种持有该数据目录；如需迁移，先停止旧实例并备份。[4]</p>
+<h3 id="22-在-wsl2-中安装并启动">2.2 在 WSL2 中安装并启动</h3>
+<p>在 WSL2 的 Linux 发行版终端中执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+</span></span><span style="display:flex;"><span>source ~/.bashrc
+</span></span><span style="display:flex;"><span>hermes --version
+</span></span><span style="display:flex;"><span>hermes setup
+</span></span></code></pre></div><p>安装程序会准备 Hermes 所需运行环境。首次运行 <code>hermes setup</code> 完成模型、工具等配置；以后可分别用 <code>hermes model</code>、<code>hermes tools</code> 修改。启动交互会话：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hermes
+</span></span></code></pre></div><p>如要运行消息网关，WSL 场景优先使用前台进程：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hermes gateway run
+</span></span></code></pre></div><p>需要关闭终端后继续运行时，可在 WSL 中用 <code>tmux</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tmux new -s hermes <span style="color:#e6db74">&#39;hermes gateway run&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 重新连接：tmux attach -t hermes</span>
+</span></span></code></pre></div><p>官方 FAQ 提醒，WSL 的 systemd 服务可能无法在休眠、发行版重启或 Windows 空闲关闭后可靠存活；稳定自启动可用 Windows 任务计划程序启动 WSL 命令。[4]</p>
+<h3 id="23-docker-部署-hermes-gateway">2.3 Docker 部署 Hermes Gateway</h3>
+<p>先确认 Docker Engine/Docker Desktop 正常运行。在 WSL2 中使用 Docker Desktop 时，建议把 Hermes 数据放在 Docker named volume，避免 SQLite 数据库跨 Windows 文件系统挂载时的文件锁/WAL 兼容问题。</p>
+<p>首次交互配置：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker volume create hermes-data
+</span></span><span style="display:flex;"><span>docker run -it --rm <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -v hermes-data:/opt/data <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  nousresearch/hermes-agent:latest setup
+</span></span></code></pre></div><p>按提示配置提供方和 Gateway。长期运行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run -d <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --name hermes <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --restart unless-stopped <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -v hermes-data:/opt/data <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  nousresearch/hermes-agent:latest gateway run
+</span></span></code></pre></div><p>只通过 Telegram/Discord 等消息平台使用时，通常不必向宿主机发布端口。若确实需要 OpenAI 兼容 API，必须在 Hermes 配置中显式启用 API Server，并配置认证密钥；再只绑定所需网络接口。API Server 默认关闭。不要把未认证的 API 或 Dashboard 直接暴露到公网。[5]</p>
+<p>需要在运行容器中调整配置时：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker exec -it hermes hermes model
+</span></span><span style="display:flex;"><span>docker exec hermes hermes tools
+</span></span><span style="display:flex;"><span>docker logs -f hermes
+</span></span></code></pre></div><p>官方容器把可变数据放在 <code>/opt/data</code>，程序安装树则是镜像内容；升级应拉取新镜像并重建容器，而不是在容器内修改 Hermes 源码。[5]</p>
+<p><strong>Docker 数据目录注意事项</strong>：<code>state.db</code> 默认使用 SQLite WAL。Docker Desktop/Windows 文件挂载有跨 VM 文件系统语义差异；使用 named volume 可避免常见的 9p/virtiofs WAL 风险。若必须把 Windows 文件夹 bind mount 到 <code>/opt/data</code>，停止所有 Hermes 进程后备份，并确认 Hermes 的数据库日志模式/<code>hermes doctor</code> 状态；不要同时启动多个 Gateway 写同一目录。[5]</p>
+<h3 id="24-云端模型接入">2.4 云端模型接入</h3>
+<p>可使用 OpenRouter、OpenAI、Anthropic 等提供方。最简单、也最不易写错的方式是在安装环境中运行交互式配置向导：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hermes model
+</span></span></code></pre></div><p>选择服务商、完成 API Key/OAuth 认证，再从模型列表中选定模型。Hermes 把非秘密的模型和端点设置保存到 <code>~/.hermes/config.yaml</code>，API Key 等秘密保存在 <code>~/.hermes/.env</code> 或对应凭据存储。也可首次使用完整向导：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hermes setup
+</span></span></code></pre></div><p>以 OpenRouter 为例，命令行设置密钥（将占位内容替换为用户自己的 Key）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hermes config set OPENROUTER_API_KEY <span style="color:#e6db74">&#34;YOUR_OPENROUTER_API_KEY&#34;</span>
+</span></span><span style="display:flex;"><span>hermes model
+</span></span></code></pre></div><p>模型 ID 取决于服务商及其当前模型目录，不要照抄已经过期的模型名。配置后先用短问题验证：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hermes chat -q <span style="color:#e6db74">&#34;只回复：模型接入正常&#34;</span>
+</span></span></code></pre></div><p>在 Docker 部署中，上述命令需要在容器内执行，且必须使用与 Gateway 相同的 <code>/opt/data</code> 持久化卷。密钥切勿写入文档、Git 仓库或明文 shell 历史。[3][5]</p>
+<h3 id="25-windows-lm-studio-接入-wsl2-hermes">2.5 Windows LM Studio 接入 WSL2 Hermes</h3>
+<p><strong>LM Studio（Windows）</strong>：在 Developer 页面加载模型并启动本地 Server，默认 OpenAI 兼容 API 端点为 <code>http://localhost:1234/v1</code>。模型应支持工具调用；否则 Hermes 可能只收到模型输出的伪 JSON 文本，而不会真正执行工具。Hermes Agent 的工具使用建议上下文长度至少约 64K tokens；应在 LM Studio 中为实际模型设置可用的 context length，不能只在 Hermes 中填写一个服务端没有实现的值。[3][6]</p>
+<p><strong>网络模式 A：WSL2 mirrored networking（推荐）</strong></p>
+<p>Windows 11 22H2 及更高版本可在 Windows 用户目录的 <code>.wslconfig</code> 中启用 mirrored networking：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[wsl2]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">networkingMode</span><span style="color:#f92672">=</span><span style="color:#e6db74">mirrored</span>
+</span></span></code></pre></div><p>从 PowerShell 重启 WSL：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>wsl --shutdown
+</span></span></code></pre></div><p>重新打开 WSL 后测试：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://localhost:1234/v1/models
+</span></span></code></pre></div><p>如本机 Hyper-V 防火墙阻止连接，需按最小端口范围检查防火墙规则。不要为了方便而把模型 Server 无保护地监听在公网网卡上。[3]</p>
+<p><strong>网络模式 B：WSL2 NAT / Windows 10</strong></p>
+<p>在 WSL 中取得 Windows 主机的默认网关地址：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip route show | awk <span style="color:#e6db74">&#39;/default/ {print $3}&#39;</span>
+</span></span></code></pre></div><p>假设输出 <code>172.29.192.1</code>，则在 LM Studio 的 Developer/Server 设置中启用 <strong>Serve on Network</strong>，必要时配置 Windows 防火墙允许 WSL 子网访问 TCP <code>1234</code>。从 WSL 测试：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://172.29.192.1:1234/v1/models
+</span></span></code></pre></div><p>使用当前机器实际的网关 IP，不能假定示例 IP 固定不变。NAT 模式下仅监听 Windows 的 <code>127.0.0.1</code> 通常无法从 WSL 访问。[3]</p>
+<p><strong>将 LM Studio 配置为 Hermes 的模型提供方</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hermes model
+</span></span></code></pre></div><p>选择 <strong>LM Studio</strong>，确认 API 地址（mirrored 模式用 <code>http://localhost:1234/v1</code>；NAT 模式用 <code>http://&lt;Windows主机IP&gt;:1234/v1</code>），并选中已加载模型。若 LM Studio 开启了 Server Authentication，按向导输入 Key。等价的配置结构如下（模型名必须与 LM Studio 的模型标识相符）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">model</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">provider</span>: <span style="color:#ae81ff">lmstudio</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">base_url</span>: <span style="color:#ae81ff">http://localhost:1234/v1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">default</span>: <span style="color:#ae81ff">&lt;LM_STUDIO_MODEL_ID&gt;</span>
+</span></span></code></pre></div><p>检查服务端可达和模型目录：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://localhost:1234/v1/models
+</span></span><span style="display:flex;"><span>hermes doctor
+</span></span><span style="display:flex;"><span>hermes chat -q <span style="color:#e6db74">&#34;请调用一个只读工具列出当前目录文件，并概括结果。&#34;</span>
+</span></span></code></pre></div><p>NAT 模式的 <code>base_url</code> 换成 Windows 主机网关 IP。若网络检查成功但工具不执行，应检查模型的 tool-calling 支持、LM Studio 版本、上下文长度与 Hermes 启动日志。LM Studio 支持 OpenAI 兼容 Chat Completions；其 API Key 只有在服务端认证开启时才需要。[3][6]</p>
+<p><strong>Hermes 本身运行在 Docker、LM Studio 运行在 Windows 时</strong>：模型 URL 一般改为 <code>http://host.docker.internal:1234/v1</code>，并在容器内验证 <code>curl http://host.docker.internal:1234/v1/models</code>。Hermes 在容器中访问 <code>localhost</code> 指容器自身，不是 Windows 主机。[5]</p>
+<h2 id="三rag-与-graphrag-配置">三、RAG 与 GraphRAG 配置</h2>
+<h3 id="31-先区分三类记忆检索">3.1 先区分三类“记忆/检索”</h3>
+<ol>
+<li><strong>Hermes 内置记忆</strong>：<code>MEMORY.md</code>、<code>USER.md</code> 存储少量长期事实；<code>session_search</code> 查询 Hermes 自己的历史对话。它们不是对任意 PDF、网页或企业知识库自动切块、建向量索引的通用文档 RAG。[7]</li>
+<li><strong>外部 Memory Provider</strong>：通过 <code>hermes memory setup</code> 配置语义记忆、自动抽取、跨会话检索等能力。当前文档列出的提供方包括 OpenViking、Mem0、Hindsight、Holographic、RetainDB、ByteRover、Supermemory 等；通常只有一个外部提供方同时启用，但它与内置记忆并存。[8]</li>
+<li><strong>文档 RAG / GraphRAG</strong>：由独立知识库负责文档接入、切分、embedding、向量/图索引、检索及来源追踪；Hermes 通过 MCP 工具调用它。GraphRAG 是检索/索引方案，不是 Hermes 的配置选项或内置模型能力。[5][9]</li>
+</ol>
+<p>架构关系：</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">flowchart LR
+    D[PDF / Markdown / 网页 / 数据库] --&gt; I[独立索引管线]
+    I --&gt; V[向量索引：语义/关键词混合检索]
+    I --&gt; G[知识图谱：实体、关系、社区摘要]
+    H[Hermes Agent] --&gt;|MCP: search_documents| V
+    H --&gt;|MCP: search_local / search_global| G
+    V --&gt; R[带来源的片段与元数据]
+    G --&gt; R
+    R --&gt; H
+    H --&gt; L[最终回答与引用]
+</code></pre><h3 id="32-普通文档-rag通过-mcp-接入">3.2 普通文档 RAG：通过 MCP 接入</h3>
+<p>一种可维护的部署方式是让 RAG 服务独立提供 MCP endpoint，然后在 Hermes 的 <code>config.yaml</code> 注册它。服务端工具名称是示意；必须替换为你部署的 MCP 服务真实 URL 和真实工具名：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">mcp_servers</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">knowledge_rag</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">url</span>: <span style="color:#e6db74">&#34;http://rag-service:8000/mcp&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tools</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">include</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">search_documents</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">get_document</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">resources</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">prompts</span>: <span style="color:#66d9ef">false</span>
+</span></span></code></pre></div><p>HTTPS 远程服务可使用 OAuth 或由环境变量注入的授权头；避免在配置中硬编码生产凭证。修改后从正在运行的会话执行 <code>/reload-mcp</code>，或重新启动 Hermes。终端中也可检查连接：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hermes mcp list
+</span></span><span style="display:flex;"><span>hermes mcp test knowledge_rag
+</span></span></code></pre></div><p>RAG 服务负责提供稳定的数据管线：文档解析 → 清理/分块 → embedding → 向量或混合索引 → 查询重排 → 返回相关片段。MCP 查询结果建议至少包括 <code>text</code>、文档标题、稳定来源 URI、页码/段落定位和片段 ID；要求模型基于这些证据作答，检索不到时明确表示没有找到，而不是补写事实。</p>
+<p>若使用 Hermes 外部记忆提供方做<strong>跨会话语义记忆</strong>，可运行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hermes memory setup
+</span></span><span style="display:flex;"><span>hermes memory status
+</span></span></code></pre></div><p>例如 Hindsight 提供知识图谱式记忆与多策略召回，安装步骤为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hermes plugins install hindsight
+</span></span><span style="display:flex;"><span>hermes memory setup
+</span></span></code></pre></div><p>这适合检索 Agent 学到的事实、实体关系及会话记忆；它与索引整个业务文档库的 RAG 不是同一工作流。[8]</p>
+<h3 id="33-graphrag索引独立部署mcp-暴露查询">3.3 GraphRAG：索引独立部署，MCP 暴露查询</h3>
+<p>Microsoft GraphRAG 的处理重点是从非结构化文本中抽取结构化实体/关系、构造知识图谱并建立检索数据。索引过程可能需要大量模型调用，成本高，应先选少量代表性文档试跑并评估结果。Microsoft 将其定位为研究项目/方法，不是正式支持的 Microsoft 产品。[9]</p>
+<p>部署流程：</p>
+<ol>
+<li>在独立 Python 环境或容器中安装并初始化 GraphRAG 项目，配置输入目录、LLM、embedding 模型和索引输出目录；遵循所选版本的官方 Quickstart，不要复用 Hermes 管理的 Python 虚拟环境。</li>
+<li>先对小样本生成索引，核对实体、关系、社区摘要及 source mapping，再估算扩大范围后的调用量和费用。</li>
+<li>将 GraphRAG 的查询接口包装成独立 MCP server（或在已有 MCP 服务中增加工具）。普通检索建议分开暴露：
+<ul>
+<li><code>search_local(query)</code>：围绕具体实体/局部关系回答细节问题；</li>
+<li><code>search_global(query)</code>：利用社区摘要汇总全局主题；</li>
+<li><code>get_sources(result_id)</code>：返回引用片段、文件、页码或原文位置。</li>
+</ul>
+</li>
+<li>在 Hermes 仅启用必要的只读工具：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">mcp_servers</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">graphrag</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">url</span>: <span style="color:#e6db74">&#34;http://graphrag-mcp:8001/mcp&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tools</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">include</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">search_local</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">search_global</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">get_sources</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">resources</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">prompts</span>: <span style="color:#66d9ef">false</span>
+</span></span></code></pre></div><ol start="5">
+<li>用 <code>hermes mcp test graphrag</code> 检查发现结果；在会话中测试一个局部实体问题和一个跨文档全局问题，并检查答案引用能否回溯到原文。</li>
+</ol>
+<p>Hermes 并不会因为 endpoint 名称叫 GraphRAG 就自动生成知识图谱。MCP 服务必须实现上述工具契约，并自行调用 GraphRAG API/查询引擎；这是需要开发或选型完成的集成层。[5][9][10]</p>
+<h2 id="四mcp-配置与安全注意点">四、MCP 配置与安全注意点</h2>
+<h3 id="41-基本配置">4.1 基本配置</h3>
+<p>MCP 让 Hermes 作为 Host/Client 连接外部 MCP Server。Hermes 在启动或重载时发现工具，并将它们注册为普通工具；常见传输为本机子进程 <code>stdio</code> 和远端 <code>HTTP</code>。[10]</p>
+<p><strong>stdio 示例</strong>：只允许一个项目目录，避免给文件系统 Server 开整个用户主目录权限。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">mcp_servers</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">project_files</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">command</span>: <span style="color:#e6db74">&#34;npx&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;-y&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;@modelcontextprotocol/server-filesystem&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;${workspaceFolder}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tools</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">include</span>: [<span style="color:#ae81ff">read_file, list_directory, search_files]</span>
+</span></span></code></pre></div><p><strong>远程 HTTP 示例</strong>：优先使用服务商支持的 OAuth；如确实使用 Bearer Key，通过环境变量引用秘密。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">mcp_servers</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">internal_docs</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">url</span>: <span style="color:#e6db74">&#34;https://mcp.example.org/mcp&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">headers</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">Authorization</span>: <span style="color:#e6db74">&#34;Bearer ${INTERNAL_MCP_TOKEN}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tools</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">include</span>: [<span style="color:#ae81ff">search_docs, fetch_doc]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">resources</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">prompts</span>: <span style="color:#66d9ef">false</span>
+</span></span></code></pre></div><p>把密钥写入 <code>~/.hermes/.env</code>：</p>
+<pre tabindex="0"><code class="language-dotenv" data-lang="dotenv">INTERNAL_MCP_TOKEN=replace-with-your-token
+</code></pre><p>之后执行 <code>hermes mcp test internal_docs</code> 检查连接，必要时运行 <code>hermes mcp configure internal_docs</code>，在当前对话内使用 <code>/reload-mcp</code> 加载改动。[10]</p>
+<h3 id="42-安全检查清单">4.2 安全检查清单</h3>
+<ul>
+<li><strong>先审核服务端，再连接</strong>：<code>stdio</code> 会在 Hermes 主机启动第三方可执行程序；检查仓库来源、依赖、启动参数、更新策略及权限。官方目录经过目录级审查不等于第三方代码绝对安全。</li>
+<li><strong>最小权限</strong>：文件 Server 限定到项目目录；金融、客户数据、写操作接口优先用 <code>tools.include</code> 白名单；未使用时禁用 <code>resources</code>、<code>prompts</code> 和服务本身。</li>
+<li><strong>管理凭证</strong>：不要把 Token 写进公开 YAML、README 或版本库。使用 <code>.env</code> 的环境变量占位符或 OAuth；只向 stdio server 传入它需要的 <code>env</code>，不要无差别转发整个 Shell 环境。</li>
+<li><strong>把工具结果视为不可信输入</strong>：MCP 返回的文档/网页内容可能含提示词注入；Agent 不应仅凭工具结果执行高风险命令、审批密钥读取或改变安全配置。</li>
+<li><strong>区分读写工具</strong>：远端 Server 若不受自己控制，可设 <code>trust: untrusted</code>，让写操作经过审批；不要仅凭 Server 声称的 <code>readOnlyHint</code> 判断安全。只有确认同一服务内工具并发互不影响时，才启用 <code>supports_parallel_tool_calls: true</code>。</li>
+<li><strong>网络与 TLS</strong>：HTTP Server URL 必须是实际 MCP endpoint，而非产品主页；不要用 <code>ssl_verify: false</code> 绕过证书错误。容器部署时，服务间使用 Docker 网络中的服务名；Hermes 容器里的 <code>localhost</code> 只指向 Hermes 容器。</li>
+<li><strong>检查真实暴露范围</strong>：MCP Server 可执行任意自身权限范围内的操作。Hermes 的工具过滤是减少暴露面，不是沙箱；高风险工具还应由后端 ACL、只读账号和网络隔离约束。</li>
+<li><strong>诊断</strong>：<code>hermes mcp list</code> 查看配置，<code>hermes mcp test &lt;name&gt;</code> 测试服务，<code>/reload-mcp</code> 刷新会话；检查 <code>hermes logs</code> 中的连接错误、鉴权状态和启动日志。[10][11]</li>
+</ul>
+<h2 id="参考来源">参考来源</h2>
+<p>[1] Hermes Agent 官方仓库与项目介绍：<a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">https://github.com/NousResearch/hermes-agent</a></p>
+<p>[2] Hermes Agent 官方架构说明：<a href="https://hermes-agent.nousresearch.com/docs/developer-guide/architecture" target="_blank" rel="noopener">https://hermes-agent.nousresearch.com/docs/developer-guide/architecture</a></p>
+<p>[3] Hermes Agent 官方模型提供方与本地推理说明（LM Studio、OpenAI 兼容接口、WSL2 网络、工具调用）：<a href="https://hermes-agent.nousresearch.com/docs/integrations/providers" target="_blank" rel="noopener">https://hermes-agent.nousresearch.com/docs/integrations/providers</a></p>
+<p>[4] Hermes Agent 官方安装、平台与 WSL Gateway FAQ：<a href="https://hermes-agent.nousresearch.com/docs/getting-started/installation" target="_blank" rel="noopener">https://hermes-agent.nousresearch.com/docs/getting-started/installation</a>；<a href="https://hermes-agent.nousresearch.com/docs/reference/faq#wsl-gateway-keeps-disconnecting-or-hermes-gateway-start-fails" target="_blank" rel="noopener">https://hermes-agent.nousresearch.com/docs/reference/faq#wsl-gateway-keeps-disconnecting-or-hermes-gateway-start-fails</a></p>
+<p>[5] Hermes Agent 官方 Docker 部署：<a href="https://hermes-agent.nousresearch.com/docs/user-guide/docker" target="_blank" rel="noopener">https://hermes-agent.nousresearch.com/docs/user-guide/docker</a></p>
+<p>[6] LM Studio 官方 OpenAI 兼容 API：<a href="https://lmstudio.ai/docs/app/api/endpoints/openai" target="_blank" rel="noopener">https://lmstudio.ai/docs/app/api/endpoints/openai</a>；工具调用：<a href="https://lmstudio.ai/docs/developer/openai-compat/tools" target="_blank" rel="noopener">https://lmstudio.ai/docs/developer/openai-compat/tools</a></p>
+<p>[7] Hermes Agent 官方记忆说明：<a href="https://hermes-agent.nousresearch.com/docs/user-guide/features/memory" target="_blank" rel="noopener">https://hermes-agent.nousresearch.com/docs/user-guide/features/memory</a></p>
+<p>[8] Hermes Agent 官方 Memory Providers：<a href="https://hermes-agent.nousresearch.com/docs/user-guide/features/memory-providers" target="_blank" rel="noopener">https://hermes-agent.nousresearch.com/docs/user-guide/features/memory-providers</a></p>
+<p>[9] Microsoft GraphRAG 官方仓库与 Quickstart：<a href="https://github.com/microsoft/graphrag" target="_blank" rel="noopener">https://github.com/microsoft/graphrag</a>；<a href="https://microsoft.github.io/graphrag/get_started/" target="_blank" rel="noopener">https://microsoft.github.io/graphrag/get_started/</a></p>
+<p>[10] Hermes Agent 官方 MCP 使用与配置参考：<a href="https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp" target="_blank" rel="noopener">https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp</a>；<a href="https://hermes-agent.nousresearch.com/docs/reference/mcp-config-reference" target="_blank" rel="noopener">https://hermes-agent.nousresearch.com/docs/reference/mcp-config-reference</a></p>
+<p>[11] Model Context Protocol 官方规范（安全与信任原则）：<a href="https://modelcontextprotocol.io/specification/2025-11-25" target="_blank" rel="noopener">https://modelcontextprotocol.io/specification/2025-11-25</a></p>
+
+
+</div>
+
+
+    </main>
+    <footer class="py-3 mt-auto bg-light">
+  <div class="container py-1 my-1">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <p class="col-md mb-0 text-muted">Open-source <a class="text-muted text-decoration-none">MIT</a> Licensed.</p>
+      <ul class="nav col-md-auto justify-content-end">
+        <li class="nav-item"><a href="../../privacy-policy/" class="nav-link px-2 text-muted" title='隐私政策' aria-label='隐私政策'>隐私政策</a></li>
+        </ul>
+    </div>
+  </div>
+</footer>
+    
+
+
+
+
+<script src="../../js/bootstrap/bootstrap.bundle.min.min.7620f70f6a288d4f1a662439d8772846a2d2084a9466d8d25b3b246d986b3c96e31aae489aaa01a1961bd6f4ad9842e677b02848d0aae0a3fb74b76a522f9e80.js" integrity="sha512-diD3D2oojU8aZiQ52HcoRqLSCEqUZtjSWzskbZhrPJbjGq5ImqoBoZYb1vStmELmd7AoSNCq4KP7dLdqUi&#43;egA==" crossorigin="anonymous" defer></script>
+  
+    <script src="../../js/main.min.ac5210659ceeef8804aea6c4ac26da40fbe24410172a60acc12162dc7e45d73db009b44210942a4f510297b8d8dc90ea55a174f0b052871802c3682587fd41a1.js" integrity="sha512-rFIQZZzu74gErqbErCbaQPviRBAXKmCswSFi3H5F1z2wCbRCEJQqT1ECl7jY3JDqVaF08LBShxgCw2glh/1BoQ==" crossorigin="anonymous" defer></script>
+  
+  
+
+
+
+</body>
+</html>

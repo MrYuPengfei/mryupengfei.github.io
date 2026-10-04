@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>最新通知 on 于鹏飞的个人主页</title>
+		<link>http://106.53.54.249:20683/notice/</link>
+		<description>Recent content in 最新通知 on 于鹏飞的个人主页</description>
+		<generator>Hugo</generator>
+		<language>zh</language>
+		
+			<managingEditor>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</managingEditor>
+		
+		
+			<webMaster>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</webMaster>
+		
+		
+			<copyright>Open-source &lt;a class=&#34;text-muted text-decoration-none&#34;&gt;MIT&lt;/a&gt; Licensed.</copyright>
+		
+		
+			<atom:link href="http://106.53.54.249:20683/notice/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>互联网信息服务单位网络安全责任告知书 🎠</title>
+				<link>http://106.53.54.249:20683/notice/%E4%BA%92%E8%81%94%E7%BD%91%E4%BF%A1%E6%81%AF%E6%9C%8D%E5%8A%A1%E5%8D%95%E4%BD%8D%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%B4%A3%E4%BB%BB%E5%91%8A%E7%9F%A5%E4%B9%A6/</link>
+				<pubDate>Mon, 12 Jan 2026 20:42:42 +0800</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
+				<guid>http://106.53.54.249:20683/notice/%E4%BA%92%E8%81%94%E7%BD%91%E4%BF%A1%E6%81%AF%E6%9C%8D%E5%8A%A1%E5%8D%95%E4%BD%8D%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%B4%A3%E4%BB%BB%E5%91%8A%E7%9F%A5%E4%B9%A6/</guid>
+				<description>&lt;p&gt;为了保护网络信息安全，保障公民、法人和其他组织的合法权益，维护国家安全和社会公共利益，根据《中华人民共和国计算机系统安全保护条例》《计算机信息网络国际联网安全保护管理办法》等相关法律法规规定，现就你单位应依法履行的网络安全责任告知书如下：&lt;/p&gt;&#xA;&lt;p&gt;一、具备法律法规所要求的相应资质；&lt;/p&gt;&#xA;&lt;p&gt;互联网信息服务提供者应为独立承担法律责任的主体，从事互联网信息服务依据法律、行政法规以及国务院有关规定，需经有关部门许可的应取得相应许可资质&lt;/p&gt;&#xA;&lt;p&gt;二、依法接受公安机关监督、检查、指导；&lt;/p&gt;&#xA;&lt;p&gt;三、协助公安机关依法查处涉网违法犯罪活动；&lt;/p&gt;&#xA;&lt;p&gt;四、根据《中华人民共和国计算机信息系统安全保护条例》《计算机信息技术网络国际互联网安全保护管理办法》《互联网安全保护技术措施规定》《互联网交互式服务安全保护要求》《互联网服务安全评估基本程序及要求》等相关法律法规以及安全管理标准规范，履行违法信息过滤、公共信息巡查 用户资质查验、日志信息留存和应急快速处置等安全保护义务，落实安全管理责任和相关安全保护技术措施；&lt;/p&gt;&#xA;&lt;p&gt;五、在网站首页显著位置张贴公安机关核发的备案图标；&lt;/p&gt;&#xA;&lt;p&gt;六、当联网备案信息发生变更时，请您于变更后30日内登录本平台提交变更信息，若未按规定要求、时限办理变更手续，公安机关将依法通知接入商暂停网站接入；&lt;/p&gt;&#xA;&lt;p&gt;七、当网站不再开办时，请您于5个工作日内登录本平台，向属地公安机关网安部门提出撤销申请。&lt;/p&gt;&#xA;&lt;p&gt;-&amp;ndash; 来源： &lt;a href=&#34;https://beian.mps.gov.cn&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://beian.mps.gov.cn&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>关于本站</title>
+				<link>http://106.53.54.249:20683/notice/%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99/</link>
+				<pubDate>Thu, 08 Jan 2026 20:49:37 +0800</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
+				<guid>http://106.53.54.249:20683/notice/%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99/</guid>
+				<description>&lt;p&gt;本网站是使用Hugo框架生成的静态网站。部署于Nginx服务器以及github.io托管平台，用于分享信息技术。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>MIT License</title>
+				<link>http://106.53.54.249:20683/notice/mit-license/</link>
+				<pubDate>Mon, 01 Sep 2025 20:49:37 +0800</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
+				<guid>http://106.53.54.249:20683/notice/mit-license/</guid>
+				<description>&lt;p&gt;MIT License&lt;/p&gt;&#xA;&lt;p&gt;Copyright (c) 2026 于鹏飞/于鹏飞的个人主页&lt;/p&gt;&#xA;&lt;p&gt;Permission is hereby granted, free of charge, to any person obtaining a copy&#xA;of this software and associated documentation files (the &amp;ldquo;Software&amp;rdquo;), to deal&#xA;in the Software without restriction, including without limitation the rights&#xA;to use, copy, modify, merge, publish, distribute, sublicense, and/or sell&#xA;copies of the Software, and to permit persons to whom the Software is&#xA;furnished to do so, subject to the following conditions:&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

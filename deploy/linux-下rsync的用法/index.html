@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+
+    
+<meta http-equiv='Content-Security-Policy' content="script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'">
+
+    
+
+<link rel="stylesheet" href="../../css/style.7146bb5d410f5db4e7376460bb67bb578ab9578629665e69825acbaa68fe84ae82fb3b12be15fcb3fe3c9752f7d970600d538eb8bbbe5bfc658484f88f7ca79d.css" media="screen" integrity="sha512-cUa7XUEPXbTnN2Rgu2e7V4q5V4YpZl5pglrLqmj&#43;hK6C&#43;zsSvhX8s/48l1L32XBgDVOOuLu&#43;W/xlhIT4j3ynnQ==" crossorigin="anonymous">
+
+    <title>Linux 下rsync的用法 😸	</title>
+
+<meta name="description" content=" ">
+
+
+
+<link rel="canonical" href="http://106.53.54.249:20683/deploy/linux-%E4%B8%8Brsync%E7%9A%84%E7%94%A8%E6%B3%95/">
+
+
+<link rel="alternate" hreflang="zh" href="http://106.53.54.249:20683/deploy/linux-%E4%B8%8Brsync%E7%9A%84%E7%94%A8%E6%B3%95/">
+
+
+
+<link rel="alternate" hreflang="x-default" href="http://106.53.54.249:20683/deploy/linux-%E4%B8%8Brsync%E7%9A%84%E7%94%A8%E6%B3%95/">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="Linux 下rsync的用法 😸	">
+<meta property="og:description" content=" "><meta property="og:type" content="article">
+<meta property="og:url" content="http://106.53.54.249:20683/deploy/linux-%E4%B8%8Brsync%E7%9A%84%E7%94%A8%E6%B3%95/">
+<meta property="og:image" content="http://106.53.54.249:20683/deploy/linux-%E4%B8%8Brsync%E7%9A%84%E7%94%A8%E6%B3%95/14_hu_504e9140b6e18b17.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="600">
+  
+    <meta property="article:section" content="deploy">
+  
+  
+    <meta property="article:published_time" content="2026-09-13T20:02:20+08:00">
+  
+  
+    <meta property="article:modified_time" content="2026-09-15T12:03:51+08:00">
+  
+  <meta property="og:locale" content="zh">
+
+  <meta property="og:site_name" content="于鹏飞的个人主页">
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://106.53.54.249:20683/deploy/linux-%E4%B8%8Brsync%E7%9A%84%E7%94%A8%E6%B3%95/14_hu_8f29f99139ddc614.jpg">
+
+<meta name="twitter:title" content="Linux 下rsync的用法 😸	">
+<meta name="twitter:description" content=" ">
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+    
+    
+    
+    
+    
+  
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","author":[{"@type":"Person","name":"于鹏飞"}],"dateModified":"2026-09-15T12:03:51+08:00","datePublished":"2026-09-13T20:02:20+08:00","description":" ","headline":"Linux 下rsync的用法 😸\t","image":["http://106.53.54.249:20683/deploy/linux-%E4%B8%8Brsync%E7%9A%84%E7%94%A8%E6%B3%95/14.jpg"],"inLanguage":"zh","keywords":["IT技术"],"mainEntityOfPage":"http://106.53.54.249:20683/deploy/linux-%E4%B8%8Brsync%E7%9A%84%E7%94%A8%E6%B3%95/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://106.53.54.249:20683/images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg"},"name":"于鹏飞的个人主页"},"wordcount":1039}
+</script>
+
+
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"http://106.53.54.249:20683/","name":"于鹏飞的个人主页","position":1},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/","name":"项目配置攻略","position":2},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/linux-%E4%B8%8Brsync%E7%9A%84%E7%94%A8%E6%B3%95/","name":"Linux 下rsync的用法 😸\t","position":3}]}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="icon" type="image/svg+xml" href="http://106.53.54.249:20683/favicon.svg"><link rel="icon" type="image/png" href="http://106.53.54.249:20683/favicon.png"><link rel="shortcut icon" href="http://106.53.54.249:20683/favicon.ico">
+  <meta name="theme-color" content="#fff">
+</head>
+
+
+
+<body class="deploy single d-flex flex-column min-vh-100"><header class="main-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="../../">
+        <img src="../../images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg" alt="logo" width="30" height="24"
+          class="d-inline-block align-text-top">
+        于鹏飞的个人主页
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="menu-main navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../method">方法论</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../note">论文笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../deploy">工程笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../program">开源项目</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../notice">最新通知</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../contact">联系方式</a>
+          </li>
+          
+          </ul>
+
+        
+        
+        
+
+      </div>
+    </div>
+  </nav>
+</header><main id="content">
+        <nav class="header-breadcrumb my-2" aria-label="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb my-0">
+            
+            
+                
+                
+                    
+                
+                    
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../">Home</a> </li>
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../deploy/">项目配置攻略</a> </li>
+                
+            
+                <li class="breadcrumb-item active" aria-current="page">  Linux 下rsync的用法 😸	</li>
+            
+        </ol>
+    </div>
+</nav>
+
+
+<div class="container py-3">
+
+ 
+  <h1 id="rsync-vs-scp-用法优劣对比">rsync vs scp 用法、优劣对比</h1>
+<blockquote>
+<p>scp：旧OpenSSH文件拷贝工具，<strong>官方标记废弃</strong>；rsync：增量同步工具，ssh作为传输底层，是替代首选。</p>
+</blockquote>
+<h2 id="一基础用法">一、基础用法</h2>
+<h3 id="scp-语法">scp 语法</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 本地 → 远程</span>
+</span></span><span style="display:flex;"><span>scp localfile user@host:/remote/path
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 远程 → 本地</span>
+</span></span><span style="display:flex;"><span>scp user@host:/remote/file localfile
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 传目录（-r递归）</span>
+</span></span><span style="display:flex;"><span>scp -r ./public user@host:/var/www/site
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 自定义ssh端口</span>
+</span></span><span style="display:flex;"><span>scp -P <span style="color:#ae81ff">2222</span> ./public user@host:/var/www/site
+</span></span></code></pre></div><blockquote>
+<p><code>-P</code> 大写指定端口；<code>-r</code> 递归目录。</p>
+</blockquote>
+<h3 id="rsync-over-ssh-语法推荐">rsync over ssh 语法（推荐）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 本地目录上传远端（黄金参数）</span>
+</span></span><span style="display:flex;"><span>rsync -avz --partial --progress ./public/ user@host:/var/www/site/
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 远端下载到本地</span>
+</span></span><span style="display:flex;"><span>rsync -avz --partial --progress user@host:/var/www/site/ ./public/
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 自定义ssh端口</span>
+</span></span><span style="display:flex;"><span>rsync -avz --partial --progress -e <span style="color:#e6db74">&#39;ssh -p 2222&#39;</span> ./public/ user@host:/var/www/site/
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 预览（dry-run，不实际传输，强烈建议初次执行加）</span>
+</span></span><span style="display:flex;"><span>rsync -avz --partial --progress --dry-run ./public/ user@host:/var/www/site/
+</span></span></code></pre></div><ul>
+<li><code>-a</code> archive：归档，保留权限、时间、属主、递归，<strong>最核心参数</strong></li>
+<li><code>-v</code> verbose 详情；<code>-z</code> 传输压缩；<code>--partial</code> 中断保留已传部分，支持断点续传</li>
+<li><code>--progress</code> 显示进度条</li>
+</ul>
+<blockquote>
+<p>⚠️ 目录末尾<code>/</code>非常关键：<code>./public/</code>代表<strong>目录内所有文件</strong>；<code>./public</code>代表把public整个文件夹传到远端。</p>
+</blockquote>
+<h2 id="二优劣对比">二、优劣对比</h2>
+<table>
+	<thead>
+			<tr>
+					<th>项目</th>
+					<th>scp</th>
+					<th>rsync (over ssh)</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>底层协议</td>
+					<td>老旧SCP协议（OpenSSH已弃用）</td>
+					<td>ssh通道 + rsync自定义差分算法</td>
+			</tr>
+			<tr>
+					<td>增量传输</td>
+					<td>❌ 全量拷贝，不管文件有没有改动</td>
+					<td>✅ <strong>差分校验，只传文件改动部分</strong>（Hugo发布巨大优势）</td>
+			</tr>
+			<tr>
+					<td>断点续传</td>
+					<td>❌ 中断直接作废，全部重传</td>
+					<td>✅ <code>--partial</code> 保留已接收部分，断线续传</td>
+			</tr>
+			<tr>
+					<td>文件属性</td>
+					<td>基础保留，不稳定</td>
+					<td>✅ 完整保留权限、mtime、软链接</td>
+			</tr>
+			<tr>
+					<td>限速</td>
+					<td>无原生限速</td>
+					<td>✅ <code>--bwlimit=10M</code> 限速10MB/s</td>
+			</tr>
+			<tr>
+					<td>删除远端文件</td>
+					<td>不能选择性清理</td>
+					<td>✅ <code>--delete</code> 删除远端多余文件（慎用！适合hugo public同步）</td>
+			</tr>
+			<tr>
+					<td>远端依赖</td>
+					<td>只需要sshd，远端不用额外装软件</td>
+					<td><strong>远端必须安装rsync</strong></td>
+			</tr>
+			<tr>
+					<td>大量小文件</td>
+					<td>性能差</td>
+					<td>小文件场景也更优</td>
+			</tr>
+			<tr>
+					<td>公网稳定性</td>
+					<td>弱网容易失败</td>
+					<td>弱网更稳，支持续传</td>
+			</tr>
+			<tr>
+					<td>适用场景</td>
+					<td>一次性少量小文件应急</td>
+					<td><strong>反复同步、网站发布、备份、大目录（hugo首选）</strong></td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="三关键取舍场景">三、关键取舍场景</h2>
+<ol>
+<li>✅ <strong>日常Hugo静态站点发布 → rsync</strong>
+每次hugo构建后，只有改动的html/css/js会上传，节省流量和时间。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo <span style="color:#f92672">&amp;&amp;</span> rsync -avz --partial --progress ./public/ user@ip:/var/www/site/
+</span></span></code></pre></div><blockquote>
+<p>如果要远端自动清理旧文件（推荐生产），加上<code>--delete</code>，<strong>先跑一次&ndash;dry-run预览</strong></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rsync -avz --partial --progress --delete --dry-run ./public/ user@ip:/var/www/site/
+</span></span></code></pre></div><ol start="2">
+<li>✅ <strong>远端服务器不能安装rsync → 放弃rsync，改用sftp/lftp</strong>
+此时scp仅作临时应急，不推荐写进自动化脚本。</li>
+</ol>
+<h2 id="四坑点">四、坑点</h2>
+<ol>
+<li>scp 在新版openssh会输出警告：<code>scp: warning: scp protocol is deprecated</code></li>
+<li>rsync的<code>--delete</code>非常危险：会删掉远端存在、本地不存在的文件，<strong>一定先dry-run</strong></li>
+<li>rsync 两端rsync版本差距过大，偶尔会出现兼容性报错</li>
+</ol>
+<h2 id="一句话总结">一句话总结</h2>
+<ul>
+<li>一次性少量文件、远端无法装rsync：临时用scp（不推荐自动化脚本）</li>
+<li>重复同步、Hugo发布、备份、大量文件：<strong>优先rsync</strong></li>
+</ul>
+
+
+</div>
+
+
+    </main>
+    <footer class="py-3 mt-auto bg-light">
+  <div class="container py-1 my-1">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <p class="col-md mb-0 text-muted">Open-source <a class="text-muted text-decoration-none">MIT</a> Licensed.</p>
+      <ul class="nav col-md-auto justify-content-end">
+        <li class="nav-item"><a href="../../privacy-policy/" class="nav-link px-2 text-muted" title='隐私政策' aria-label='隐私政策'>隐私政策</a></li>
+        </ul>
+    </div>
+  </div>
+</footer>
+    
+
+
+
+
+<script src="../../js/bootstrap/bootstrap.bundle.min.min.7620f70f6a288d4f1a662439d8772846a2d2084a9466d8d25b3b246d986b3c96e31aae489aaa01a1961bd6f4ad9842e677b02848d0aae0a3fb74b76a522f9e80.js" integrity="sha512-diD3D2oojU8aZiQ52HcoRqLSCEqUZtjSWzskbZhrPJbjGq5ImqoBoZYb1vStmELmd7AoSNCq4KP7dLdqUi&#43;egA==" crossorigin="anonymous" defer></script>
+  
+    <script src="../../js/main.min.ac5210659ceeef8804aea6c4ac26da40fbe24410172a60acc12162dc7e45d73db009b44210942a4f510297b8d8dc90ea55a174f0b052871802c3682587fd41a1.js" integrity="sha512-rFIQZZzu74gErqbErCbaQPviRBAXKmCswSFi3H5F1z2wCbRCEJQqT1ECl7jY3JDqVaF08LBShxgCw2glh/1BoQ==" crossorigin="anonymous" defer></script>
+  
+  
+
+
+
+</body>
+</html>

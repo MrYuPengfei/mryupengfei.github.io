@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>论文分享 on 于鹏飞的个人主页</title>
+		<link>http://106.53.54.249:20683/note/</link>
+		<description>Recent content in 论文分享 on 于鹏飞的个人主页</description>
+		<generator>Hugo</generator>
+		<language>zh</language>
+		
+			<managingEditor>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</managingEditor>
+		
+		
+			<webMaster>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</webMaster>
+		
+		
+			<copyright>Open-source &lt;a class=&#34;text-muted text-decoration-none&#34;&gt;MIT&lt;/a&gt; Licensed.</copyright>
+		
+		
+			<atom:link href="http://106.53.54.249:20683/note/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Codex、Agent、Skill 与算力资源 😸	</title>
+				<link>http://106.53.54.249:20683/note/agent-study/</link>
+				<pubDate>Sun, 27 Sep 2026 18:24:46 +0800</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
+				<guid>http://106.53.54.249:20683/note/agent-study/</guid>
+				<description>&lt;h1 id=&#34;codexagentskill-与算力资源&#34;&gt;Codex、Agent、Skill 与算力资源&lt;/h1&gt;&#xA;&lt;h2 id=&#34;1-codex-如何辅助开发&#34;&gt;1 Codex 如何辅助开发&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;发展线&lt;/strong&gt;：2020 年 GPT-3（175B）展现少样本代码能力 → 2021-08 OpenAI 发布 &lt;strong&gt;Codex&lt;/strong&gt;（GPT-3 在 5400 万 GitHub 仓库代码上微调，支持自然语言→函数级代码生成）→ 2021-06 GitHub Copilot 内测、2022-06 正式发布，成为&amp;quot;AI 结对程序员&amp;quot; [8]。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;辅助开发的四个层次&lt;/strong&gt;：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;行级补全&lt;/strong&gt;：IDE 中幽灵文本实时建议，Tab 接受——把&amp;quot;搜索 Stack Overflow 五个答案并评估&amp;quot;压缩成&amp;quot;扫一眼建议&amp;quot; [8]；&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;函数/模块级生成&lt;/strong&gt;：注释或函数名直接生成完整实现，样板代码（boilerplate）、API 样板、正则、序列化代码收益最大；&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;代码理解&lt;/strong&gt;：解释遗留代码、生成 docstring、写单测；&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;任务级代理&lt;/strong&gt;（新一代 Codex CLI / Claude Code）：读仓库 → 规划 → 改代码 → 跑测试 → 提 PR，人退居评审位。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;strong&gt;量化收益&lt;/strong&gt;：GitHub/MIT/Microsoft 的对照实验中，使用 Copilot 的开发者完成 JS HTTP server 任务&lt;strong&gt;快 55.8%&lt;/strong&gt;（95% CI 21–89%），任务完成率 78% vs 70%；新手、年长开发者获益最大 [9][10]。GitHub 2022 年对 2000+ 开发者调研：60–75% 感到更有成就感，73% 认为更易进入心流 [10]。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>人工智能与大模型的发展历程😸	</title>
+				<link>http://106.53.54.249:20683/note/ai-and-agent-study/</link>
+				<pubDate>Sun, 27 Sep 2026 18:22:47 +0800</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
+				<guid>http://106.53.54.249:20683/note/ai-and-agent-study/</guid>
+				<description>&lt;h1 id=&#34;一人工智能与大模型的发展历程&#34;&gt;一、人工智能与大模型的发展历程&lt;/h1&gt;&#xA;&lt;h2 id=&#34;11-总体脉络&#34;&gt;1.1 总体脉络&lt;/h2&gt;&#xA;&lt;img src=&#34;../note/ai-and-agent-study/assets/fig1_timeline_hu_9f7909f77e8d3d4b.webp&#34; alt=&#34;AI 与大模型发展历程&#34; srcset=&#34;../note/ai-and-agent-study/assets/fig1_timeline_hu_9291733c391dca56.webp 480w, ../note/ai-and-agent-study/assets/fig1_timeline_hu_38b1e69a9544e8b4.webp 768w, ../note/ai-and-agent-study/assets/fig1_timeline_hu_bee7e91203132999.webp 1024w, ../note/ai-and-agent-study/assets/fig1_timeline_hu_9f7909f77e8d3d4b.webp 1425w&#34; sizes=&#34;(min-width: 1200px) 1140px, 100vw&#34; width=&#34;1425&#34; height=&#34;563&#34; fetchpriority=&#34;high&#34;&gt;&#xA;&lt;table&gt;&#xA;&#x9;&lt;thead&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;th&gt;时期&lt;/th&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;th&gt;标志事件&lt;/th&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;th&gt;技术特征&lt;/th&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;th&gt;参考&lt;/th&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&lt;/thead&gt;&#xA;&#x9;&lt;tbody&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;1950—1956 萌芽&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;图灵测试（1950）；达特茅斯会议（1956），&amp;ldquo;人工智能&amp;quot;一词诞生&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;符号主义、逻辑推理&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;[1]&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;1957—1980 早期起伏&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;感知机（1958）→ 明斯基批评 → 第一次 AI 寒冬；专家系统 MYCIN/DENDRAL（1970s—80s）兴盛&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;浅层神经网络、知识工程&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;[1]&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;1980—2010 统计学习&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;深蓝战胜国际象棋冠军（1997）；SVM、决策树、概率图模型&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;数据驱动、手工特征&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;[1]&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;2010—2017 深度学习&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;AlexNet 夺冠 ImageNet（2012）；ResNet（2015）；AlphaGo 胜李世石（2016）&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;CNN/RNN 深层网络、GPU 训练&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;[1][2]&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;2017—2020 Transformer 时代&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;Vaswani et al. 提出 Transformer（2017）；BERT（2018）；GPT-2/GPT-3（2019/2020，175B 参数）&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;自注意力、预训练+微调范式&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;[2][3]&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;2020—2023 大模型爆发&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;RLHF 用于 InstructGPT/ChatGPT（2022）；GPT-4 多模态（2023）&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;指令对齐、涌现能力、Scaling Law&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;[3][4]&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;2023—2025 Agent 化&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;工具调用/函数调用普及；ReAct/Reflexion 范式落地；2025-10 Anthropic 发布 Agent Skills 开放标准；推理模型（o1/R1 类）兴起&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;从&amp;quot;对话&amp;quot;走向&amp;quot;规划—执行—反思&amp;quot;闭环&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;[5][6]&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;&lt;strong&gt;关键转折点&lt;/strong&gt;：2017 年 Transformer 解决了 RNN 的并行化与长程依赖难题，成为此后一切主流大模型的统一底座 [2]；2022 年 ChatGPT 证明 RLHF 能在大模型尺度上实现指令对齐，直接引爆应用层 [3]；2023 年后研究重心从&amp;quot;更大的模型&amp;quot;部分转向&amp;quot;会用工具的模型&amp;rdquo;（Agent），规划、记忆、技能外挂成为新焦点 [5][6]。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>关于{知识追踪}和{认知卸载}的论文 😸	</title>
+				<link>http://106.53.54.249:20683/note/20260918/</link>
+				<pubDate>Sat, 19 Sep 2026 19:00:33 +0800</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
+				<guid>http://106.53.54.249:20683/note/20260918/</guid>
+				<description>&lt;p&gt;本pdf使用latex编译生成，可以作为后续论文写作的文献引用素材。&#xA;&lt;object data=&#34;main.pdf&#34; type=&#34;application/pdf&#34; width=&#34;100%&#34; height=&#34;800px&#34;&gt;&#xA;  &lt;iframe src=&#34;main.pdf&#34; width=&#34;100%&#34; height=&#34;800px&#34; style=&#34;border: none;&#34;&gt;&#xA;    &lt;p&gt;你的浏览器不支持内嵌 PDF，请 &lt;a href=&#34;main.pdf&#34;&gt;下载查看&lt;/a&gt;。&lt;/p&gt;&#xA;  &lt;/iframe&gt;&#xA;&lt;/object&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

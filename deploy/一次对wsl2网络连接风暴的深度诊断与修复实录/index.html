@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+
+    
+<meta http-equiv='Content-Security-Policy' content="script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'">
+
+    
+
+<link rel="stylesheet" href="../../css/style.7146bb5d410f5db4e7376460bb67bb578ab9578629665e69825acbaa68fe84ae82fb3b12be15fcb3fe3c9752f7d970600d538eb8bbbe5bfc658484f88f7ca79d.css" media="screen" integrity="sha512-cUa7XUEPXbTnN2Rgu2e7V4q5V4YpZl5pglrLqmj&#43;hK6C&#43;zsSvhX8s/48l1L32XBgDVOOuLu&#43;W/xlhIT4j3ynnQ==" crossorigin="anonymous">
+
+    <title>一次对WSL2“网络连接风暴”的深度诊断与修复实录 😸	</title>
+
+<meta name="description" content=" 利用Manus解决VScode突然无法连接WSL2的故障 ">
+
+
+
+<link rel="canonical" href="http://106.53.54.249:20683/deploy/%E4%B8%80%E6%AC%A1%E5%AF%B9wsl2%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E9%A3%8E%E6%9A%B4%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%AF%8A%E6%96%AD%E4%B8%8E%E4%BF%AE%E5%A4%8D%E5%AE%9E%E5%BD%95/">
+
+
+<link rel="alternate" hreflang="zh" href="http://106.53.54.249:20683/deploy/%E4%B8%80%E6%AC%A1%E5%AF%B9wsl2%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E9%A3%8E%E6%9A%B4%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%AF%8A%E6%96%AD%E4%B8%8E%E4%BF%AE%E5%A4%8D%E5%AE%9E%E5%BD%95/">
+
+
+
+<link rel="alternate" hreflang="x-default" href="http://106.53.54.249:20683/deploy/%E4%B8%80%E6%AC%A1%E5%AF%B9wsl2%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E9%A3%8E%E6%9A%B4%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%AF%8A%E6%96%AD%E4%B8%8E%E4%BF%AE%E5%A4%8D%E5%AE%9E%E5%BD%95/">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="一次对WSL2“网络连接风暴”的深度诊断与修复实录 😸	">
+<meta property="og:description" content=" 利用Manus解决VScode突然无法连接WSL2的故障 "><meta property="og:type" content="article">
+<meta property="og:url" content="http://106.53.54.249:20683/deploy/%E4%B8%80%E6%AC%A1%E5%AF%B9wsl2%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E9%A3%8E%E6%9A%B4%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%AF%8A%E6%96%AD%E4%B8%8E%E4%BF%AE%E5%A4%8D%E5%AE%9E%E5%BD%95/">
+<meta property="og:image" content="http://106.53.54.249:20683/deploy/%E4%B8%80%E6%AC%A1%E5%AF%B9wsl2%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E9%A3%8E%E6%9A%B4%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%AF%8A%E6%96%AD%E4%B8%8E%E4%BF%AE%E5%A4%8D%E5%AE%9E%E5%BD%95/23_hu_4b3b3e732f90b283.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="600">
+  
+    <meta property="article:section" content="deploy">
+  
+  
+    <meta property="article:published_time" content="2026-01-19T16:55:15+08:00">
+  
+  
+    <meta property="article:modified_time" content="2026-04-01T20:58:25+08:00">
+  
+  <meta property="og:locale" content="zh">
+
+  <meta property="og:site_name" content="于鹏飞的个人主页">
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://106.53.54.249:20683/deploy/%E4%B8%80%E6%AC%A1%E5%AF%B9wsl2%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E9%A3%8E%E6%9A%B4%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%AF%8A%E6%96%AD%E4%B8%8E%E4%BF%AE%E5%A4%8D%E5%AE%9E%E5%BD%95/23_hu_9795ae832c8134d.jpg">
+
+<meta name="twitter:title" content="一次对WSL2“网络连接风暴”的深度诊断与修复实录 😸	">
+<meta name="twitter:description" content=" 利用Manus解决VScode突然无法连接WSL2的故障 ">
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+      
+      
+      
+      
+    
+    
+  
+    
+    
+    
+    
+    
+  
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","author":[{"@type":"Person","name":"Manus","url":"http://106.53.54.249:20683/authors/manus/"},{"@type":"Person","name":"于鹏飞"}],"dateModified":"2026-04-01T20:58:25+08:00","datePublished":"2026-01-19T16:55:15+08:00","description":" 利用Manus解决VScode突然无法连接WSL2的故障 ","headline":"一次对WSL2“网络连接风暴”的深度诊断与修复实录 😸\t","image":["http://106.53.54.249:20683/deploy/%E4%B8%80%E6%AC%A1%E5%AF%B9wsl2%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E9%A3%8E%E6%9A%B4%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%AF%8A%E6%96%AD%E4%B8%8E%E4%BF%AE%E5%A4%8D%E5%AE%9E%E5%BD%95/23.jpg"],"inLanguage":"zh","keywords":["IT技术"],"mainEntityOfPage":"http://106.53.54.249:20683/deploy/%E4%B8%80%E6%AC%A1%E5%AF%B9wsl2%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E9%A3%8E%E6%9A%B4%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%AF%8A%E6%96%AD%E4%B8%8E%E4%BF%AE%E5%A4%8D%E5%AE%9E%E5%BD%95/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://106.53.54.249:20683/images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg"},"name":"于鹏飞的个人主页"},"wordcount":1568}
+</script>
+
+
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"http://106.53.54.249:20683/","name":"于鹏飞的个人主页","position":1},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/","name":"项目配置攻略","position":2},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/%E4%B8%80%E6%AC%A1%E5%AF%B9wsl2%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E9%A3%8E%E6%9A%B4%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%AF%8A%E6%96%AD%E4%B8%8E%E4%BF%AE%E5%A4%8D%E5%AE%9E%E5%BD%95/","name":"一次对WSL2“网络连接风暴”的深度诊断与修复实录 😸\t","position":3}]}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="icon" type="image/svg+xml" href="http://106.53.54.249:20683/favicon.svg"><link rel="icon" type="image/png" href="http://106.53.54.249:20683/favicon.png"><link rel="shortcut icon" href="http://106.53.54.249:20683/favicon.ico">
+  <meta name="theme-color" content="#fff">
+</head>
+
+
+
+<body class="deploy single d-flex flex-column min-vh-100"><header class="main-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="../../">
+        <img src="../../images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg" alt="logo" width="30" height="24"
+          class="d-inline-block align-text-top">
+        于鹏飞的个人主页
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="menu-main navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../method">方法论</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../note">论文笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../deploy">工程笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../program">开源项目</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../notice">最新通知</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../contact">联系方式</a>
+          </li>
+          
+          </ul>
+
+        
+        
+        
+
+      </div>
+    </div>
+  </nav>
+</header><main id="content">
+        <nav class="header-breadcrumb my-2" aria-label="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb my-0">
+            
+            
+                
+                
+                    
+                
+                    
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../">Home</a> </li>
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../deploy/">项目配置攻略</a> </li>
+                
+            
+                <li class="breadcrumb-item active" aria-current="page">  一次对WSL2“网络连接风暴”的深度诊断与修复实录 😸	</li>
+            
+        </ol>
+    </div>
+</nav>
+
+
+<div class="container py-3">
+
+ 
+  <h2 id="前言">前言</h2>
+<p>今天下午，我经历了一场堪称“完美风暴”的 WSL2 (Windows Subsystem for Linux) 故障。起初只是一个简单的 <code>systemctl</code> 命令报错，但随着排查的深入，问题如剥洋葱般层层展现，从上层应用一直牵扯到 Windows 的底层网络配置。最终，在经历了近乎“法医级别”的诊断后，我们成功让系统恢复了健康。</p>
+<p>这不仅仅是一篇故障排除指南，更是一次对 WSL2 内部工作机制的深度探索。如果你也曾被 WSL2 的网络问题所困扰，那么这篇文章或许能为你提供一些思路和慰藉。</p>
+<h2 id="故障初现systemctl-失效">故障初现：<code>systemctl</code> 失效</h2>
+<p>一切始于一个常见的命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl enable --now ssh
+</span></span></code></pre></div><p>得到的却是一个经典错误：</p>
+<blockquote>
+<p><code>System has not been booted with systemd as init system (PID 1). Can't operate.</code>
+<code>Failed to connect to bus: Host is down</code></p>
+</blockquote>
+<p>对于有经验的 WSL 用户来说，这通常意味着 <code>systemd</code> 没有启用。于是，我们按照官方推荐的方法，在 <code>/etc/wsl.conf</code> 中添加了配置：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[boot]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">systemd</span><span style="color:#f92672">=</span><span style="color:#e6db74">true</span>
+</span></span></code></pre></div><p>然后执行 <code>wsl --shutdown</code> 重启。然而，这只是噩梦的开始。</p>
+<h2 id="第一层迷雾apt-网络中断">第一层迷雾：<code>apt</code> 网络中断</h2>
+<p><code>systemd</code> 启用后，我们尝试运行 <code>sudo apt update</code>，却一头撞上了网络错误：</p>
+<blockquote>
+<p><code>Temporary failure resolving 'archive.ubuntu.com'</code></p>
+</blockquote>
+<p>这是一个典型的 DNS 解析失败错误。WSL 环境无法将域名转换为 IP 地址。常规的 <code>wsl --shutdown</code> 重启大法在此时也失去了魔力。</p>
+<h2 id="第二层迷雾wslconf-配置失效与安全模式">第二层迷雾：<code>wsl.conf</code> 配置失效与“安全模式”</h2>
+<p>我们尝试通过修改 <code>/etc/wsl.conf</code> 来手动指定 DNS，但配置似乎并未生效。更诡异的是，WSL 在启动时出现了一个不祥的提示：</p>
+<blockquote>
+<p><code>wsl: 安全模式已启用 - 许多功能都将被禁用</code></p>
+</blockquote>
+<p>“安全模式”意味着 <code>/etc/wsl.conf</code> 文件因语法错误等原因被 WSL 完全忽略。这解释了为什么我们所有的配置修改都石沉大海。在用 <code>tee</code> 命令确保配置文件格式绝对正确后，安全模式的提示消失了，但新的问题浮出水面。</p>
+<h2 id="第三层迷幕nat-模式失败与服务卡死">第三层迷幕：NAT 模式失败与服务卡死</h2>
+<p>解决了安全模式后，WSL 启动时又抛出了新的警告：</p>
+<blockquote>
+<p><code>wsl: 无法配置网络 (networkingMode Nat)，回退到 networkingMode VirtioProxy。</code></p>
+</blockquote>
+<p>这表明 WSL 首选的、最高效的 <code>NAT</code> 网络模式启动失败，被迫降级。更糟糕的是，在排查过程中，<code>wsl --status</code> 命令一度完全卡死，没有任何响应。这指向了问题的核心——WSL 的后台核心服务 <code>LxssManager</code> 已经处于死锁或无响应状态。</p>
+<p>通过在 Windows 的 <code>services.msc</code> 中强行重启 <code>LxssManager</code> 服务，我们暂时解决了服务卡死的问题，但网络故障依旧。</p>
+<h2 id="拨云见日systemd-resolved-的致命一击">拨云见日：<code>systemd-resolved</code> 的“致命一击”</h2>
+<p>在山重水复疑无路之际，一个决定性的发现在 <code>cat /etc/resolv.conf</code> 命令中出现了：</p>
+<pre tabindex="0"><code># This is /run/systemd/resolve/stub-resolv.conf managed by...
+nameserver 127.0.0.53
+</code></pre><p>真相大白！</p>
+<ol>
+<li>我们的 <code>systemd=true</code> 配置<strong>早已成功生效</strong>。</li>
+<li><code>systemd</code> 启动后，其内置的 <code>systemd-resolved</code> 服务接管了系统的 DNS 解析，将 DNS 服务器指向了它自己 (<code>127.0.0.53</code>)。</li>
+<li>然而，<code>systemd-resolved</code> 服务本身也处于一个无法访问外部网络的环境中（因为底层的 NAT 模式失败了）。</li>
+<li>这就形成了一个致命的死循环：<code>apt</code> 向 <code>systemd-resolved</code> 请求 DNS，而 <code>systemd-resolved</code> 自己也上不了网，无法给出答案。</li>
+</ol>
+<p>我们之前所有修改 <code>/etc/resolv.conf</code> 的尝试都失败了，因为 <code>systemd-resolved</code> 在每次启动时都会强制重建这个文件（或其符号链接），覆盖我们的修改。</p>
+<h2 id="最终解决方案釜底抽薪">最终解决方案：釜底抽薪</h2>
+<p>找到了问题的根源，解决方案便清晰明了：我们必须绕过这个“空转”的 <code>systemd-resolved</code>。</p>
+<ol>
+<li><strong>解锁文件</strong>：<code>sudo chattr -i /etc/resolv.conf</code></li>
+<li><strong>删除符号链接</strong>：<code>sudo rm /etc/resolv.conf</code></li>
+<li><strong>创建静态配置</strong>：<code>sudo sh -c 'echo &quot;nameserver 8.8.8.8&quot; &gt; /etc/resolv.conf'</code></li>
+<li><strong>锁定文件</strong>：<code>sudo chattr +i /etc/resolv.conf</code>，防止 <code>systemd-resolved</code> 再次篡改。</li>
+</ol>
+<p>执行完毕，再次运行 <code>sudo apt update</code>，久违的 <code>Hit: ...</code> 终于出现。网络，通了！</p>
+<h2 id="故障回顾与反思">故障回顾与反思</h2>
+<p>这场“故障风暴”的根源在于 <strong>Windows 底层 Hyper-V 网络组件的异常</strong>，它引发了 <strong>WSL 网络模式降级</strong>，并与成功启用的 <strong><code>systemd-resolved</code> 服务</strong>形成了一个难以排查的故障放大回路。</p>
+<p>这次经历带给我们几个重要的教训：</p>
+<ul>
+<li><strong>保持系统更新</strong>：定期运行 <code>wsl --update</code> 和 Windows 更新，是维持 WSL 环境健康的基础。</li>
+<li><strong>隔离虚拟化环境</strong>：避免在 WSL 内部安装 VirtualBox 等其他虚拟机软件，这是导致 <code>apt</code> 包管理器最初损坏的诱因。</li>
+<li><strong>掌握诊断工具</strong>：学会解读 <code>wsl --status</code> 的提示、检查 <code>/etc/resolv.conf</code> 的内容，是快速定位问题的关键。</li>
+<li><strong>理解工作机制</strong>：深入了解 <code>systemd</code> 和 <code>systemd-resolved</code> 的工作方式，才能在它们“好心办坏事”时，知道如何绕过它们。</li>
+</ul>
+<p>虽然过程曲折，但这次“寻宝游戏”般地排错，无疑让我们对 WSL2 这个强大工具的理解更进了一步。希望这篇记录，也能成为你工具箱中的一张备用地图。</p>
+<hr>
+
+
+</div>
+
+
+    </main>
+    <footer class="py-3 mt-auto bg-light">
+  <div class="container py-1 my-1">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <p class="col-md mb-0 text-muted">Open-source <a class="text-muted text-decoration-none">MIT</a> Licensed.</p>
+      <ul class="nav col-md-auto justify-content-end">
+        <li class="nav-item"><a href="../../privacy-policy/" class="nav-link px-2 text-muted" title='隐私政策' aria-label='隐私政策'>隐私政策</a></li>
+        </ul>
+    </div>
+  </div>
+</footer>
+    
+
+
+
+
+<script src="../../js/bootstrap/bootstrap.bundle.min.min.7620f70f6a288d4f1a662439d8772846a2d2084a9466d8d25b3b246d986b3c96e31aae489aaa01a1961bd6f4ad9842e677b02848d0aae0a3fb74b76a522f9e80.js" integrity="sha512-diD3D2oojU8aZiQ52HcoRqLSCEqUZtjSWzskbZhrPJbjGq5ImqoBoZYb1vStmELmd7AoSNCq4KP7dLdqUi&#43;egA==" crossorigin="anonymous" defer></script>
+  
+    <script src="../../js/main.min.ac5210659ceeef8804aea6c4ac26da40fbe24410172a60acc12162dc7e45d73db009b44210942a4f510297b8d8dc90ea55a174f0b052871802c3682587fd41a1.js" integrity="sha512-rFIQZZzu74gErqbErCbaQPviRBAXKmCswSFi3H5F1z2wCbRCEJQqT1ECl7jY3JDqVaF08LBShxgCw2glh/1BoQ==" crossorigin="anonymous" defer></script>
+  
+  
+
+
+
+</body>
+</html>

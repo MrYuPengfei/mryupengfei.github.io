@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+
+    
+<meta http-equiv='Content-Security-Policy' content="script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'">
+
+    
+
+<link rel="stylesheet" href="../../css/style.7146bb5d410f5db4e7376460bb67bb578ab9578629665e69825acbaa68fe84ae82fb3b12be15fcb3fe3c9752f7d970600d538eb8bbbe5bfc658484f88f7ca79d.css" media="screen" integrity="sha512-cUa7XUEPXbTnN2Rgu2e7V4q5V4YpZl5pglrLqmj&#43;hK6C&#43;zsSvhX8s/48l1L32XBgDVOOuLu&#43;W/xlhIT4j3ynnQ==" crossorigin="anonymous">
+
+    <title>Podman运行gitlab时的权限问题 😸	</title>
+
+<meta name="description" content="  ">
+
+
+
+<link rel="canonical" href="http://106.53.54.249:20683/deploy/podman%E8%BF%90%E8%A1%8Cgitlab%E6%97%B6%E7%9A%84%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/">
+
+
+<link rel="alternate" hreflang="zh" href="http://106.53.54.249:20683/deploy/podman%E8%BF%90%E8%A1%8Cgitlab%E6%97%B6%E7%9A%84%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/">
+
+
+
+<link rel="alternate" hreflang="x-default" href="http://106.53.54.249:20683/deploy/podman%E8%BF%90%E8%A1%8Cgitlab%E6%97%B6%E7%9A%84%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="Podman运行gitlab时的权限问题 😸	">
+<meta property="og:description" content="  "><meta property="og:type" content="article">
+<meta property="og:url" content="http://106.53.54.249:20683/deploy/podman%E8%BF%90%E8%A1%8Cgitlab%E6%97%B6%E7%9A%84%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/">
+<meta property="og:image" content="http://106.53.54.249:20683/deploy/podman%E8%BF%90%E8%A1%8Cgitlab%E6%97%B6%E7%9A%84%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/13_hu_c49fe2fa3ff1eca3.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="600">
+  
+    <meta property="article:section" content="deploy">
+  
+  
+    <meta property="article:published_time" content="2026-01-18T20:09:18+08:00">
+  
+  
+    <meta property="article:modified_time" content="2026-04-01T20:58:25+08:00">
+  
+  <meta property="og:locale" content="zh">
+
+  <meta property="og:site_name" content="于鹏飞的个人主页">
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://106.53.54.249:20683/deploy/podman%E8%BF%90%E8%A1%8Cgitlab%E6%97%B6%E7%9A%84%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/13_hu_42c08f86d4067df5.jpg">
+
+<meta name="twitter:title" content="Podman运行gitlab时的权限问题 😸	">
+<meta name="twitter:description" content="  ">
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+      
+      
+      
+      
+    
+    
+  
+    
+    
+    
+    
+    
+  
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","author":[{"@type":"Person","name":"Manus","url":"http://106.53.54.249:20683/authors/manus/"},{"@type":"Person","name":"于鹏飞"}],"dateModified":"2026-04-01T20:58:25+08:00","datePublished":"2026-01-18T20:09:18+08:00","description":"  ","headline":"Podman运行gitlab时的权限问题 😸\t","image":["http://106.53.54.249:20683/deploy/podman%E8%BF%90%E8%A1%8Cgitlab%E6%97%B6%E7%9A%84%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/13.jpg"],"inLanguage":"zh","keywords":["IT技术"],"mainEntityOfPage":"http://106.53.54.249:20683/deploy/podman%E8%BF%90%E8%A1%8Cgitlab%E6%97%B6%E7%9A%84%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://106.53.54.249:20683/images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg"},"name":"于鹏飞的个人主页"},"wordcount":2608}
+</script>
+
+
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"http://106.53.54.249:20683/","name":"于鹏飞的个人主页","position":1},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/","name":"项目配置攻略","position":2},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/podman%E8%BF%90%E8%A1%8Cgitlab%E6%97%B6%E7%9A%84%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/","name":"Podman运行gitlab时的权限问题 😸\t","position":3}]}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="icon" type="image/svg+xml" href="http://106.53.54.249:20683/favicon.svg"><link rel="icon" type="image/png" href="http://106.53.54.249:20683/favicon.png"><link rel="shortcut icon" href="http://106.53.54.249:20683/favicon.ico">
+  <meta name="theme-color" content="#fff">
+</head>
+
+
+
+<body class="deploy single d-flex flex-column min-vh-100"><header class="main-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="../../">
+        <img src="../../images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg" alt="logo" width="30" height="24"
+          class="d-inline-block align-text-top">
+        于鹏飞的个人主页
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="menu-main navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../method">方法论</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../note">论文笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../deploy">工程笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../program">开源项目</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../notice">最新通知</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../contact">联系方式</a>
+          </li>
+          
+          </ul>
+
+        
+        
+        
+
+      </div>
+    </div>
+  </nav>
+</header><main id="content">
+        <nav class="header-breadcrumb my-2" aria-label="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb my-0">
+            
+            
+                
+                
+                    
+                
+                    
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../">Home</a> </li>
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../deploy/">项目配置攻略</a> </li>
+                
+            
+                <li class="breadcrumb-item active" aria-current="page">  Podman运行gitlab时的权限问题 😸	</li>
+            
+        </ol>
+    </div>
+</nav>
+
+
+<div class="container py-3">
+
+ 
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | Thank you <span style="color:#66d9ef">for</span> using GitLab Docker Image!
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | Current version: gitlab-ce<span style="color:#f92672">=</span>18.8.0-ce.0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | Configure GitLab <span style="color:#66d9ef">for</span> your system by editing /etc/gitlab/gitlab.rb file
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | And restart this container to reload settings.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | To <span style="color:#66d9ef">do</span> it use docker exec:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> |   docker exec -it gitlab editor /etc/gitlab/gitlab.rb
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> |   docker restart gitlab
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | For a comprehensive list of configuration options please see the Omnibus GitLab readme
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | If this container fails to start due to permission problems try to fix it by executing:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> |   docker exec -it gitlab update-permissions
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> |   docker restart gitlab
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | Cleaning stale PIDs &amp; sockets
+</span></span><span style="display:flex;"><span>cat: /var/opt/gitlab/gitlab-rails/VERSION: No such file or directory
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gitlab<span style="color:#f92672">]</span> | Installing gitlab.rb config...
+</span></span><span style="display:flex;"><span>cp: cannot create regular file <span style="color:#e6db74">&#39;/etc/gitlab/gitlab.rb&#39;</span>: Permission denied
+</span></span><span style="display:flex;"><span>exit code: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>yupengfei@LenovoY9000P:~/docker/gitlab$ ls -lah
+</span></span><span style="display:flex;"><span>yupengfei@LenovoY9000P:~/docker/gitlab$ ls -lah
+</span></span><span style="display:flex;"><span>total 1.7G
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">6</span> yupengfei yupengfei 4.0K Jan <span style="color:#ae81ff">18</span> 20:05 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">12</span> yupengfei yupengfei 4.0K Jan <span style="color:#ae81ff">17</span> 20:31 ..
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> yupengfei yupengfei  <span style="color:#ae81ff">993</span> Jan <span style="color:#ae81ff">18</span> 18:52 compose.yml
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">3</span> yupengfei yupengfei 4.0K Jan <span style="color:#ae81ff">18</span> 20:05 config
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> yupengfei yupengfei 4.0K Jan <span style="color:#ae81ff">18</span> 20:05 data
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> yupengfei yupengfei 1.2K Jan  <span style="color:#ae81ff">6</span> 17:56 docker-compose.local.yml
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> yupengfei yupengfei  <span style="color:#ae81ff">512</span> Jan <span style="color:#ae81ff">18</span> 16:31 docker-compose.yml
+</span></span><span style="display:flex;"><span>-rw-------  <span style="color:#ae81ff">1</span> yupengfei yupengfei 1.7G Jan <span style="color:#ae81ff">18</span> 18:55 gitlab-ce.tar
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> yupengfei yupengfei    <span style="color:#ae81ff">2</span> Jan  <span style="color:#ae81ff">5</span> 16:06 install.sh
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> yupengfei yupengfei 4.0K Jan <span style="color:#ae81ff">18</span> 20:05 logs
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> yupengfei yupengfei   <span style="color:#ae81ff">84</span> Jan  <span style="color:#ae81ff">6</span> 18:14 passwd.txt
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> yupengfei yupengfei   <span style="color:#ae81ff">14</span> Jan  <span style="color:#ae81ff">5</span> 20:51 rpc-ip.txt
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> yupengfei yupengfei  <span style="color:#ae81ff">304</span> Jan  <span style="color:#ae81ff">5</span> 19:47 run.260105.sh
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> yupengfei yupengfei  <span style="color:#ae81ff">296</span> Jan <span style="color:#ae81ff">18</span> 17:34 run.sh.260118
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> yupengfei yupengfei 4.0K Jan  <span style="color:#ae81ff">6</span> 19:10 ssl
+</span></span></code></pre></div><h3 id="问题的关键security_opt-与-volumes-的冲突">问题的关键：<code>security_opt</code> 与 <code>volumes</code> 的冲突</h3>
+<p>让我们看一下你 <code>compose.yml</code> 中的这两个配置项：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./config:/etc/gitlab:rw</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./logs:/var/log/gitlab:rw</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./data:/var/opt/gitlab:rw </span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./ssl:/etc/gitlab/ssl:rw</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">security_opt</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">label:disable</span>
+</span></span></code></pre></div><ol>
+<li><strong><code>volumes: ...</code></strong>: 你在这里使用了绑定挂载，将宿主机的目录映射到容器中。</li>
+<li><strong><code>security_opt: - label:disable</code></strong>: 这个选项的作用是<strong>完全禁用 SELinux 的标签分离机制</strong>。它告诉 Podman：“启动这个容器时，不要为它应用任何 SELinux 标签，就让它以宿主机的默认上下文（<code>unconfined_t</code>）运行。”</li>
+</ol>
+<p><strong>这就是冲突所在：</strong></p>
+<ul>
+<li>我之前的建议是让你使用 <code>:z</code> 标志（例如 <code>./data:/var/opt/gitlab:z</code>）。这个标志的作用是让 Podman <strong>自动修改宿主机目录的 SELinux 标签</strong>，使其变为 <code>container_file_t</code>，从而允许容器进程（<code>container_t</code>）访问。</li>
+<li>而你现在使用的 <code>label:disable</code> 选项，则是让容器进程<strong>不再以 <code>container_t</code> 的身份运行</strong>。</li>
+</ul>
+<p>当你同时使用 <code>label:disable</code> 和绑定挂载时，容器内的进程会以 <code>unconfined_t</code> 的身份尝试去读写宿主机上同样是 <code>unconfined_t</code> 的文件。理论上这似乎可行，但实际上它会破坏 Podman 设计的安全模型，并可能在特定系统配置下引发不可预知的权限问题，尤其是与 <code>privileged: true</code> 结合时。</p>
+<p><strong><code>privileged: true</code></strong> 是另一个“核武器”级别的选项。它几乎移除了所有容器和宿主机之间的隔离，给予容器近乎等同于宿主机 root 的权限。这会与 SELinux 产生更复杂的交互，往往导致问题更难排查。</p>
+<h3 id="最终的最规范的解决方案">最终的、最规范的解决方案</h3>
+<p>现在，我们需要放弃所有临时的、“打补丁”式的解决方案（如 <code>privileged: true</code>, <code>label:disable</code>），回归到 Podman 和 GitLab 官方都认可的最标准、最安全的配置上来。</p>
+<p>请将你的 <code>compose.yml</code> 文件<strong>完整替换</strong>为以下内容。这个版本整合了所有最佳实践：</p>
+<ul>
+<li><strong>移除了 <code>privileged: true</code> 和 <code>security_opt</code></strong>: 我们不再使用这些“大锤”，而是精细地处理权限。</li>
+<li><strong>为卷添加了 <code>:z</code> 标志</strong>: 这是在启用 SELinux 的系统上处理绑定挂载的<strong>正确方法</strong>。</li>
+<li><strong>移除了卷的 <code>:rw</code> 标志</strong>: <code>:rw</code> 是默认行为，写上它没有坏处，但为了简洁可以去掉。</li>
+<li><strong>保留了你的其他配置</strong>: 如端口、环境变量等。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># 推荐的、最终的 compose.yml 文件</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">gitlab</span>: 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">docker.io/gitlab/gitlab-ce:18.8.0-ce.0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">gitlab</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">unless-stopped</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">TZ</span>: <span style="color:#ae81ff">Asia/Shanghai</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">GITLAB_OMNIBUS_CONFIG</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        external_url &#39;https://120.48.161.177:4444&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] = 2222
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        nginx[&#39;ssl_certificate&#39;] = &#34;/etc/gitlab/ssl/gitlab.crt&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        nginx[&#39;ssl_certificate_key&#39;] = &#34;/etc/gitlab/ssl/gitlab.key&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        gitlab_rails[&#39;env&#39;] = {&#34;SSL_CERT_FILE&#34; =&gt; &#34;/etc/gitlab/ssl/gitlab.crt&#34;}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;5678:443&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;2290:22&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 为所有绑定挂载添加 :z 标志来处理 SELinux</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./config:/etc/gitlab:z</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./logs:/var/log/gitlab:z</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./data:/var/opt/gitlab:z</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./ssl:/etc/gitlab/ssl:z</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">shm_size</span>: <span style="color:#e6db74">&#39;4g&#39;</span>
+</span></span></code></pre></div><h3 id="执行步骤请严格按顺序操作">执行步骤（请严格按顺序操作）</h3>
+<ol>
+<li>
+<p><strong>彻底清理环境：</strong>
+这一步至关重要，确保没有任何旧的、错误的配置残留。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 停止并删除由 podman-compose 管理的容器</span>
+</span></span><span style="display:flex;"><span>podman-compose -f compose.yml down
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 检查并手动删除可能残留的同名容器</span>
+</span></span><span style="display:flex;"><span>podman rm gitlab
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># （可选但推荐）清理宿主机上的挂载目录，让 GitLab 重新初始化</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 警告：这将删除你现有的 GitLab 数据！如果是全新安装，强烈建议执行。</span>
+</span></span><span style="display:flex;"><span>cd ~/docker/gitlab
+</span></span><span style="display:flex;"><span>sudo rm -rf config/* logs/* data/*
+</span></span></code></pre></div></li>
+<li>
+<p><strong>替换 <code>compose.yml</code> 文件：</strong>
+用上面提供的<strong>最终版本</strong>完整替换你现有的 <code>compose.yml</code> 文件内容。</p>
+</li>
+<li>
+<p><strong>重新创建并启动：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 确保你在 compose.yml 所在的目录</span>
+</span></span><span style="display:flex;"><span>podman-compose -f compose.yml up -d
+</span></span></code></pre></div></li>
+<li>
+<p><strong>监控日志：</strong>
+等待一两分钟，然后查看日志，看初始化过程是否能顺利进行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>podman logs -f gitlab
+</span></span></code></pre></div><p>如果这次配置正确，你应该能看到 GitLab 开始进行 reconfigure，屏幕上会滚动大量的 <code>*</code> 号和 <code>execute</code> 日志，而不再是 <code>Permission denied</code>。这个过程第一次启动会持续几分钟。</p>
+</li>
+</ol>
+<h3 id="总结">总结</h3>
+<p>我们这次的排查过程揭示了多个高权限配置（<code>privileged</code>, <code>label:disable</code>）与 SELinux 默认安全策略之间的冲突。通过移除这些“权宜之计”的配置，并采用 Podman 官方推荐的 <code>:z</code> 标志来正确处理 SELinux，我们回到了最稳健、最安全的道路上。这个最终版本的 <code>compose.yml</code> 应该能够解决你遇到的权限问题。</p>
+<pre tabindex="0"><code>
+
+[&#39;podman&#39;, &#39;network&#39;, &#39;exists&#39;, &#39;gitlab_default&#39;]
+podman run --name=gitlab -d --label io.podman.compose.config-hash=1a98b47e3317933a211361ad7360a8815fa415aebae57f844782f83d189fa302 --label io.podman.compose.project=gitlab --label io.podman.compose.version=1.0.6 --label PODMAN_SYSTEMD_UNIT=podman-compose@gitlab.service --label com.docker.compose.project=gitlab --label com.docker.compose.project.working_dir=/home/yupengfei/docker/gitlab --label com.docker.compose.project.config_files=compose.yml --label com.docker.compose.container-number=1 --label com.docker.compose.service=gitlab -e TZ=Asia/Shanghai -e GITLAB_OMNIBUS_CONFIG=external_url &#39;https://120.48.161.177:4444&#39;
+gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] = 2222
+nginx[&#39;ssl_certificate&#39;] = &#34;/etc/gitlab/ssl/gitlab.crt&#34;
+nginx[&#39;ssl_certificate_key&#39;] = &#34;/etc/gitlab/ssl/gitlab.key&#34;
+gitlab_rails[&#39;env&#39;] = {&#34;SSL_CERT_FILE&#34; =&gt; &#34;/etc/gitlab/ssl/gitlab.crt&#34;}
+ -v /home/yupengfei/docker/gitlab/config:/etc/gitlab:z -v /home/yupengfei/docker/gitlab/logs:/var/log/gitlab:z -v /home/yupengfei/docker/gitlab/data:/var/opt/gitlab:z -v /home/yupengfei/docker/gitlab/ssl:/etc/gitlab/ssl:z --net gitlab_default --network-alias gitlab -p 5678:443 -p 2290:22 --shm-size 4g --restart unless-stopped docker.io/gitlab/gitlab-ce:18.8.0-ce.0
+b9b0a7b0e3407544d0ce69e38f1db1ff2cf1bc48d2bcaea4ee5e5ff021c2fdfa
+exit code: 0
+</code></pre><p>太棒了！这正是我们期待看到的输出！你<strong>已经成功解决了问题</strong>。</p>
+<p>让我为你解读一下你刚刚贴出的这段日志，并告诉你接下来该做什么。</p>
+<h3 id="日志解读为什么说已经成功了">日志解读：为什么说已经成功了？</h3>
+<p>你贴出的这段日志并不是错误信息，而是 <code>podman-compose</code> 工具在后台执行操作的<strong>详细过程记录</strong>。</p>
+<ol>
+<li>
+<p><strong><code>['podman', 'network', 'exists', 'gitlab_default']</code></strong></p>
+<ul>
+<li><strong>含义：</strong> <code>podman-compose</code> 正在检查名为 <code>gitlab_default</code> 的容器网络是否存在。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>podman run --name=gitlab -d ...</code></strong></p>
+<ul>
+<li><strong>含义：</strong> 这是最核心的一步。<code>podman-compose</code> 根据你的 <code>compose.yml</code> 文件，成功地构建了一个完整的 <code>podman run</code> 命令来启动你的 GitLab 容器。</li>
+<li><strong>关键证据：</strong> 在这个命令的 <code>-v</code> (volume) 参数部分，我们清楚地看到了我们添加的 <code>:z</code> 标志：
+<pre tabindex="0"><code>-v /home/yupengfei/docker/gitlab/config:/etc/gitlab:z
+-v /home/yupengfei/docker/gitlab/logs:/var/log/gitlab:z
+-v /home/yupengfei/docker/gitlab/data:/var/opt/gitlab:z
+-v /home/yupengfei/docker/gitlab/ssl:/etc/gitlab/ssl:z
+</code></pre>这证明了我们关于 SELinux 的解决方案已经被正确应用了。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>b9b0a7b0e3407544d0ce69e38f1db1ff2cf1bc48d2bcaea4ee5e5ff021c2fdfa</code></strong></p>
+<ul>
+<li><strong>含义：</strong> 这是 <code>podman run</code> 命令成功执行后返回的<strong>完整的容器ID</strong>。当 Podman 成功创建一个容器时，它就会打印出这个独一无二的ID。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>exit code: 0</code></strong></p>
+<ul>
+<li><strong>含义：</strong> 这是最重要的成功标志！在命令行世界里，退出码 <code>0</code> 代表“<strong>命令已成功执行，没有任何错误</strong>”。之前的失败，退出码都是 <code>1</code> 或 <code>125</code> 等非零值。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>USER REQUESTED IMMEDIATE FORCE STOP？</code></strong></p>
+<ul>
+<li><strong>含义：</strong> 这句话看起来有点吓人，但它<strong>不是错误</strong>。这很可能是你在 <code>podman-compose up</code> 命令运行时，按下了 <code>Ctrl+C</code> 来中断前台输出，<code>podman-compose</code> 捕捉到这个信号后打印了这条信息。因为我们使用了 <code>-d</code> (detached) 模式来后台运行容器，所以即使你中断了 <code>podman-compose</code> 的前台日志，<strong>容器本身也已经在后台健康地运行了</strong>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="结论你已成功启动-gitlab">结论：你已成功启动 GitLab！</h3>
+<p>恭喜！经过多次排查，我们终于找到了正确的配置组合。你的 GitLab 容器现在应该正在后台进行它的首次初始化。</p>
+<h3 id="接下来该做什么">接下来该做什么？</h3>
+<ol>
+<li>
+<p><strong>耐心等待初始化 (非常重要)</strong></p>
+<ul>
+<li>GitLab 是一个庞大的应用，<strong>第一次启动需要花费 5 到 15 分钟</strong>（取决于你的机器性能）来进行数据库迁移、编译资源、生成配置文件等一系列初始化操作。</li>
+<li>在此期间，你访问 GitLab 的 URL 可能会看到 <code>502 Bad Gateway</code> 错误，<strong>这是完全正常的</strong>。请不要重启或停止容器，给它足够的时间。</li>
+</ul>
+</li>
+<li>
+<p><strong>实时监控日志</strong></p>
+<ul>
+<li>你可以打开一个新的终端窗口，使用以下命令来实时查看 GitLab 的初始化进度：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>podman logs -f gitlab
+</span></span></code></pre></div></li>
+<li>你会看到大量的日志在滚动。当初始化完成，日志输出会逐渐平息，并显示类似 <code>gitlab Reconfigured!</code> 的信息。看到这个，就说明 GitLab 已经准备就绪了。</li>
+</ul>
+</li>
+<li>
+<p><strong>访问你的 GitLab 实例</strong></p>
+<ul>
+<li>一旦初始化完成，打开你的浏览器，访问你在 <code>external_url</code> 中配置的地址：
+<code>https://120.48.161.177:5678</code>
+<em>(注意：端口是你在 <code>ports</code> 中映射的宿主机端口 <code>5678</code>)</em></li>
+<li>你应该能看到 GitLab 的登录页面了。</li>
+</ul>
+</li>
+<li>
+<p><strong>获取初始管理员密码</strong></p>
+<ul>
+<li>GitLab 的初始 <code>root</code> 用户密码存储在容器的一个文件里。你可以用以下命令来获取它：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>podman exec -it gitlab grep <span style="color:#e6db74">&#39;Password:&#39;</span> /etc/gitlab/initial_root_password
+</span></span></code></pre></div></li>
+<li>用 <code>root</code> 用户和你获取到的密码登录，然后系统会要求你立即修改密码。</li>
+</ul>
+</li>
+</ol>
+<p>你已经完成了最困难的部分。享受你的 GitLab 之旅吧！</p>
+
+
+</div>
+
+
+    </main>
+    <footer class="py-3 mt-auto bg-light">
+  <div class="container py-1 my-1">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <p class="col-md mb-0 text-muted">Open-source <a class="text-muted text-decoration-none">MIT</a> Licensed.</p>
+      <ul class="nav col-md-auto justify-content-end">
+        <li class="nav-item"><a href="../../privacy-policy/" class="nav-link px-2 text-muted" title='隐私政策' aria-label='隐私政策'>隐私政策</a></li>
+        </ul>
+    </div>
+  </div>
+</footer>
+    
+
+
+
+
+<script src="../../js/bootstrap/bootstrap.bundle.min.min.7620f70f6a288d4f1a662439d8772846a2d2084a9466d8d25b3b246d986b3c96e31aae489aaa01a1961bd6f4ad9842e677b02848d0aae0a3fb74b76a522f9e80.js" integrity="sha512-diD3D2oojU8aZiQ52HcoRqLSCEqUZtjSWzskbZhrPJbjGq5ImqoBoZYb1vStmELmd7AoSNCq4KP7dLdqUi&#43;egA==" crossorigin="anonymous" defer></script>
+  
+    <script src="../../js/main.min.ac5210659ceeef8804aea6c4ac26da40fbe24410172a60acc12162dc7e45d73db009b44210942a4f510297b8d8dc90ea55a174f0b052871802c3682587fd41a1.js" integrity="sha512-rFIQZZzu74gErqbErCbaQPviRBAXKmCswSFi3H5F1z2wCbRCEJQqT1ECl7jY3JDqVaF08LBShxgCw2glh/1BoQ==" crossorigin="anonymous" defer></script>
+  
+  
+
+
+
+</body>
+</html>

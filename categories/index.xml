@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Categories on 于鹏飞的个人主页</title>
+		<link>http://106.53.54.249:20683/categories/</link>
+		<description>Recent content in Categories on 于鹏飞的个人主页</description>
+		<generator>Hugo</generator>
+		<language>zh</language>
+		
+			<managingEditor>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</managingEditor>
+		
+		
+			<webMaster>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</webMaster>
+		
+		
+			<copyright>Open-source &lt;a class=&#34;text-muted text-decoration-none&#34;&gt;MIT&lt;/a&gt; Licensed.</copyright>
+		
+		
+			<lastBuildDate>Wed, 01 Apr 2026 20:58:25 +0800</lastBuildDate>
+		
+			<atom:link href="http://106.53.54.249:20683/categories/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>One</title>
+				<link>http://106.53.54.249:20683/categories/one/</link>
+				<pubDate>Sat, 01 Mar 2025 20:49:37 +0800</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
+				<guid>http://106.53.54.249:20683/categories/one/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Two</title>
+				<link>http://106.53.54.249:20683/categories/two/</link>
+				<pubDate>Sat, 01 Mar 2025 20:49:37 +0800</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
+				<guid>http://106.53.54.249:20683/categories/two/</guid>
+				<description></description>
+			</item>
+	</channel>
+</rss>

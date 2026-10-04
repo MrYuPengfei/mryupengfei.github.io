@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+
+    
+<meta http-equiv='Content-Security-Policy' content="script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'">
+
+    
+
+<link rel="stylesheet" href="../../css/style.7146bb5d410f5db4e7376460bb67bb578ab9578629665e69825acbaa68fe84ae82fb3b12be15fcb3fe3c9752f7d970600d538eb8bbbe5bfc658484f88f7ca79d.css" media="screen" integrity="sha512-cUa7XUEPXbTnN2Rgu2e7V4q5V4YpZl5pglrLqmj&#43;hK6C&#43;zsSvhX8s/48l1L32XBgDVOOuLu&#43;W/xlhIT4j3ynnQ==" crossorigin="anonymous">
+
+    <title>Podman使用本地在docker上下载的镜像 😎	</title>
+
+<meta name="description" content="😸🐱😸 ">
+
+
+
+<link rel="canonical" href="http://106.53.54.249:20683/deploy/podman%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9C%A8docker%E4%B8%8A%E4%B8%8B%E8%BD%BD%E7%9A%84%E9%95%9C%E5%83%8F/">
+
+
+<link rel="alternate" hreflang="zh" href="http://106.53.54.249:20683/deploy/podman%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9C%A8docker%E4%B8%8A%E4%B8%8B%E8%BD%BD%E7%9A%84%E9%95%9C%E5%83%8F/">
+
+
+
+<link rel="alternate" hreflang="x-default" href="http://106.53.54.249:20683/deploy/podman%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9C%A8docker%E4%B8%8A%E4%B8%8B%E8%BD%BD%E7%9A%84%E9%95%9C%E5%83%8F/">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="Podman使用本地在docker上下载的镜像 😎	">
+<meta property="og:description" content="😸🐱😸 "><meta property="og:type" content="article">
+<meta property="og:url" content="http://106.53.54.249:20683/deploy/podman%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9C%A8docker%E4%B8%8A%E4%B8%8B%E8%BD%BD%E7%9A%84%E9%95%9C%E5%83%8F/">
+<meta property="og:image" content="http://106.53.54.249:20683/images/site-feature-image_hu_5fda6433d4a82a6.png">
+<meta property="og:image:width" content="900">
+<meta property="og:image:height" content="600">
+  
+    <meta property="article:section" content="deploy">
+  
+  
+    <meta property="article:published_time" content="2026-01-18T19:20:20+08:00">
+  
+  
+    <meta property="article:modified_time" content="2026-04-01T20:58:25+08:00">
+  
+  <meta property="og:locale" content="zh">
+
+  <meta property="og:site_name" content="于鹏飞的个人主页">
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://106.53.54.249:20683/images/site-feature-image_hu_1efdac35d7eb9cb9.png">
+
+<meta name="twitter:title" content="Podman使用本地在docker上下载的镜像 😎	">
+<meta name="twitter:description" content="😸🐱😸 ">
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+      
+      
+      
+      
+    
+    
+  
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","author":[{"@type":"Person","name":"Manus","url":"http://106.53.54.249:20683/authors/manus/"}],"dateModified":"2026-04-01T20:58:25+08:00","datePublished":"2026-01-18T19:20:20+08:00","description":"😸🐱😸 ","headline":"Podman使用本地在docker上下载的镜像 😎\t","inLanguage":"zh","keywords":["IT技术"],"mainEntityOfPage":"http://106.53.54.249:20683/deploy/podman%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9C%A8docker%E4%B8%8A%E4%B8%8B%E8%BD%BD%E7%9A%84%E9%95%9C%E5%83%8F/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://106.53.54.249:20683/images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg"},"name":"于鹏飞的个人主页"},"wordcount":1383}
+</script>
+
+
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"http://106.53.54.249:20683/","name":"于鹏飞的个人主页","position":1},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/","name":"项目配置攻略","position":2},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/podman%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9C%A8docker%E4%B8%8A%E4%B8%8B%E8%BD%BD%E7%9A%84%E9%95%9C%E5%83%8F/","name":"Podman使用本地在docker上下载的镜像 😎\t","position":3}]}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="icon" type="image/svg+xml" href="http://106.53.54.249:20683/favicon.svg"><link rel="icon" type="image/png" href="http://106.53.54.249:20683/favicon.png"><link rel="shortcut icon" href="http://106.53.54.249:20683/favicon.ico">
+  <meta name="theme-color" content="#fff">
+</head>
+
+
+
+<body class="deploy single d-flex flex-column min-vh-100"><header class="main-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="../../">
+        <img src="../../images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg" alt="logo" width="30" height="24"
+          class="d-inline-block align-text-top">
+        于鹏飞的个人主页
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="menu-main navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../method">方法论</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../note">论文笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../deploy">工程笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../program">开源项目</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../notice">最新通知</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../contact">联系方式</a>
+          </li>
+          
+          </ul>
+
+        
+        
+        
+
+      </div>
+    </div>
+  </nav>
+</header><main id="content">
+        <nav class="header-breadcrumb my-2" aria-label="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb my-0">
+            
+            
+                
+                
+                    
+                
+                    
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../">Home</a> </li>
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../deploy/">项目配置攻略</a> </li>
+                
+            
+                <li class="breadcrumb-item active" aria-current="page">  Podman使用本地在docker上下载的镜像 😎	</li>
+            
+        </ol>
+    </div>
+</nav>
+
+
+<div class="container py-3">
+
+ 
+  <p>这是一个非常常见的需求，尤其是在从 Docker 过渡到 Podman 或者两者混合使用的环境中。你完全可以利用已经在 Docker 中下载好的本地镜像，而无需为 Podman 重新下载一遍，这能节省大量的时间和带宽。</p>
+<p>实现这个目标主要有两种方法：<strong>导出/导入</strong> 和 <strong>共享存储</strong>。</p>
+<h3 id="方法一导出为-tar-包再导入-podman-最通用最推荐">方法一：导出为 Tar 包，再导入 Podman (最通用、最推荐)</h3>
+<p>这个方法就像打包和解包，它不依赖于 Docker 和 Podman 的底层存储结构，因此兼容性最好，适用于任何系统。</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li>
+<p><strong>在 Docker 中保存镜像为 Tar 文件:</strong>
+首先，找到你想要迁移的 Docker 镜像的名称和标签 (TAG)。你可以用 <code>docker images</code> 查看。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 语法: docker save -o &lt;输出文件名.tar&gt; &lt;镜像名:标签&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 示例:</span>
+</span></span><span style="display:flex;"><span>docker save -o gitlab-ce.tar docker.io/gitlab/gitlab-ce:18.8.0-ce.0
+</span></span></code></pre></div><p>执行后，你会在当前目录下得到一个名为 <code>gitlab-ce.tar</code> 的文件。</p>
+</li>
+<li>
+<p><strong>在 Podman 中加载这个 Tar 文件:</strong>
+现在，使用 <code>podman load</code> 命令将这个文件导入到 Podman 的本地存储中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 语法: podman load -i &lt;文件名.tar&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 示例:</span>
+</span></span><span style="display:flex;"><span>podman load -i gitlab-ce.tar
+</span></span></code></pre></div></li>
+<li>
+<p><strong>验证镜像是否导入成功:</strong>
+使用 <code>podman images</code> 命令检查镜像是否已经存在于 Podman 的列表中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>podman images
+</span></span></code></pre></div><p>你应该能看到 <code>docker.io/gitlab/gitlab-ce</code> 这个镜像。</p>
+</li>
+</ol>
+<p><strong>优点:</strong></p>
+<ul>
+<li><strong>100% 可靠:</strong> 这种方法与底层存储驱动无关，总是有效。</li>
+<li><strong>可移植:</strong> 生成的 <code>.tar</code> 文件可以被复制到任何其他安装了 Podman 或 Docker 的机器上使用。</li>
+<li><strong>干净隔离:</strong> 两个工具的存储保持独立，互不影响。</li>
+</ul>
+<p><strong>缺点:</strong></p>
+<ul>
+<li><strong>需要额外的磁盘空间:</strong> 在导出和导入的过程中，你需要临时占用一份镜像大小的磁盘空间来存放 <code>.tar</code> 文件。</li>
+<li><strong>手动操作:</strong> 对于每个需要迁移的镜像，都需要执行一次 <code>save</code> 和 <code>load</code>。</li>
+</ul>
+<hr>
+<h3 id="方法二共享-docker-的存储-仅限特定情况">方法二：共享 Docker 的存储 (仅限特定情况)</h3>
+<p><strong>警告：</strong> 这个方法有风险，只建议在临时测试或特定高级场景下使用。它可能会因为 Docker 和 Podman 版本更新导致存储驱动不兼容而损坏你的镜像存储。<strong>对于生产环境或重要数据，强烈不推荐此方法。</strong></p>
+<p>这个方法的思路是告诉 Podman 直接去读取 Docker 的镜像存储目录。</p>
+<p><strong>步骤 (以 Linux 为例):</strong></p>
+<ol>
+<li>
+<p><strong>找到 Docker 的存储目录:</strong>
+Docker 的数据通常存储在 <code>/var/lib/docker</code>。</p>
+</li>
+<li>
+<p><strong>修改 Podman 的存储配置:</strong>
+你需要用 <code>sudo</code> 权限编辑 Podman 的存储配置文件 <code>/etc/containers/storage.conf</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/containers/storage.conf
+</span></span></code></pre></div></li>
+<li>
+<p><strong>修改 <code>graphroot</code> 和 <code>driver</code>:</strong></p>
+<ul>
+<li>找到 <code>driver</code> 这一行，确保它和 Docker 使用的存储驱动一致 (通常是 <code>overlay</code>)。</li>
+<li>找到 <code>graphroot</code> 这一行，这是镜像存储的根目录。把它修改为 Docker 的目录。</li>
+<li><strong>在修改前，请务必备份原始的 <code>storage.conf</code> 文件！</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e"># /etc/containers/storage.conf</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[storage]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">driver</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;overlay&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 将 graphroot 指向 Docker 的存储位置</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">graphroot</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/var/lib/docker/overlay2&#34; # 注意：路径可能是 overlay2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[storage.options]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ... 其他选项</span>
+</span></span></code></pre></div><p><strong>注意:</strong> Docker 的实际镜像数据可能在 <code>/var/lib/docker/overlay2</code> 或其他子目录，你需要先确认。</p>
+</li>
+<li>
+<p><strong>重启 Podman 相关进程 (如果需要) 或直接使用。</strong></p>
+</li>
+</ol>
+<p><strong>为什么不推荐这个方法？</strong></p>
+<ul>
+<li><strong>风险极高:</strong> Docker 和 Podman 可能同时或交替地操作同一个存储目录，这很容易导致元数据损坏，使你的所有镜像（包括 Docker 的和 Podman 的）都无法使用。</li>
+<li><strong>版本依赖:</strong> Docker 或 Podman 的任何一次小版本更新都可能改变存储格式，导致不兼容。</li>
+<li><strong>权限问题:</strong> <code>/var/lib/docker</code> 目录通常由 <code>root</code> 用户拥有，这使得 rootless Podman 无法使用这种方法。</li>
+</ul>
+<h3 id="结论">结论</h3>
+<p>对于你的情况，<strong>请使用方法一（导出/导入）</strong>。</p>
+<p>假设你之前在 Docker 中已经成功下载了 <code>gitlab/gitlab-ce:18.8.0-ce.0</code>，你只需要执行以下两步，就可以让 Podman 用上它，而无需再次从网络下载：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 1. 从 Docker 导出</span>
+</span></span><span style="display:flex;"><span>docker save -o gitlab.tar docker.io/gitlab/gitlab-ce:18.8.0-ce.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 导入到 Podman</span>
+</span></span><span style="display:flex;"><span>podman load -i gitlab.tar
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 现在可以正常使用 podman-compose 了</span>
+</span></span><span style="display:flex;"><span>podman-compose -f compose.yml up
+</span></span></code></pre></div><p>这样，当 <code>podman-compose</code> 尝试创建容器时，<code>podman</code> 会在本地找到这个已经导入的镜像，直接使用，从而跳过漫长的下载过程。</p>
+<hr>
+<p>接下来，我们可以探讨以下相关主题：</p>
+<ul>
+<li>如何编写一个简单的脚本来批量迁移多个 Docker 镜像到 Podman？</li>
+<li>Podman 和 Docker 在镜像分层 (layers) 的共享机制上有什么异同？</li>
+<li>在没有 Docker 的情况下，如何使用 <code>skopeo</code> 或 <code>buildah</code> 工具来直接操作和转换镜像？</li>
+</ul>
+
+
+</div>
+
+
+    </main>
+    <footer class="py-3 mt-auto bg-light">
+  <div class="container py-1 my-1">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <p class="col-md mb-0 text-muted">Open-source <a class="text-muted text-decoration-none">MIT</a> Licensed.</p>
+      <ul class="nav col-md-auto justify-content-end">
+        <li class="nav-item"><a href="../../privacy-policy/" class="nav-link px-2 text-muted" title='隐私政策' aria-label='隐私政策'>隐私政策</a></li>
+        </ul>
+    </div>
+  </div>
+</footer>
+    
+
+
+
+
+<script src="../../js/bootstrap/bootstrap.bundle.min.min.7620f70f6a288d4f1a662439d8772846a2d2084a9466d8d25b3b246d986b3c96e31aae489aaa01a1961bd6f4ad9842e677b02848d0aae0a3fb74b76a522f9e80.js" integrity="sha512-diD3D2oojU8aZiQ52HcoRqLSCEqUZtjSWzskbZhrPJbjGq5ImqoBoZYb1vStmELmd7AoSNCq4KP7dLdqUi&#43;egA==" crossorigin="anonymous" defer></script>
+  
+    <script src="../../js/main.min.ac5210659ceeef8804aea6c4ac26da40fbe24410172a60acc12162dc7e45d73db009b44210942a4f510297b8d8dc90ea55a174f0b052871802c3682587fd41a1.js" integrity="sha512-rFIQZZzu74gErqbErCbaQPviRBAXKmCswSFi3H5F1z2wCbRCEJQqT1ECl7jY3JDqVaF08LBShxgCw2glh/1BoQ==" crossorigin="anonymous" defer></script>
+  
+  
+
+
+
+</body>
+</html>

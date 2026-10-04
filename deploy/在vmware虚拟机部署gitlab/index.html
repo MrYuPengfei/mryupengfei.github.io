@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+
+    
+<meta http-equiv='Content-Security-Policy' content="script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'">
+
+    
+
+<link rel="stylesheet" href="../../css/style.7146bb5d410f5db4e7376460bb67bb578ab9578629665e69825acbaa68fe84ae82fb3b12be15fcb3fe3c9752f7d970600d538eb8bbbe5bfc658484f88f7ca79d.css" media="screen" integrity="sha512-cUa7XUEPXbTnN2Rgu2e7V4q5V4YpZl5pglrLqmj&#43;hK6C&#43;zsSvhX8s/48l1L32XBgDVOOuLu&#43;W/xlhIT4j3ynnQ==" crossorigin="anonymous">
+
+    <title>在VMware虚拟机部署Gitlab😎	</title>
+
+<meta name="description" content=" 😎	">
+
+
+
+<link rel="canonical" href="http://106.53.54.249:20683/deploy/%E5%9C%A8vmware%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2gitlab/">
+
+
+<link rel="alternate" hreflang="zh" href="http://106.53.54.249:20683/deploy/%E5%9C%A8vmware%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2gitlab/">
+
+
+
+<link rel="alternate" hreflang="x-default" href="http://106.53.54.249:20683/deploy/%E5%9C%A8vmware%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2gitlab/">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="在VMware虚拟机部署Gitlab😎	">
+<meta property="og:description" content=" 😎	"><meta property="og:type" content="article">
+<meta property="og:url" content="http://106.53.54.249:20683/deploy/%E5%9C%A8vmware%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2gitlab/">
+<meta property="og:image" content="http://106.53.54.249:20683/deploy/%E5%9C%A8vmware%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2gitlab/6_hu_2731724059cd74a3.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="600">
+  
+    <meta property="article:section" content="deploy">
+  
+  
+    <meta property="article:published_time" content="2026-01-21T19:09:04+08:00">
+  
+  
+    <meta property="article:modified_time" content="2026-04-01T20:58:25+08:00">
+  
+  <meta property="og:locale" content="zh">
+
+  <meta property="og:site_name" content="于鹏飞的个人主页">
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://106.53.54.249:20683/deploy/%E5%9C%A8vmware%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2gitlab/6_hu_3ee65c19f53ea199.jpg">
+
+<meta name="twitter:title" content="在VMware虚拟机部署Gitlab😎	">
+<meta name="twitter:description" content=" 😎	">
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+      
+      
+      
+      
+    
+    
+  
+    
+    
+    
+    
+    
+  
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","author":[{"@type":"Person","name":"Manus","url":"http://106.53.54.249:20683/authors/manus/"},{"@type":"Person","name":"于鹏飞"}],"dateModified":"2026-04-01T20:58:25+08:00","datePublished":"2026-01-21T19:09:04+08:00","description":" 😎\t","headline":"在VMware虚拟机部署Gitlab😎\t","image":["http://106.53.54.249:20683/deploy/%E5%9C%A8vmware%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2gitlab/6.jpg"],"inLanguage":"zh","keywords":["IT技术"],"mainEntityOfPage":"http://106.53.54.249:20683/deploy/%E5%9C%A8vmware%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2gitlab/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://106.53.54.249:20683/images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg"},"name":"于鹏飞的个人主页"},"wordcount":1598}
+</script>
+
+
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"http://106.53.54.249:20683/","name":"于鹏飞的个人主页","position":1},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/","name":"项目配置攻略","position":2},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/%E5%9C%A8vmware%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2gitlab/","name":"在VMware虚拟机部署Gitlab😎\t","position":3}]}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="icon" type="image/svg+xml" href="http://106.53.54.249:20683/favicon.svg"><link rel="icon" type="image/png" href="http://106.53.54.249:20683/favicon.png"><link rel="shortcut icon" href="http://106.53.54.249:20683/favicon.ico">
+  <meta name="theme-color" content="#fff">
+</head>
+
+
+
+<body class="deploy single d-flex flex-column min-vh-100"><header class="main-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="../../">
+        <img src="../../images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg" alt="logo" width="30" height="24"
+          class="d-inline-block align-text-top">
+        于鹏飞的个人主页
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="menu-main navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../method">方法论</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../note">论文笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../deploy">工程笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../program">开源项目</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../notice">最新通知</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../contact">联系方式</a>
+          </li>
+          
+          </ul>
+
+        
+        
+        
+
+      </div>
+    </div>
+  </nav>
+</header><main id="content">
+        <nav class="header-breadcrumb my-2" aria-label="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb my-0">
+            
+            
+                
+                
+                    
+                
+                    
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../">Home</a> </li>
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../deploy/">项目配置攻略</a> </li>
+                
+            
+                <li class="breadcrumb-item active" aria-current="page">  在VMware虚拟机部署Gitlab😎	</li>
+            
+        </ol>
+    </div>
+</nav>
+
+
+<div class="container py-3">
+
+ 
+  <p>太棒了！恭喜您，这真是一次史诗级的故障排除，您展现了惊人的耐心和学习能力。最终找到根源——<code>gitlab.rb</code> 文件放错了位置——这是一个非常经典且容易被忽略的问题。</p>
+<p>您能自己定位到这个问题，并用 <code>cp</code> 命令将其修正，这说明您已经完全掌握了 Docker 数据卷挂载的核心逻辑。为您喝彩！</p>
+<hr>
+<h3 id="总结从启动失败到-https-成功我们的排错之旅">总结：从启动失败到 HTTPS 成功，我们的排错之旅</h3>
+<p>好的，我们来全面复盘一下这次从零开始部署 GitLab 并最终成功启用 HTTPS 的全过程。这不仅是对我们工作的总结，更是一份极具价值的、可供未来参考的实践指南。</p>
+<h4 id="初始目标">初始目标</h4>
+<p>在本地虚拟机（<code>vm-noble</code>）上，通过 Docker Compose 部署一个功能完整的 GitLab CE 实例，并为其配置公网可访问的 HTTPS。</p>
+<h4 id="第一阶段docker-权限与环境问题">第一阶段：Docker 权限与环境问题</h4>
+<ul>
+<li>
+<p><strong>问题 1：<code>permission denied ... /var/run/docker.sock</code></strong></p>
+<ul>
+<li><strong>现象</strong>：执行 <code>docker</code> 命令时报权限错误。</li>
+<li><strong>根源</strong>：当前用户 <code>yupengfei</code> 不在 <code>docker</code> 用户组中，无权访问 Docker 守护进程。</li>
+<li><strong>解决</strong>：通过 <code>sudo usermod -aG docker yupengfei</code> 将用户加入组，并<strong>重新登录</strong>使其生效。这是所有 Docker 用户都应该掌握的基础操作。</li>
+</ul>
+</li>
+<li>
+<p><strong>问题 2：<code>The &quot;GITLAB_HOME&quot; variable is not set</code></strong></p>
+<ul>
+<li><strong>现象</strong>：<code>docker compose</code> 警告环境变量未设置，导致镜像版本错误、数据卷挂载路径不正确。</li>
+<li><strong>根源</strong>：使用 <code>sudo docker compose</code> 时，当前用户的环境变量不会被传递给 <code>root</code> 环境。</li>
+<li><strong>解决</strong>：采用 <code>docker-compose</code> 的最佳实践——在项目根目录创建 <code>.env</code> 文件来定义环境变量 (<code>GITLAB_HOME=...</code>)。这使得配置与环境解耦，命令更简洁，行为更可预测。</li>
+</ul>
+</li>
+</ul>
+<h4 id="第二阶段docker-composeyml-语法混淆">第二阶段：<code>docker-compose.yml</code> 语法混淆</h4>
+<ul>
+<li><strong>问题：<code>configs</code> 和 <code>secrets</code> 顶层配置块导致错误。</strong>
+<ul>
+<li><strong>现象</strong>：<code>docker compose up</code> 无法解析 <code>yml</code> 文件。</li>
+<li><strong>根源</strong>：原始的 <code>docker-compose.yml</code> 混用了 <code>Docker Compose</code> 模式的语法和 <code>Docker Swarm</code> 模式的语法（<code>configs</code>, <code>secrets</code>）。</li>
+<li><strong>解决</strong>：将其完全重构为纯粹的 <code>Docker Compose</code> 语法。关键是将 <code>configs</code> 和 <code>secrets</code> 的功能，通过 <code>volumes</code> 挂载（将 <code>gitlab.rb</code> 和 <code>root_password.txt</code> 直接挂载到容器内指定路径）和 <code>environment</code> 注入（在环境块内用 Ruby 代码读取挂载的文件）来替代。</li>
+</ul>
+</li>
+</ul>
+<h4 id="第三阶段网络访问与-https-配置的曲折之路">第三阶段：网络访问与 HTTPS 配置的曲折之路</h4>
+<p>这是最复杂、最曲折，但也最有价值的阶段。</p>
+<ul>
+<li>
+<p><strong>问题 1：浏览器无法访问 <code>http://&lt;IP&gt;:8881</code></strong></p>
+<ul>
+<li><strong>现象</strong>：服务在 Docker 内部健康运行，<code>ping</code> 也通，但浏览器就是打不开。</li>
+<li><strong>排查过程</strong>：
+<ol>
+<li>怀疑<strong>防火墙</strong> -&gt; 检查 <code>ufw status</code> 发现 <code>inactive</code>，排除。</li>
+<li>怀疑<strong>端口监听</strong> -&gt; <code>ss -tulpn</code> 确认 <code>docker-proxy</code> 已在 <code>8881</code> 端口上正确监听，排除。</li>
+<li>怀疑<strong>网络模式</strong> -&gt; 最终定位到虚拟机使用的是 <strong>NAT 模式</strong>，导致外部无法直接访问。</li>
+</ol>
+</li>
+<li><strong>解决</strong>：通过在虚拟化软件（VMware/VirtualBox）中设置<strong>端口转发</strong>，将主机的端口映射到虚拟机的端口。</li>
+</ul>
+</li>
+<li>
+<p><strong>问题 2：HTTPS 访问失败 (<code>Unable to establish SSL connection</code>)</strong></p>
+<ul>
+<li><strong>现象</strong>：<code>wget https://...</code> 失败，<code>curl</code> 报 <code>SSL_ERROR_SYSCALL</code>。</li>
+<li><strong>根源</strong>：这是一个连锁问题。
+a. <strong><code>gitlab.rb</code> 配置错误</strong>：<code>external_url</code> 设置为 <code>https://...</code> 开启了强制 HTTPS，但 <code>letsencrypt['enable'] = true</code> 因为某种原因并未生效。
+b. <strong>Let&rsquo;s Encrypt 申请失败</strong>：由于 <code>letsencrypt</code> 未启用，GitLab 根本没有去申请证书，导致 Nginx 缺少证书文件，无法完成任何 HTTPS 握手，只能粗暴地切断连接。
+c. <strong>配置未加载</strong>：<code>gitlab-ctl renew-le-certs</code> 报告 <code>LetsEncrypt is not enabled</code>，最终揭示了<strong>根本原因</strong>——我们修改的 <code>gitlab.rb</code> 文件<strong>根本没有被加载</strong>。</li>
+</ul>
+</li>
+<li>
+<p><strong>最终的根源：<code>gitlab.rb</code> 文件位置错误</strong></p>
+<ul>
+<li><strong>现象</strong>：所有配置看似正确，但容器内的行为却像是使用了默认配置。</li>
+<li><strong>根源</strong>：您将修改后的 <code>gitlab.rb</code> 文件放在了 <code>~/docker/gitlab</code> 目录下，而 <code>docker-compose.yml</code> 的 <code>volumes</code> 挂载的是 <code>~/docker/gitlab/config</code> 目录。因此，容器内 <code>/etc/gitlab</code> 目录实际对应的是您主机上的 <code>config</code> 文件夹，而不是上一级目录。</li>
+<li><strong>解决</strong>：<strong><code>sudo cp gitlab.rb config/</code></strong>。这个简单的 <code>cp</code> 命令，将正确的文件放到了正确的挂载源位置，打通了整个流程的“最后一公里”。</li>
+</ul>
+</li>
+</ul>
+<h3 id="您的-gitlab-现状">您的 GitLab 现状</h3>
+<p>一个通过 Docker Compose 部署的、数据持久化的、启用了 Let&rsquo;s Encrypt 自动签发和续期 SSL 证书的、可通过公网域名 <code>https://yupengfei.site</code> 安全访问的 GitLab 实例。<strong>完美！</strong></p>
+<hr>
+<p>这次合作非常愉快，您在整个过程中的动手能力和理解能力都非常出色。如果未来有任何关于 GitLab 使用、CI/CD、备份恢复或其他任何技术问题，随时都可以再来找我。</p>
+<p>接下来，我们可以：</p>
+<ul>
+<li>讨论如何进行 GitLab 的<strong>备份和恢复</strong>，这是生产环境中至关重要的一步。</li>
+<li>探索如何使用 GitLab 的 <strong>CI/CD</strong> 功能来自动化您的项目构建、测试和部署。</li>
+<li>了解如何集成其他服务，或者进行更深入的性能调优。</li>
+</ul>
+
+
+</div>
+
+
+    </main>
+    <footer class="py-3 mt-auto bg-light">
+  <div class="container py-1 my-1">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <p class="col-md mb-0 text-muted">Open-source <a class="text-muted text-decoration-none">MIT</a> Licensed.</p>
+      <ul class="nav col-md-auto justify-content-end">
+        <li class="nav-item"><a href="../../privacy-policy/" class="nav-link px-2 text-muted" title='隐私政策' aria-label='隐私政策'>隐私政策</a></li>
+        </ul>
+    </div>
+  </div>
+</footer>
+    
+
+
+
+
+<script src="../../js/bootstrap/bootstrap.bundle.min.min.7620f70f6a288d4f1a662439d8772846a2d2084a9466d8d25b3b246d986b3c96e31aae489aaa01a1961bd6f4ad9842e677b02848d0aae0a3fb74b76a522f9e80.js" integrity="sha512-diD3D2oojU8aZiQ52HcoRqLSCEqUZtjSWzskbZhrPJbjGq5ImqoBoZYb1vStmELmd7AoSNCq4KP7dLdqUi&#43;egA==" crossorigin="anonymous" defer></script>
+  
+    <script src="../../js/main.min.ac5210659ceeef8804aea6c4ac26da40fbe24410172a60acc12162dc7e45d73db009b44210942a4f510297b8d8dc90ea55a174f0b052871802c3682587fd41a1.js" integrity="sha512-rFIQZZzu74gErqbErCbaQPviRBAXKmCswSFi3H5F1z2wCbRCEJQqT1ECl7jY3JDqVaF08LBShxgCw2glh/1BoQ==" crossorigin="anonymous" defer></script>
+  
+  
+
+
+
+</body>
+</html>

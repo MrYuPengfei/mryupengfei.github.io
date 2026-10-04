@@ -1,0 +1,13 @@
+/* Add your custom css here. This will override any existing theme css */
+/* 全局图片自适应：适配手机/电脑，永不溢出、不变形、自动居中 | 强制生效 */
+/* Hugo v0.152.2 纯MD图片全局样式：宽度+居中+防变形，强制生效 */
+.markdown-body img,
+.content img,
+.post-content img {
+    max-width: 95% !important;  /* 全局图片宽度95%，适配所有设备 */
+    width: auto !important;     /* 禁止拉伸，自动适配 */
+    height: auto !important;    /* 高度必加！自动等比缩放，杜绝变形 */
+    display: block !important;
+    margin: 0 auto !important;  /* 强制水平居中 */
+    border: none !important;
+}

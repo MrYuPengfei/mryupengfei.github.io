@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+
+    
+<meta http-equiv='Content-Security-Policy' content="script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'">
+
+    
+
+<link rel="stylesheet" href="../../css/style.7146bb5d410f5db4e7376460bb67bb578ab9578629665e69825acbaa68fe84ae82fb3b12be15fcb3fe3c9752f7d970600d538eb8bbbe5bfc658484f88f7ca79d.css" media="screen" integrity="sha512-cUa7XUEPXbTnN2Rgu2e7V4q5V4YpZl5pglrLqmj&#43;hK6C&#43;zsSvhX8s/48l1L32XBgDVOOuLu&#43;W/xlhIT4j3ynnQ==" crossorigin="anonymous">
+
+    <title>如何在hugo中设置文章头 😎	</title>
+
+<meta name="description" content=" 😎	">
+
+
+
+<link rel="canonical" href="http://106.53.54.249:20683/deploy/%E5%A6%82%E4%BD%95%E5%9C%A8hugo%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%96%87%E7%AB%A0%E5%A4%B4/">
+
+
+<link rel="alternate" hreflang="zh" href="http://106.53.54.249:20683/deploy/%E5%A6%82%E4%BD%95%E5%9C%A8hugo%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%96%87%E7%AB%A0%E5%A4%B4/">
+
+
+
+<link rel="alternate" hreflang="x-default" href="http://106.53.54.249:20683/deploy/%E5%A6%82%E4%BD%95%E5%9C%A8hugo%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%96%87%E7%AB%A0%E5%A4%B4/">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="如何在hugo中设置文章头 😎	">
+<meta property="og:description" content=" 😎	"><meta property="og:type" content="article">
+<meta property="og:url" content="http://106.53.54.249:20683/deploy/%E5%A6%82%E4%BD%95%E5%9C%A8hugo%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%96%87%E7%AB%A0%E5%A4%B4/">
+<meta property="og:image" content="http://106.53.54.249:20683/deploy/%E5%A6%82%E4%BD%95%E5%9C%A8hugo%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%96%87%E7%AB%A0%E5%A4%B4/3_hu_511ece29b0eb52d8.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="600">
+  
+    <meta property="article:section" content="deploy">
+  
+  
+    <meta property="article:published_time" content="2026-01-18T19:09:04+08:00">
+  
+  
+    <meta property="article:modified_time" content="2026-04-01T20:58:25+08:00">
+  
+  <meta property="og:locale" content="zh">
+
+  <meta property="og:site_name" content="于鹏飞的个人主页">
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://106.53.54.249:20683/deploy/%E5%A6%82%E4%BD%95%E5%9C%A8hugo%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%96%87%E7%AB%A0%E5%A4%B4/3_hu_8d9815731fe409f9.jpg">
+
+<meta name="twitter:title" content="如何在hugo中设置文章头 😎	">
+<meta name="twitter:description" content=" 😎	">
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","dateModified":"2026-04-01T20:58:25+08:00","datePublished":"2026-01-18T19:09:04+08:00","description":" 😎\t","headline":"如何在hugo中设置文章头 😎\t","image":["http://106.53.54.249:20683/deploy/%E5%A6%82%E4%BD%95%E5%9C%A8hugo%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%96%87%E7%AB%A0%E5%A4%B4/3.jpg"],"inLanguage":"zh","keywords":["IT技术"],"mainEntityOfPage":"http://106.53.54.249:20683/deploy/%E5%A6%82%E4%BD%95%E5%9C%A8hugo%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%96%87%E7%AB%A0%E5%A4%B4/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://106.53.54.249:20683/images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg"},"name":"于鹏飞的个人主页"},"wordcount":1304}
+</script>
+
+
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"http://106.53.54.249:20683/","name":"于鹏飞的个人主页","position":1},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/","name":"项目配置攻略","position":2},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/%E5%A6%82%E4%BD%95%E5%9C%A8hugo%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%96%87%E7%AB%A0%E5%A4%B4/","name":"如何在hugo中设置文章头 😎\t","position":3}]}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="icon" type="image/svg+xml" href="http://106.53.54.249:20683/favicon.svg"><link rel="icon" type="image/png" href="http://106.53.54.249:20683/favicon.png"><link rel="shortcut icon" href="http://106.53.54.249:20683/favicon.ico">
+  <meta name="theme-color" content="#fff">
+</head>
+
+
+
+<body class="deploy single d-flex flex-column min-vh-100"><header class="main-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="../../">
+        <img src="../../images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg" alt="logo" width="30" height="24"
+          class="d-inline-block align-text-top">
+        于鹏飞的个人主页
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="menu-main navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../method">方法论</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../note">论文笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../deploy">工程笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../program">开源项目</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../notice">最新通知</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../contact">联系方式</a>
+          </li>
+          
+          </ul>
+
+        
+        
+        
+
+      </div>
+    </div>
+  </nav>
+</header><main id="content">
+        <nav class="header-breadcrumb my-2" aria-label="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb my-0">
+            
+            
+                
+                
+                    
+                
+                    
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../">Home</a> </li>
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../deploy/">项目配置攻略</a> </li>
+                
+            
+                <li class="breadcrumb-item active" aria-current="page">  如何在hugo中设置文章头 😎	</li>
+            
+        </ol>
+    </div>
+</nav>
+
+
+<div class="container py-3">
+
+ 
+  <p>这是一个非常核心的 Hugo 功能。<code>hugo new content</code> 命令生成的文章内容的默认模板头（即 front matter）是在 <strong>archetypes</strong>（原型）目录中设置的。</p>
+<h3 id="核心概念archetypes-原型">核心概念：Archetypes (原型)</h3>
+<p>你可以把 Archetype 文件想象成一个“蓝图”或“模板”。当你使用 <code>hugo new content &lt;SECTION&gt;/&lt;FILENAME&gt;.md</code> 命令创建一个新的内容文件时，Hugo 会执行以下逻辑：</p>
+<ol>
+<li>它会去你的项目根目录下的 <code>archetypes</code> 文件夹里寻找一个与 <code>&lt;SECTION&gt;</code> 同名的 <code>.md</code> 文件。</li>
+<li>如果找到了（例如 <code>archetypes/posts.md</code>），Hugo 就会使用这个文件的内容作为新创建的 <code>content/posts/new-post.md</code> 文件的初始内容。</li>
+<li>如果没有找到特定 section 的原型文件，Hugo 会使用 <code>archetypes/default.md</code> 这个文件。</li>
+<li>如果连 <code>archetypes/default.md</code> 都没有，Hugo 会生成一个只包含最基本 front matter 的文件（通常只有 <code>title</code>, <code>date</code>, 和 <code>draft: true</code>）。</li>
+</ol>
+<h3 id="如何设置和修改默认模板">如何设置和修改默认模板</h3>
+<h4 id="1-找到或创建-defaultmd">1. 找到或创建 <code>default.md</code></h4>
+<p>这是控制所有未指定类型内容（或者说，没有自己专属原型的内容）的全局默认模板。</p>
+<ul>
+<li>
+<p><strong>位置：</strong> <code>你的Hugo项目根目录/archetypes/default.md</code></p>
+</li>
+<li>
+<p><strong>如果文件不存在：</strong> 你可以自己创建一个。</p>
+</li>
+<li>
+<p><strong>默认内容通常是这样的：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;{{ replace .Name &#34;</span>-<span style="color:#e6db74">&#34; &#34;</span> <span style="color:#e6db74">&#34; | title }}&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">date</span>: {{ <span style="color:#ae81ff">.Date }}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">draft</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>---
+</span></span></code></pre></div><p><strong>解释一下这些变量：</strong></p>
+<ul>
+<li><code>{{ .Name }}</code>: 这是你创建文件时提供的文件名（不含扩展名）。</li>
+<li><code>{{ replace .Name &quot;-&quot; &quot; &quot; | title }}</code>: 这是一个 Hugo 函数链。它会获取文件名，把所有的连字符 (<code>-</code>) 替换成空格，然后将每个单词的首字母大写，生成一个更适合阅读的标题。例如，<code>my-first-post</code> 会变成 <code>My First Post</code>。</li>
+<li><code>{{ .Date }}</code>: 这是文件创建时的当前日期和时间。</li>
+<li><code>draft: true</code>: 这是一个非常有用的设置，它将新创建的文章标记为“草稿”。草稿状态的文章在默认情况下不会被构建到最终的网站中（即 <code>hugo</code> 命令不会处理它）。这可以防止你意外地发布一篇还没写完的文章。当你完成写作后，可以把 <code>draft</code> 改为 <code>false</code> 或者直接删除这一行。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-创建特定内容类型的模板-例如-posts">2. 创建特定内容类型的模板 (例如 <code>posts</code>)</h4>
+<p>假设你的网站有一个“博客”部分，内容都放在 <code>content/posts/</code> 目录下。你可以为所有新的博客文章创建一个专门的模板。</p>
+<ul>
+<li>
+<p><strong>位置：</strong> <code>你的Hugo项目根目录/archetypes/posts.md</code></p>
+</li>
+<li>
+<p><strong>操作：</strong> 创建这个文件，并填入你希望博客文章拥有的默认 front matter。</p>
+</li>
+<li>
+<p><strong>示例 <code>archetypes/posts.md</code>:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;{{ replace .Name &#34;</span>-<span style="color:#e6db74">&#34; &#34;</span> <span style="color:#e6db74">&#34; | title }}&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">date</span>: {{ <span style="color:#ae81ff">.Date }}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">author</span>: <span style="color:#e6db74">&#34;你的名字&#34;</span>  <span style="color:#75715e"># 可以硬编码一个默认作者</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">tags</span>: []             <span style="color:#75715e"># 添加一个空的标签数组，方便后续填写</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">categories</span>: [<span style="color:#e6db74">&#34;技术分享&#34;</span>] <span style="color:#75715e"># 设置一个默认分类</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">description</span>: <span style="color:#e6db74">&#34;&#34;</span>      <span style="color:#75715e"># 添加一个空的描述字段</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">draft</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 在这里开始你的正文 --&gt;</span>
+</span></span></code></pre></div></li>
+</ul>
+<p><strong>现在，当你运行命令：</strong></p>
+<ul>
+<li>
+<p><code>hugo new content posts/my-awesome-post.md</code></p>
+<ul>
+<li>Hugo 会使用 <code>archetypes/posts.md</code> 作为模板。</li>
+</ul>
+</li>
+<li>
+<p><code>hugo new content about.md</code></p>
+<ul>
+<li>由于没有 <code>archetypes/about.md</code>，Hugo 会回退使用 <code>archetypes/default.md</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结">总结</h3>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">你想做什么</th>
+					<th style="text-align: left">操作</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>修改所有内容的默认模板</strong></td>
+					<td style="text-align: left">编辑或创建 <code>archetypes/default.md</code> 文件。</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>为特定内容区（如博客）创建模板</strong></td>
+					<td style="text-align: left">在 <code>archetypes/</code> 目录下创建一个与内容区同名的 Markdown 文件，例如 <code>archetypes/posts.md</code>。</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>添加自定义字段</strong></td>
+					<td style="text-align: left">直接在你选择的原型文件的 front matter（<code>---</code> 之间）添加新的键值对，例如 <code>featured: false</code>。</td>
+			</tr>
+	</tbody>
+</table>
+<p>这个 Archetypes 功能是 Hugo 自动化和规范化内容创作流程的关键，善用它可以大大提高你的写作效率。</p>
+<hr>
+<p>接下来，我们可以探讨以下相关主题：</p>
+<ul>
+<li>如何在 Hugo 模板中有效地使用 <code>tags</code> 和 <code>categories</code> (分类法)？</li>
+<li>解释 Hugo 中的 <code>Page Bundles</code> (页面包) 是什么，以及如何组织文章和相关资源（如图片）。</li>
+<li>如何创建一个自定义的 Shortcode 来在 Markdown 中嵌入复杂的内容？</li>
+</ul>
+
+
+</div>
+
+
+    </main>
+    <footer class="py-3 mt-auto bg-light">
+  <div class="container py-1 my-1">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <p class="col-md mb-0 text-muted">Open-source <a class="text-muted text-decoration-none">MIT</a> Licensed.</p>
+      <ul class="nav col-md-auto justify-content-end">
+        <li class="nav-item"><a href="../../privacy-policy/" class="nav-link px-2 text-muted" title='隐私政策' aria-label='隐私政策'>隐私政策</a></li>
+        </ul>
+    </div>
+  </div>
+</footer>
+    
+
+
+
+
+<script src="../../js/bootstrap/bootstrap.bundle.min.min.7620f70f6a288d4f1a662439d8772846a2d2084a9466d8d25b3b246d986b3c96e31aae489aaa01a1961bd6f4ad9842e677b02848d0aae0a3fb74b76a522f9e80.js" integrity="sha512-diD3D2oojU8aZiQ52HcoRqLSCEqUZtjSWzskbZhrPJbjGq5ImqoBoZYb1vStmELmd7AoSNCq4KP7dLdqUi&#43;egA==" crossorigin="anonymous" defer></script>
+  
+    <script src="../../js/main.min.ac5210659ceeef8804aea6c4ac26da40fbe24410172a60acc12162dc7e45d73db009b44210942a4f510297b8d8dc90ea55a174f0b052871802c3682587fd41a1.js" integrity="sha512-rFIQZZzu74gErqbErCbaQPviRBAXKmCswSFi3H5F1z2wCbRCEJQqT1ECl7jY3JDqVaF08LBShxgCw2glh/1BoQ==" crossorigin="anonymous" defer></script>
+  
+  
+
+
+
+</body>
+</html>

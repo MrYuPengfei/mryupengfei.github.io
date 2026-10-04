@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+
+    
+<meta http-equiv='Content-Security-Policy' content="script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'">
+
+    
+
+<link rel="stylesheet" href="../../css/style.7146bb5d410f5db4e7376460bb67bb578ab9578629665e69825acbaa68fe84ae82fb3b12be15fcb3fe3c9752f7d970600d538eb8bbbe5bfc658484f88f7ca79d.css" media="screen" integrity="sha512-cUa7XUEPXbTnN2Rgu2e7V4q5V4YpZl5pglrLqmj&#43;hK6C&#43;zsSvhX8s/48l1L32XBgDVOOuLu&#43;W/xlhIT4j3ynnQ==" crossorigin="anonymous">
+
+    <title>Matrix 聊天服务器 🎠</title>
+
+<meta name="description" content="使用 Docker &#43; frp 在内网零成本搭建可通过公网访问的 Matrix 聊天服务器">
+
+
+
+<link rel="canonical" href="http://106.53.54.249:20683/deploy/matrix-%E8%81%8A%E5%A4%A9%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+
+<link rel="alternate" hreflang="zh" href="http://106.53.54.249:20683/deploy/matrix-%E8%81%8A%E5%A4%A9%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+
+
+<link rel="alternate" hreflang="x-default" href="http://106.53.54.249:20683/deploy/matrix-%E8%81%8A%E5%A4%A9%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="Matrix 聊天服务器 🎠">
+<meta property="og:description" content="使用 Docker &#43; frp 在内网零成本搭建可通过公网访问的 Matrix 聊天服务器"><meta property="og:type" content="article">
+<meta property="og:url" content="http://106.53.54.249:20683/deploy/matrix-%E8%81%8A%E5%A4%A9%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+<meta property="og:image" content="http://106.53.54.249:20683/deploy/matrix-%E8%81%8A%E5%A4%A9%E6%9C%8D%E5%8A%A1%E5%99%A8/doubao7_hu_cac8179c9932fb74.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="600">
+  
+    <meta property="article:section" content="deploy">
+  
+  
+    <meta property="article:published_time" content="2026-01-16T17:30:34+08:00">
+  
+  
+    <meta property="article:modified_time" content="2026-04-01T20:58:25+08:00">
+  
+  <meta property="og:locale" content="zh">
+
+  <meta property="og:site_name" content="于鹏飞的个人主页">
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://106.53.54.249:20683/deploy/matrix-%E8%81%8A%E5%A4%A9%E6%9C%8D%E5%8A%A1%E5%99%A8/doubao7_hu_926609a2dc4d4351.jpg">
+
+<meta name="twitter:title" content="Matrix 聊天服务器 🎠">
+<meta name="twitter:description" content="使用 Docker &#43; frp 在内网零成本搭建可通过公网访问的 Matrix 聊天服务器">
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","dateModified":"2026-04-01T20:58:25+08:00","datePublished":"2026-01-16T17:30:34+08:00","description":"使用 Docker + frp 在内网零成本搭建可通过公网访问的 Matrix 聊天服务器","headline":"Matrix 聊天服务器 🎠","image":["http://106.53.54.249:20683/deploy/matrix-%E8%81%8A%E5%A4%A9%E6%9C%8D%E5%8A%A1%E5%99%A8/doubao7.jpg"],"inLanguage":"zh","keywords":["Docker","Matrix","Synapse","frp","内网穿透","自托管","技术方案"],"mainEntityOfPage":"http://106.53.54.249:20683/deploy/matrix-%E8%81%8A%E5%A4%A9%E6%9C%8D%E5%8A%A1%E5%99%A8/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://106.53.54.249:20683/images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg"},"name":"于鹏飞的个人主页"},"wordcount":4264}
+</script>
+
+
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"http://106.53.54.249:20683/","name":"于鹏飞的个人主页","position":1},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/","name":"项目配置攻略","position":2},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/matrix-%E8%81%8A%E5%A4%A9%E6%9C%8D%E5%8A%A1%E5%99%A8/","name":"Matrix 聊天服务器 🎠","position":3}]}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="icon" type="image/svg+xml" href="http://106.53.54.249:20683/favicon.svg"><link rel="icon" type="image/png" href="http://106.53.54.249:20683/favicon.png"><link rel="shortcut icon" href="http://106.53.54.249:20683/favicon.ico">
+  <meta name="theme-color" content="#fff">
+</head>
+
+
+
+<body class="deploy single d-flex flex-column min-vh-100"><header class="main-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="../../">
+        <img src="../../images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg" alt="logo" width="30" height="24"
+          class="d-inline-block align-text-top">
+        于鹏飞的个人主页
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="menu-main navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../method">方法论</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../note">论文笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../deploy">工程笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../program">开源项目</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../notice">最新通知</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../contact">联系方式</a>
+          </li>
+          
+          </ul>
+
+        
+        
+        
+
+      </div>
+    </div>
+  </nav>
+</header><main id="content">
+        <nav class="header-breadcrumb my-2" aria-label="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb my-0">
+            
+            
+                
+                
+                    
+                
+                    
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../">Home</a> </li>
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../deploy/">项目配置攻略</a> </li>
+                
+            
+                <li class="breadcrumb-item active" aria-current="page">  Matrix 聊天服务器 🎠</li>
+            
+        </ol>
+    </div>
+</nav>
+
+
+<div class="container py-3">
+
+ 
+  <h2 id="部署架构图">部署架构图</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Plain" data-lang="Plain"><span style="display:flex;"><span>      公网用户 (Internet)
+</span></span><span style="display:flex;"><span>            |
+</span></span><span style="display:flex;"><span>            | (访问 matrix.your-domain.com 和 element.your-domain.com)
+</span></span><span style="display:flex;"><span>            v
+</span></span><span style="display:flex;"><span>+---------------------------+
+</span></span><span style="display:flex;"><span>|   云服务器 (有公网 IP)    |
+</span></span><span style="display:flex;"><span>|---------------------------|
+</span></span><span style="display:flex;"><span>|   - Nginx (处理 HTTPS)    |
+</span></span><span style="display:flex;"><span>|   - frps (接收 frpc 连接) |
+</span></span><span style="display:flex;"><span>+---------------------------+
+</span></span><span style="display:flex;"><span>            ^
+</span></span><span style="display:flex;"><span>            | (frp 隧道)
+</span></span><span style="display:flex;"><span>            |
+</span></span><span style="display:flex;"><span>+---------------------------+
+</span></span><span style="display:flex;"><span>|  内网服务器 (无公网 IP)   |
+</span></span><span style="display:flex;"><span>|---------------------------|
+</span></span><span style="display:flex;"><span>|   - frpc (连接到 frps)    |
+</span></span><span style="display:flex;"><span>|   - Matrix (Synapse)      |
+</span></span><span style="display:flex;"><span>|   - Element (Web)         |
+</span></span><span style="display:flex;"><span>|   - PostgreSQL 数据库     |
+</span></span><span style="display:flex;"><span>+---------------------------+
+</span></span></code></pre></div><h2 id="摘要">摘要</h2>
+<p>本文旨在为技术爱好者提供一份详尽的指南，介绍如何利用 Docker 容器化技术和 frp 内网穿透工具，在没有公网 IP 的家庭或办公网络环境中，成功部署并运维一套功能完整的 Matrix 去中心化即时通讯服务。我们将深入探讨其实现原理、技术方案选型，并提供从零开始的、可复现的部署步骤。</p>
+<h2 id="一背景与动机">一、背景与动机</h2>
+<p>在数据隐私日益受到重视的今天，将通讯掌握在自己手中，摆脱对中心化商业聊天软件的依赖，成为许多人的诉求。<a href="https://matrix.org/" target="_blank" rel="noopener">Matrix</a> 是一个开放的、去中心化的实时通信协议，它允许任何人搭建自己的服务器（称为 Homeserver），并能与其他 Matrix 服务器实现互联互通（联邦），构建一个真正开放的通信网络。</p>
+<p>然而，部署自托管服务的一大障碍是缺乏固定的公网 IP 地址。本教程将解决这一痛点，通过结合使用一台廉价的云服务器（VPS）和 frp 工具，实现稳定、高效的内网穿透，让你的私人 Matrix 服务器能够被全球互联网访问。</p>
+<h2 id="二技术方案与实现原理">二、技术方案与实现原理</h2>
+<h3 id="21-核心组件">2.1 核心组件</h3>
+<p>我们的技术方案由以下几个关键组件构成：</p>
+<ul>
+<li><strong>Matrix Synapse</strong>: Matrix 协议最成熟的服务器实现，是整个通讯服务的大脑。</li>
+<li><strong>Element Web</strong>: 一款功能丰富的 Matrix 网页客户端，为用户提供图形化交互界面。</li>
+<li><strong>PostgreSQL</strong>: 高性能的关系型数据库，用于存储 Synapse 的所有数据，性能优于默认的 SQLite。</li>
+<li><strong>frp (Fast Reverse Proxy)</strong>: 一款轻量级、高性能的反向代理工具，是实现内网穿透的核心。它包含两部分：
+<ul>
+<li><code>frps</code> (服务端): 部署在有公网 IP 的云服务器上。</li>
+<li><code>frpc</code> (客户端): 部署在内网 Matrix 服务器旁。</li>
+</ul>
+</li>
+<li><strong>Nginx</strong>: 成熟的 Web 服务器和反向代理，部署在云服务器上，负责处理 HTTPS 加密、SSL 证书管理，并将公网流量转发给 <code>frps</code>。</li>
+<li><strong>Docker &amp; Docker Compose</strong>: 容器化技术，用于隔离和管理所有服务的运行环境，实现一键部署和轻松迁移。</li>
+</ul>
+<h3 id="22-工作流程与原理">2.2 工作流程与原理</h3>
+<p>整个系统的请求流程如下：</p>
+<ol>
+<li><strong>DNS 解析</strong>: 当用户访问 <code>element.your-domain.com</code> 或 <code>matrix.your-domain.com</code> 时，DNS 服务器将域名解析到你的<strong>云服务器公网 IP</strong>。</li>
+<li><strong>HTTPS 流量接收</strong>: 云服务器上的 <strong>Nginx</strong> 在 443 端口接收到 HTTPS 请求。它负责处理 TLS 握手，解密流量，将加密的 HTTPS 流量变为原始的 HTTP 流量。</li>
+<li><strong>一级反向代理 (Nginx -&gt; frps)</strong>: Nginx 根据请求的域名 (<code>Host</code> 头)，将 HTTP 流量转发到本机（<code>127.0.0.1</code>）上由 <code>frps</code> 监听的不同端口（例如，<code>matrix.*</code> 的流量给 <code>8008</code> 端口，<code>element.*</code> 的流量给 <code>8009</code> 端口）。</li>
+<li><strong>内网穿透 (frps -&gt; frpc)</strong>: <code>frps</code> 收到流量后，通过在启动时已建立的、由 <code>frpc</code> 从内网主动发起的长连接隧道，将流量精确地转发给内网的 <strong><code>frpc</code></strong> 客户端。</li>
+<li><strong>二级反向代理 (frpc -&gt; 服务容器)</strong>: 内网的 <code>frpc</code> 收到流量后，根据自身的配置，将流量转发给 Docker 网络内的相应服务容器（例如，转发给 <code>synapse</code> 容器的 <code>8008</code> 端口或 <code>element</code> 容器的 <code>80</code> 端口）。</li>
+<li><strong>服务处理与响应</strong>: Matrix 服务容器处理请求，并将响应沿原路返回给用户。</li>
+</ol>
+<p>通过这个流程，我们巧妙地将一个无法从公网直接访问的内网服务，安全、高效地暴露了出去。</p>
+<h2 id="三部署前准备">三、部署前准备</h2>
+<p>在开始之前，请确保你已准备好以下“原材料”：</p>
+<ol>
+<li>
+<p><strong>一台有公网 IP 的云服务器 (VPS)</strong></p>
+<ul>
+<li><strong>用途</strong>: 运行 <code>frps</code> 和 Nginx。</li>
+<li><strong>配置</strong>: 1核 CPU / 1GB 内存足矣。</li>
+<li><strong>系统</strong>: 推荐 Ubuntu 22.04。</li>
+<li><strong>防火墙</strong>: 确保开放 TCP 端口 <code>80</code>, <code>443</code>, <code>7000</code> (frp 绑定端口)。</li>
+</ul>
+</li>
+<li>
+<p><strong>一台性能稍好的内网服务器</strong></p>
+<ul>
+<li><strong>用途</strong>: 运行 Matrix 核心服务和 <code>frpc</code>。</li>
+<li><strong>配置</strong>: 建议至少 2核 CPU / 2GB 内存。</li>
+<li><strong>系统</strong>: 同样推荐 Ubuntu 22.04。</li>
+</ul>
+</li>
+<li>
+<p><strong>一个你自己的域名</strong></p>
+<ul>
+<li>例如 <code>your-domain.com</code>。你将需要配置它的 DNS 解析。</li>
+</ul>
+</li>
+<li>
+<p><strong>安装 Docker 和 Docker Compose</strong></p>
+<ul>
+<li>在<strong>云服务器</strong>和<strong>内网服务器</strong>上都必须安装。</li>
+<li>可以使用官方一键安装脚本：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 安装 Docker</span>
+</span></span><span style="display:flex;"><span>curl -fsSL https://get.docker.com -o get-docker.sh
+</span></span><span style="display:flex;"><span>sudo sh get-docker.sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装 Docker Compose 插件</span>
+</span></span><span style="display:flex;"><span>sudo apt-get update <span style="color:#f92672">&amp;&amp;</span> sudo apt-get install -y docker-compose-plugin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 将当前用户添加到 docker 组以实现免 sudo 操作</span>
+</span></span><span style="display:flex;"><span>sudo usermod -aG docker $USER
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 退出并重新登录 SSH 使其生效</span>
+</span></span><span style="display:flex;"><span>exit
+</span></span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><strong>配置 DNS 解析</strong></p>
+<ul>
+<li><strong>关键步骤</strong>: 登录你的域名提供商（如 Cloudflare, GoDaddy），添加两条 <code>A</code> 记录，将子域名<strong>全部指向你的云服务器公网 IP</strong>。
+<ul>
+<li><code>matrix.your-domain.com</code>  -&gt;  <code>你的云服务器公网IP</code></li>
+<li><code>element.your-domain.com</code> -&gt;  <code>你的云服务器公网IP</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="四第一部分配置云服务器-frps--nginx">四、第一部分：配置云服务器 (frps + Nginx)</h2>
+<p>这部分操作在你的<strong>云服务器</strong>上进行。</p>
+<h3 id="41-创建目录和文件">4.1 创建目录和文件</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir frp-server <span style="color:#f92672">&amp;&amp;</span> cd frp-server
+</span></span><span style="display:flex;"><span>touch frps.toml nginx.conf docker-compose.yml
+</span></span></code></pre></div><h3 id="42-编写-frpstoml-frp-服务端配置">4.2 编写 <code>frps.toml</code> (frp 服务端配置)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#75715e"># frp-server/frps.toml</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">bindPort</span> = <span style="color:#ae81ff">7000</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置一个复杂的认证令牌，确保只有你的客户端能连接</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">auth</span>.<span style="color:#a6e22e">token</span> = <span style="color:#e6db74">&#34;YOUR_VERY_SECRET_FRP_TOKEN&#34;</span>
+</span></span></code></pre></div><h3 id="43-编写-docker-composeyml">4.3 编写 <code>docker-compose.yml</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># frp-server/docker-compose.yml</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.8&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">frps</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">snowdreamtech/frps:0.52.3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">frps</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">unless-stopped</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./frps.toml:/etc/frp/frps.toml</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;7000:7000&#34;</span>      <span style="color:#75715e"># frp 客户端连接端口</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;8008:8008&#34;</span>      <span style="color:#75715e"># 为 Synapse 预留的转发端口</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;8009:8009&#34;</span>      <span style="color:#75715e"># 为 Element 预留的转发端口</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">frp-net</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">nginx</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">nginx_proxy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">unless-stopped</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;80:80&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;443:443&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./nginx.conf:/etc/nginx/nginx.conf:ro</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./certs:/etc/nginx/certs</span> <span style="color:#75715e"># SSL 证书存放目录</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">frp-net</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">frp-net</span>:
+</span></span></code></pre></div><h3 id="44-获取-ssl-证书-使用-certbot">4.4 获取 SSL 证书 (使用 Certbot)</h3>
+<p>我们先用一个临时的 Nginx 配置来完成 Let&rsquo;s Encrypt 的 HTTP-01 质询。</p>
+<p><strong>临时 <code>nginx.conf</code></strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-nginx" data-lang="nginx"><span style="display:flex;"><span><span style="color:#75715e"># frp-server/nginx.conf (临时)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">events</span> {}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">http</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">server_name</span> <span style="color:#e6db74">matrix.your-domain.com</span> <span style="color:#e6db74">element.your-domain.com</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/.well-known/acme-challenge/</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">root</span> <span style="color:#e6db74">/var/www/certbot</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><em>将 <code>your-domain.com</code> 替换为你的域名。</em></p>
+<p><strong>执行证书申请</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker compose up -d nginx
+</span></span><span style="display:flex;"><span>sudo mkdir -p ./certbot/www
+</span></span><span style="display:flex;"><span>docker run --rm <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -v <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">/certs:/etc/letsencrypt&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -v <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">/certbot/www:/var/www/certbot&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  certbot/certbot certonly --webroot -w /var/www/certbot <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --email your-email@example.com <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -d matrix.your-domain.com <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -d element.your-domain.com <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --agree-tos -n
+</span></span><span style="display:flex;"><span>docker compose down
+</span></span></code></pre></div><p><em>请替换你的邮箱和域名。</em></p>
+<h3 id="45-编写最终-nginxconf-并启动服务">4.5 编写最终 <code>nginx.conf</code> 并启动服务</h3>
+<p>证书申请成功后，用下面的最终配置覆盖 <code>nginx.conf</code>。</p>
+<p><strong>最终 <code>nginx.conf</code></strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-nginx" data-lang="nginx"><span style="display:flex;"><span><span style="color:#75715e"># frp-server/nginx.conf (最终)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">worker_processes</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">events</span> { <span style="color:#f92672">worker_connections</span> <span style="color:#ae81ff">1024</span>; }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">http</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">server_name</span> <span style="color:#e6db74">matrix.your-domain.com</span> <span style="color:#e6db74">element.your-domain.com</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/.well-known/acme-challenge/</span> { <span style="color:#f92672">root</span> <span style="color:#e6db74">/var/www/certbot</span>; }
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> { <span style="color:#f92672">return</span> <span style="color:#ae81ff">301</span> <span style="color:#e6db74">https://</span>$host$request_uri; }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">listen</span> <span style="color:#ae81ff">443</span> <span style="color:#e6db74">ssl</span> <span style="color:#e6db74">http2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">server_name</span> <span style="color:#e6db74">element.your-domain.com</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ssl_certificate</span> <span style="color:#e6db74">/etc/nginx/certs/live/matrix.your-domain.com/fullchain.pem</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ssl_certificate_key</span> <span style="color:#e6db74">/etc/nginx/certs/live/matrix.your-domain.com/privkey.pem</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://127.0.0.1:8009</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> $host;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">listen</span> <span style="color:#ae81ff">443</span> <span style="color:#e6db74">ssl</span> <span style="color:#e6db74">http2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">server_name</span> <span style="color:#e6db74">matrix.your-domain.com</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ssl_certificate</span> <span style="color:#e6db74">/etc/nginx/certs/live/matrix.your-domain.com/fullchain.pem</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ssl_certificate_key</span> <span style="color:#e6db74">/etc/nginx/certs/live/matrix.your-domain.com/privkey.pem</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://127.0.0.1:8008</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> $host;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><em>再次检查并替换所有 <code>your-domain.com</code>。</em></p>
+<p><strong>启动云端所有服务</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker compose up -d
+</span></span></code></pre></div><h2 id="五第二部分配置内网服务器-matrix--frpc">五、第二部分：配置内网服务器 (Matrix + frpc)</h2>
+<p>现在，切换到你的<strong>内网服务器</strong>上进行操作。</p>
+<h3 id="51-生成-synapse-配置文件">5.1 生成 Synapse 配置文件</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir matrix-server <span style="color:#f92672">&amp;&amp;</span> cd matrix-server
+</span></span><span style="display:flex;"><span>docker run -it --rm <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>/synapse-data:/data <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    -e SYNAPSE_SERVER_NAME<span style="color:#f92672">=</span>matrix.your-domain.com <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    -e SYNAPSE_REPORT_STATS<span style="color:#f92672">=</span>no <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    matrixdotorg/synapse:latest generate
+</span></span></code></pre></div><p>这会在 <code>synapse-data</code> 目录下生成 <code>homeserver.yaml</code>。</p>
+<h3 id="52-创建-docker-composeyml">5.2 创建 <code>docker-compose.yml</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># matrix-server/docker-compose.yml</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.8&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">frpc</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">snowdreamtech/frpc:0.52.3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">frpc</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">unless-stopped</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./frpc.toml:/etc/frp/frpc.toml:ro</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">matrix-net</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">synapse</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">matrixdotorg/synapse:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">matrix_synapse</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">unless-stopped</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./synapse-data:/data</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">depends_on</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">db</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">matrix-net</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">db</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">postgres:14-alpine</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">matrix_db</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">unless-stopped</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">POSTGRES_USER=synapse</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">POSTGRES_PASSWORD=YOUR_STRONG_DATABASE_PASSWORD</span> <span style="color:#75715e"># 设置一个健壮的数据库密码</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">POSTGRES_DB=synapse</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./postgres-data:/var/lib/postgresql/data</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">matrix-net</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">element</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">vectorim/element-web:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">matrix_element</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">unless-stopped</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./element-config.json:/app/config.json</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">matrix-net</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">matrix-net</span>:
+</span></span></code></pre></div><h3 id="53-创建-frpctoml-frp-客户端配置">5.3 创建 <code>frpc.toml</code> (frp 客户端配置)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#75715e"># matrix-server/frpc.toml</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">serverAddr</span> = <span style="color:#e6db74">&#34;your_vps_public_ip&#34;</span> <span style="color:#75715e"># 你的云服务器公网 IP</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">serverPort</span> = <span style="color:#ae81ff">7000</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">auth</span>.<span style="color:#a6e22e">token</span> = <span style="color:#e6db74">&#34;YOUR_VERY_SECRET_FRP_TOKEN&#34;</span> <span style="color:#75715e"># 必须与 frps.toml 中的 token 完全一致</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">proxies</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;synapse-http&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">type</span> = <span style="color:#e6db74">&#34;http&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">localIP</span> = <span style="color:#e6db74">&#34;synapse&#34;</span> <span style="color:#75715e"># Docker 容器名</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">localPort</span> = <span style="color:#ae81ff">8008</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">customDomains</span> = [<span style="color:#e6db74">&#34;matrix.your-domain.com&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">proxies</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;element-http&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">type</span> = <span style="color:#e6db74">&#34;http&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">localIP</span> = <span style="color:#e6db74">&#34;element&#34;</span> <span style="color:#75715e"># Docker 容器名</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">localPort</span> = <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">customDomains</span> = [<span style="color:#e6db74">&#34;element.your-domain.com&#34;</span>]
+</span></span></code></pre></div><h3 id="54-修改和创建其余配置文件">5.4 修改和创建其余配置文件</h3>
+<ul>
+<li>
+<p><strong>配置 Synapse 使用 PostgreSQL</strong>:
+编辑 <code>synapse-data/homeserver.yaml</code>，找到 <code>database:</code> 部分，注释掉 <code>sqlite3</code> 的配置，并添加以下内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">database</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">psycopg2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">user</span>: <span style="color:#ae81ff">synapse</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">password</span>: <span style="color:#ae81ff">YOUR_STRONG_DATABASE_PASSWORD</span> <span style="color:#75715e"># 与 docker-compose 中设置的密码一致</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">database</span>: <span style="color:#ae81ff">synapse</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">host</span>: <span style="color:#ae81ff">db</span> <span style="color:#75715e"># &#39;db&#39; 是数据库容器的服务名</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cp_min</span>: <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cp_max</span>: <span style="color:#ae81ff">10</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>创建 Element 客户端配置 (<code>element-config.json</code>)</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;default_server_config&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;m.homeserver&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;base_url&#34;</span>: <span style="color:#e6db74">&#34;https://matrix.your-domain.com&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;server_name&#34;</span>: <span style="color:#e6db74">&#34;matrix.your-domain.com&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;brand&#34;</span>: <span style="color:#e6db74">&#34;My Private Chat&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><em>将 <code>your-domain.com</code> 替换为你的域名。</em></p>
+</li>
+</ul>
+<h3 id="55-启动内网所有服务">5.5 启动内网所有服务</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker compose up -d
+</span></span></code></pre></div><h3 id="56-创建你的第一个-matrix-用户">5.6 创建你的第一个 Matrix 用户</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker compose exec synapse register_new_matrix_user -c /data/homeserver.yaml http://localhost:8008
+</span></span></code></pre></div><p>按照提示输入用户名、密码，并在询问 <code>Make user an admin?</code> 时回答 <code>yes</code>。</p>
+<h2 id="六验证与故障排查">六、验证与故障排查</h2>
+<h3 id="61-验证">6.1 验证</h3>
+<p>打开浏览器，访问 <code>https://element.your-domain.com</code>。如果一切正常，你将看到 Element 的登录界面，且服务器地址已自动填好。使用你刚刚创建的管理员账户登录，开始享受你的私人聊天服务吧！</p>
+<h3 id="62-故障排查">6.2 故障排查</h3>
+<ul>
+<li><strong>无法访问？</strong> 检查云服务器和内网服务器的防火墙设置，确保相关端口已开放。</li>
+<li><strong>502 Bad Gateway?</strong> 这是最常见的问题，通常意味着 Nginx 无法连接到 <code>frps</code>，或者 <code>frps</code> 无法连接到 <code>frpc</code>。请检查 <code>frps</code> 和 <code>frpc</code> 的日志，确认隧道是否建立成功。
+<ul>
+<li><code>docker logs frps</code> (在云服务器上)</li>
+<li><code>docker logs frpc</code> (在内网服务器上)</li>
+</ul>
+</li>
+<li><strong>Element 无法连接？</strong> 确认 <code>element-config.json</code> 和 DNS 解析中的域名是否正确无误。同时检查浏览器开发者工具（F12）的网络请求，看 <code>/.well-known/matrix/client</code> 请求是否能正确返回 Synapse 服务器的信息。</li>
+</ul>
+<h3 id="63-为什么所有流量都会经过-vps">6.3 为什么所有流量都会经过 VPS？</h3>
+<ol>
+<li>
+<p><strong>唯一的公网入口</strong>: 您的内网服务器没有公网 IP，它在互联网上是“不可见”的。云服务器（VPS）是您整个服务的唯一公网入口。无论是您自己从外部网络登录，还是未来您与其他 Matrix 服务器进行“联邦”通信，所有外部请求都必须先找到这个唯一的入口。</p>
+</li>
+<li>
+<p><strong>frp 隧道的工作原理</strong>: <code>frp</code> 的核心是“反向代理”。您的内网服务器 (<code>frpc</code>) 主动向云服务器 (<code>frps</code>) 发起一个长连接并保持这个“隧道”。当云服务器收到一个外部请求时（例如，有人给您发消息），它不会直接把请求发给您的家庭网络 IP（因为它不知道，也无法访问），而是将这个请求数据塞进已经建立好的隧道里，传给您的内网服务器。</p>
+</li>
+<li>
+<p><strong>流量路径</strong>:</p>
+<ul>
+<li><strong>下行流量 (别人发给您)</strong>: <code>互联网 -&gt; 您的域名 -&gt; DNS解析到VPS -&gt; Nginx -&gt; frps -&gt; frp隧道 -&gt; frpc -&gt; Synapse服务</code></li>
+<li><strong>上行流量 (您发给别人)</strong>: <code>Synapse服务 -&gt; frpc -&gt; frp隧道 -&gt; frps -&gt; Nginx -&gt; 互联网</code></li>
+</ul>
+</li>
+</ol>
+<p>因此，VPS 在这个架构中扮演了不可或缺的“交通枢纽”角色。</p>
+<h3 id="流量经过-vps-带来的影响">流量经过 VPS 带来的影响</h3>
+<h4 id="优点">优点：</h4>
+<ol>
+<li><strong>解决了核心问题</strong>: 成功让没有公网 IP 的内网服务暴露到了公网。</li>
+<li><strong>增强了安全性</strong>:
+<ul>
+<li><strong>隐藏了家庭IP</strong>: 您的家庭网络真实 IP 地址不会暴露在公网上，有效避免了针对家庭网络的直接攻击（如 DDoS）。</li>
+<li><strong>简化了防火墙策略</strong>: 您只需要在云服务器上配置防火墙规则，内网设备可以保持在路由器的保护之后，无需做复杂的端口映射。</li>
+</ul>
+</li>
+</ol>
+<h4 id="缺点">缺点：</h4>
+<ol>
+<li>
+<p><strong>性能瓶颈</strong>:</p>
+<ul>
+<li><strong>带宽限制</strong>: 您通信的总带宽受限于云服务器的带宽。如果您的 VPS 只有 5Mbps 带宽，那么即使您家里是千兆光纤，您服务的最大上下行速度也只有 5Mbps。</li>
+<li><strong>延迟增加</strong>: 数据包需要从客户端 -&gt; VPS -&gt; 内网服务器，走了一个“折返”，网络延迟（Ping值）会相应增加。</li>
+</ul>
+</li>
+<li>
+<p><strong>成本问题</strong>:</p>
+<ul>
+<li><strong>流量费用</strong>: 大部分云服务器提供商都有流量限制。如果您的聊天服务传输了大量文件、图片或进行音视频通话，可能会很快耗尽免费流量额度，产生额外费用。</li>
+</ul>
+</li>
+<li>
+<p><strong>单点故障</strong>: 如果您的云服务器宕机或网络中断，即使内网服务一切正常，您的整个 Matrix 服务也将无法从外部访问。</p>
+</li>
+</ol>
+<h3 id="针对音视频通话的特殊情况-turnstun">针对音视频通话的特殊情况 (TURN/STUN)</h3>
+<p>对于 Matrix 中的音视频通话（WebRTC），情况会更复杂。</p>
+<ul>
+<li>
+<p><strong>理想情况 (P2P)</strong>: WebRTC 会尝试通过 <strong>STUN</strong> 协议进行 NAT 穿透，让通话双方的客户端建立直接的点对点（P2P）连接。如果成功，音视频的媒体流将<strong>不经过</strong>您的 Synapse 服务器，也<strong>不经过</strong>您的 VPS，从而获得最低的延迟和最好的体验。</p>
+</li>
+<li>
+<p><strong>糟糕情况 (TURN 中继)</strong>: 如果 P2P 连接建立失败（例如因为网络环境复杂，存在对称型 NAT），客户端会回退到使用 <strong>TURN</strong> 服务器来中继所有媒体流量。</p>
+<ul>
+<li>如果您没有单独配置 TURN 服务器，那么在这个架构下，您将<strong>无法进行音视频通话</strong>。</li>
+<li>如果您在 VPS 上部署了 TURN 服务器（例如 <code>coturn</code>），那么所有音视频流量都会被这个 TURN 服务器中继，这将<strong>极大地消耗您 VPS 的带宽和流量</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结与建议">总结与建议</h3>
+<p>所有流量（除了某些理想情况下的音视频流）都会经过 VPS。这是一个为了解决“无公网IP”问题而做出的必要权衡。</p>
+<p><strong>给您的建议：</strong></p>
+<ol>
+<li><strong>选择合适的 VPS</strong>: 选择一个网络延迟较低、带宽较大且流量包比较充足的云服务器。对于初期个人使用，通常入门级的服务器（如 1核/1G/10Mbps/1TB流量）是足够的。</li>
+<li><strong>监控流量</strong>: 定期关注您云服务器的流量使用情况，避免产生预期之外的费用。</li>
+<li><strong>优化媒体传输</strong>: 如果您对音视频通话有很高要求，可以考虑单独购买或搭建专用的 TURN/STUN 服务，而不是将它和 frp 部署在同一台低配 VPS 上。</li>
+<li><strong>认识到局限性</strong>: 明确这个架构的瓶颈在于 VPS。对于个人或小团队使用，体验是完全可以接受的。但如果计划运营一个大型公共服务，则需要考虑使用具备公网 IP 的独立服务器来直接部署 Matrix。</li>
+</ol>
+<h2 id="七参考资料">七、参考资料</h2>
+<ul>
+<li><strong>Matrix 官方文档</strong>: <a href="https://matrix.org/docs/" target="_blank" rel="noopener">https://matrix.org/docs/</a></li>
+<li><strong>Synapse GitHub 仓库</strong>: <a href="https://github.com/matrix-org/synapse" target="_blank" rel="noopener">https://github.com/matrix-org/synapse</a></li>
+<li><strong>frp GitHub 仓库与文档</strong>: <a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a></li>
+<li><strong>Docker 官方文档</strong>: <a href="https://docs.docker.com/" target="_blank" rel="noopener">https://docs.docker.com/</a></li>
+<li><strong>Nginx 官方文档</strong>: <a href="https://nginx.org/en/docs/" target="_blank" rel="noopener">https://nginx.org/en/docs/</a></li>
+</ul>
+
+
+</div>
+
+
+    </main>
+    <footer class="py-3 mt-auto bg-light">
+  <div class="container py-1 my-1">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <p class="col-md mb-0 text-muted">Open-source <a class="text-muted text-decoration-none">MIT</a> Licensed.</p>
+      <ul class="nav col-md-auto justify-content-end">
+        <li class="nav-item"><a href="../../privacy-policy/" class="nav-link px-2 text-muted" title='隐私政策' aria-label='隐私政策'>隐私政策</a></li>
+        </ul>
+    </div>
+  </div>
+</footer>
+    
+
+
+
+
+<script src="../../js/bootstrap/bootstrap.bundle.min.min.7620f70f6a288d4f1a662439d8772846a2d2084a9466d8d25b3b246d986b3c96e31aae489aaa01a1961bd6f4ad9842e677b02848d0aae0a3fb74b76a522f9e80.js" integrity="sha512-diD3D2oojU8aZiQ52HcoRqLSCEqUZtjSWzskbZhrPJbjGq5ImqoBoZYb1vStmELmd7AoSNCq4KP7dLdqUi&#43;egA==" crossorigin="anonymous" defer></script>
+  
+    <script src="../../js/main.min.ac5210659ceeef8804aea6c4ac26da40fbe24410172a60acc12162dc7e45d73db009b44210942a4f510297b8d8dc90ea55a174f0b052871802c3682587fd41a1.js" integrity="sha512-rFIQZZzu74gErqbErCbaQPviRBAXKmCswSFi3H5F1z2wCbRCEJQqT1ECl7jY3JDqVaF08LBShxgCw2glh/1BoQ==" crossorigin="anonymous" defer></script>
+  
+  
+
+
+
+</body>
+</html>

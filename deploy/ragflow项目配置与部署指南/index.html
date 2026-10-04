@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+
+    
+<meta http-equiv='Content-Security-Policy' content="script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'">
+
+    
+
+<link rel="stylesheet" href="../../css/style.7146bb5d410f5db4e7376460bb67bb578ab9578629665e69825acbaa68fe84ae82fb3b12be15fcb3fe3c9752f7d970600d538eb8bbbe5bfc658484f88f7ca79d.css" media="screen" integrity="sha512-cUa7XUEPXbTnN2Rgu2e7V4q5V4YpZl5pglrLqmj&#43;hK6C&#43;zsSvhX8s/48l1L32XBgDVOOuLu&#43;W/xlhIT4j3ynnQ==" crossorigin="anonymous">
+
+    <title>RAGFlow项目配置与部署指南 😸	</title>
+
+<meta name="description" content="  ">
+
+
+
+<link rel="canonical" href="http://106.53.54.249:20683/deploy/ragflow%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/">
+
+
+<link rel="alternate" hreflang="zh" href="http://106.53.54.249:20683/deploy/ragflow%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/">
+
+
+
+<link rel="alternate" hreflang="x-default" href="http://106.53.54.249:20683/deploy/ragflow%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="RAGFlow项目配置与部署指南 😸	">
+<meta property="og:description" content="  "><meta property="og:type" content="article">
+<meta property="og:url" content="http://106.53.54.249:20683/deploy/ragflow%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/">
+<meta property="og:image" content="http://106.53.54.249:20683/images/site-feature-image_hu_5fda6433d4a82a6.png">
+<meta property="og:image:width" content="900">
+<meta property="og:image:height" content="600">
+  
+    <meta property="article:section" content="deploy">
+  
+  
+    <meta property="article:published_time" content="2026-01-23T11:22:58+08:00">
+  
+  
+    <meta property="article:modified_time" content="2026-04-01T20:58:25+08:00">
+  
+  <meta property="og:locale" content="zh">
+
+  <meta property="og:site_name" content="于鹏飞的个人主页">
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://106.53.54.249:20683/images/site-feature-image_hu_1efdac35d7eb9cb9.png">
+
+<meta name="twitter:title" content="RAGFlow项目配置与部署指南 😸	">
+<meta name="twitter:description" content="  ">
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+      
+      
+      
+      
+    
+    
+  
+    
+    
+    
+    
+    
+  
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","author":[{"@type":"Person","name":"Manus","url":"http://106.53.54.249:20683/authors/manus/"},{"@type":"Person","name":"于鹏飞"}],"dateModified":"2026-04-01T20:58:25+08:00","datePublished":"2026-01-23T11:22:58+08:00","description":"  ","headline":"RAGFlow项目配置与部署指南 😸\t","inLanguage":"zh","keywords":["IT技术"],"mainEntityOfPage":"http://106.53.54.249:20683/deploy/ragflow%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://106.53.54.249:20683/images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg"},"name":"于鹏飞的个人主页"},"wordcount":1821}
+</script>
+
+
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"http://106.53.54.249:20683/","name":"于鹏飞的个人主页","position":1},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/","name":"项目配置攻略","position":2},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/ragflow%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/","name":"RAGFlow项目配置与部署指南 😸\t","position":3}]}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="icon" type="image/svg+xml" href="http://106.53.54.249:20683/favicon.svg"><link rel="icon" type="image/png" href="http://106.53.54.249:20683/favicon.png"><link rel="shortcut icon" href="http://106.53.54.249:20683/favicon.ico">
+  <meta name="theme-color" content="#fff">
+</head>
+
+
+
+<body class="deploy single d-flex flex-column min-vh-100"><header class="main-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="../../">
+        <img src="../../images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg" alt="logo" width="30" height="24"
+          class="d-inline-block align-text-top">
+        于鹏飞的个人主页
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="menu-main navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../method">方法论</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../note">论文笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../deploy">工程笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../program">开源项目</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../notice">最新通知</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../contact">联系方式</a>
+          </li>
+          
+          </ul>
+
+        
+        
+        
+
+      </div>
+    </div>
+  </nav>
+</header><main id="content">
+        <nav class="header-breadcrumb my-2" aria-label="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb my-0">
+            
+            
+                
+                
+                    
+                
+                    
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../">Home</a> </li>
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../deploy/">项目配置攻略</a> </li>
+                
+            
+                <li class="breadcrumb-item active" aria-current="page">  RAGFlow项目配置与部署指南 😸	</li>
+            
+        </ol>
+    </div>
+</nav>
+
+
+<div class="container py-3">
+
+ 
+  <h1 id="ragflow-项目配置与部署指南">RAGFlow 项目配置与部署指南</h1>
+<p><strong>作者：Manus AI</strong>
+<strong>日期：2026年1月22日</strong></p>
+<h2 id="摘要">摘要</h2>
+<p>RAGFlow 是一款领先的开源检索增强生成（RAG）引擎，旨在通过融合前沿的 RAG 技术与 Agent 能力，为大型语言模型提供卓越的上下文层 [1]。基于您提供的文件列表，该项目采用 <strong>Docker Compose</strong> 进行部署，以简化环境依赖（如 MySQL、MinIO、Redis 等）的管理。本指南将详细分析项目文件结构，并提供配置和启动 RAGFlow 服务的具体步骤。</p>
+<hr>
+<h2 id="1-核心文件结构分析">1. 核心文件结构分析</h2>
+<p>理解项目文件结构是成功配置的第一步。以下表格总结了您提供的文件列表中，对配置和部署至关重要的文件和目录的功能：</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">文件/目录</th>
+					<th style="text-align: left">功能描述</th>
+					<th style="text-align: left">关键配置内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong><code>.env</code></strong></td>
+					<td style="text-align: left"><strong>核心环境变量文件</strong>。包含 Docker 容器所需的重要环境变量，用于配置依赖服务的凭证、端口映射和镜像版本等。</td>
+					<td style="text-align: left"><code>MYSQL_PASSWORD</code>, <code>MINIO_PASSWORD</code>, <code>SVR_HTTP_PORT</code>, <code>RAGFLOW_IMAGE</code></td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong><code>service_conf.yaml.template</code></strong></td>
+					<td style="text-align: left"><strong>后端服务配置模板</strong>。定义 RAGFlow 核心服务的业务逻辑配置，如 LLM 供应商、日志级别等。容器启动时会基于此模板生成 <code>service_conf.yaml</code>。</td>
+					<td style="text-align: left">LLM 配置（<code>factory</code>、<code>api_key</code>）、数据库连接信息（通过 <code>.env</code> 变量替换）</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong><code>docker-compose.yml</code></strong></td>
+					<td style="text-align: left"><strong>默认部署编排文件</strong>。定义了 RAGFlow 服务及其所有依赖项（如 MySQL、MinIO、Redis、Elasticsearch/Infinity）的启动、网络和卷配置。</td>
+					<td style="text-align: left">服务定义、端口映射、卷挂载</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong><code>docker-compose-CN-oc9.yml</code></strong></td>
+					<td style="text-align: left"><strong>国内/OceanBase 优化版</strong>。可能针对国内用户优化了镜像源，或替换了默认的 MySQL 依赖为 OceanBase [2]。</td>
+					<td style="text-align: left">依赖服务替换、镜像源配置</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong><code>nginx/</code></strong> 目录</td>
+					<td style="text-align: left"><strong>反向代理配置</strong>。包含 Nginx 配置文件，用于处理 HTTP/HTTPS 请求转发，通常默认监听 80 端口，并将请求转发给 RAGFlow 后端服务。</td>
+					<td style="text-align: left"><code>nginx.conf</code>, <code>proxy.conf</code>, <code>ragflow.conf</code></td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong><code>entrypoint.sh</code></strong></td>
+					<td style="text-align: left"><strong>容器启动入口脚本</strong>。负责在容器启动时执行初始化任务，例如根据 <code>.env</code> 文件替换模板变量，生成最终的 <code>service_conf.yaml</code> 文件，并启动 RAGFlow 服务。</td>
+					<td style="text-align: left">环境初始化逻辑</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong><code>init.sql</code></strong></td>
+					<td style="text-align: left"><strong>数据库初始化脚本</strong>。用于首次启动时创建 RAGFlow 所需的数据库和表结构。</td>
+					<td style="text-align: left">SQL DDL/DML 语句</td>
+			</tr>
+	</tbody>
+</table>
+<hr>
+<h2 id="2-ragflow-配置步骤详解">2. RAGFlow 配置步骤详解</h2>
+<p>RAGFlow 的配置主要集中在两个文件：<strong><code>.env</code></strong> 和 <strong><code>service_conf.yaml.template</code></strong>。</p>
+<h3 id="21-步骤一配置环境变量env">2.1. 步骤一：配置环境变量（<code>.env</code>）</h3>
+<p>您需要编辑或创建 <code>.env</code> 文件，以定义您的部署环境参数。如果项目中存在 <code>.env.single-bucket-example</code>，可以将其复制为 <code>.env</code> 并进行修改。</p>
+<p><strong>关键配置项说明：</strong></p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">变量名</th>
+					<th style="text-align: left">默认值</th>
+					<th style="text-align: left">作用</th>
+					<th style="text-align: left">建议修改</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><code>MYSQL_PASSWORD</code></td>
+					<td style="text-align: left"><code>ragflow</code></td>
+					<td style="text-align: left">MySQL 数据库的 root 密码。</td>
+					<td style="text-align: left">强烈建议修改为强密码。</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><code>MINIO_PASSWORD</code></td>
+					<td style="text-align: left"><code>ragflow</code></td>
+					<td style="text-align: left">MinIO 对象存储的密码。</td>
+					<td style="text-align: left">强烈建议修改为强密码。</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><code>REDIS_PASSWORD</code></td>
+					<td style="text-align: left"><code>ragflow</code></td>
+					<td style="text-align: left">Redis 缓存的密码。</td>
+					<td style="text-align: left">强烈建议修改为强密码。</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><code>SVR_HTTP_PORT</code></td>
+					<td style="text-align: left"><code>9380</code></td>
+					<td style="text-align: left">RAGFlow Web 服务的 HTTP 访问端口。</td>
+					<td style="text-align: left">如果 9380 端口被占用，请修改。</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><code>RAGFLOW_IMAGE</code></td>
+					<td style="text-align: left"><code>infiniflow/ragflow:latest</code></td>
+					<td style="text-align: left">RAGFlow Docker 镜像版本。</td>
+					<td style="text-align: left">建议使用官方推荐的稳定版本号，例如 <code>v0.20.5</code>。</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><code>TZ</code></td>
+					<td style="text-align: left"><code>Asia/Shanghai</code></td>
+					<td style="text-align: left">容器的时区设置。</td>
+					<td style="text-align: left">保持默认或根据需要修改。</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><code>MEM_LIMIT</code></td>
+					<td style="text-align: left"><code>8073741824</code></td>
+					<td style="text-align: left">容器内存限制（字节），约 8GB。</td>
+					<td style="text-align: left">根据您的服务器内存资源进行调整。</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="22-步骤二配置后端服务service_confyamltemplate">2.2. 步骤二：配置后端服务（<code>service_conf.yaml.template</code>）</h3>
+<p>该文件是 RAGFlow 业务逻辑的核心配置。您需要关注 <strong>LLM (大语言模型)</strong> 相关的配置，以确保 RAGFlow 可以连接到您选择的模型服务。</p>
+<p><strong>LLM 配置示例：</strong></p>
+<p>在 <code>service_conf.yaml.template</code> 中，您会找到类似以下结构的配置块，用于定义可用的 LLM 供应商：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">llm_models</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">factory</span>: <span style="color:#e6db74">&#34;OpenAI&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">api_key</span>: <span style="color:#e6db74">&#34;${OPENAI_API_KEY}&#34;</span> <span style="color:#75715e"># 这里的变量会在启动时被替换</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">model</span>: <span style="color:#e6db74">&#34;gpt-4&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">...</span>
+</span></span></code></pre></div><p><strong>操作要点：</strong></p>
+<ol>
+<li><strong>API 密钥</strong>：确保您在 <code>.env</code> 文件中定义了相应的 API 密钥变量（例如 <code>OPENAI_API_KEY</code>），或者直接在模板中替换为您的密钥（不推荐，建议使用环境变量）。</li>
+<li><strong>供应商选择</strong>：RAGFlow 支持多种 LLM 供应商，如 OpenAI、DeepSeek、Moonshot、Tongyi-Qianwen 等 [3]。请根据您使用的模型修改 <code>factory</code> 和 <code>model</code> 字段。</li>
+</ol>
+<hr>
+<h2 id="3-部署与启动服务">3. 部署与启动服务</h2>
+<p>完成上述配置后，您可以使用 <strong>Docker Compose</strong> 启动 RAGFlow 服务。</p>
+<h3 id="31-选择-compose-文件">3.1. 选择 Compose 文件</h3>
+<p>根据您的环境选择合适的 <code>docker-compose</code> 文件：</p>
+<ol>
+<li><strong>标准部署</strong>：使用 <code>docker-compose.yml</code>。</li>
+<li><strong>MacOS 部署</strong>：使用 <code>docker-compose-macos.yml</code>。</li>
+<li><strong>国内/OceanBase 部署</strong>：使用 <code>docker-compose-CN-oc9.yml</code>。</li>
+</ol>
+<h3 id="32-启动命令">3.2. 启动命令</h3>
+<p>在项目根目录下执行以下命令（假设您选择 <code>docker-compose.yml</code>）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker compose -f docker-compose.yml up -d
+</span></span></code></pre></div><ul>
+<li><code>-f</code>：指定要使用的 Compose 文件。</li>
+<li><code>up</code>：创建并启动容器。</li>
+<li><code>-d</code>：在后台运行容器（分离模式）。</li>
+</ul>
+<h3 id="33-停止与清理">3.3. 停止与清理</h3>
+<p>当您需要停止服务或进行配置更改时，执行以下命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker compose -f docker-compose.yml down
+</span></span></code></pre></div><h3 id="34-访问-ragflow">3.4. 访问 RAGFlow</h3>
+<p>服务启动成功后，您可以通过浏览器访问 RAGFlow 的 Web 界面：</p>
+<ul>
+<li><strong>访问地址</strong>：<code>http://&lt;您的主机IP&gt;:&lt;SVR_HTTP_PORT&gt;</code></li>
+<li><strong>默认端口</strong>：如果未修改 <code>.env</code> 中的 <code>SVR_HTTP_PORT</code>，则为 <code>http://&lt;您的主机IP&gt;:9380</code>。</li>
+</ul>
+<hr>
+<h2 id="参考文献">参考文献</h2>
+<p>[1] RAGFlow 官方文档. <em>RAGFlow 简介</em>. URL: <a href="https://ragflow.docs-hub.com/docs/dev/configurations/" target="_blank" rel="noopener">https://ragflow.docs-hub.com/docs/dev/configurations/</a>
+[2] RAGFlow GitHub 仓库. <em>docker-compose-CN-oc9.yml</em>. URL: <a href="https://github.com/infiniflow/ragflow/" target="_blank" rel="noopener">https://github.com/infiniflow/ragflow/</a>
+[3] RAGFlow 官方文档. <em>LLM 配置</em>. URL: <a href="https://ragflow.docs-hub.com/docs/dev/configurations/#llm-service-configuration" target="_blank" rel="noopener">https://ragflow.docs-hub.com/docs/dev/configurations/#llm-service-configuration</a></p>
+
+
+</div>
+
+
+    </main>
+    <footer class="py-3 mt-auto bg-light">
+  <div class="container py-1 my-1">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <p class="col-md mb-0 text-muted">Open-source <a class="text-muted text-decoration-none">MIT</a> Licensed.</p>
+      <ul class="nav col-md-auto justify-content-end">
+        <li class="nav-item"><a href="../../privacy-policy/" class="nav-link px-2 text-muted" title='隐私政策' aria-label='隐私政策'>隐私政策</a></li>
+        </ul>
+    </div>
+  </div>
+</footer>
+    
+
+
+
+
+<script src="../../js/bootstrap/bootstrap.bundle.min.min.7620f70f6a288d4f1a662439d8772846a2d2084a9466d8d25b3b246d986b3c96e31aae489aaa01a1961bd6f4ad9842e677b02848d0aae0a3fb74b76a522f9e80.js" integrity="sha512-diD3D2oojU8aZiQ52HcoRqLSCEqUZtjSWzskbZhrPJbjGq5ImqoBoZYb1vStmELmd7AoSNCq4KP7dLdqUi&#43;egA==" crossorigin="anonymous" defer></script>
+  
+    <script src="../../js/main.min.ac5210659ceeef8804aea6c4ac26da40fbe24410172a60acc12162dc7e45d73db009b44210942a4f510297b8d8dc90ea55a174f0b052871802c3682587fd41a1.js" integrity="sha512-rFIQZZzu74gErqbErCbaQPviRBAXKmCswSFi3H5F1z2wCbRCEJQqT1ECl7jY3JDqVaF08LBShxgCw2glh/1BoQ==" crossorigin="anonymous" defer></script>
+  
+  
+
+
+
+</body>
+</html>

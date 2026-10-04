@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+
+    
+<meta http-equiv='Content-Security-Policy' content="script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'">
+
+    
+
+<link rel="stylesheet" href="../../css/style.7146bb5d410f5db4e7376460bb67bb578ab9578629665e69825acbaa68fe84ae82fb3b12be15fcb3fe3c9752f7d970600d538eb8bbbe5bfc658484f88f7ca79d.css" media="screen" integrity="sha512-cUa7XUEPXbTnN2Rgu2e7V4q5V4YpZl5pglrLqmj&#43;hK6C&#43;zsSvhX8s/48l1L32XBgDVOOuLu&#43;W/xlhIT4j3ynnQ==" crossorigin="anonymous">
+
+    <title>在WSL2构建 GitLab 私有仓库</title>
+
+<meta name="description" content=" 如果WSL2有多个ubuntu，如ubuntu22和ubunut24，只要有一个主机占用了gitlab所需要的端口，就不能正常使用gitlab。 尽量使用官方教程使用apt包管理工具进行安装。 使用docker部署gitlab在WSL2上很麻烦。 部署后，如果需要让别人访问部署再WSL2中的Gitlab，最好再配置一个frp服务器和一个frp客户端，使得其他人可以通过frp服务，通过公网IP进行访问WSL2（个人笔记本或台式机）上的Gitlab服务 关于frp的部署网上有很多教程，对于AI Agent 给出的部署方案，需要一定的鉴别能力，如果行不通果断看frp的部署教程视频，不要浪费太多时间。 ">
+  
+
+
+<link rel="canonical" href="http://106.53.54.249:20683/deploy/%E5%9C%A8wsl2%E6%9E%84%E5%BB%BA-gitlab-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">
+
+
+<link rel="alternate" hreflang="zh" href="http://106.53.54.249:20683/deploy/%E5%9C%A8wsl2%E6%9E%84%E5%BB%BA-gitlab-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">
+
+
+
+<link rel="alternate" hreflang="x-default" href="http://106.53.54.249:20683/deploy/%E5%9C%A8wsl2%E6%9E%84%E5%BB%BA-gitlab-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="在WSL2构建 GitLab 私有仓库">
+<meta property="og:description" content="
+如果WSL2有多个ubuntu，如ubuntu22和ubunut24，只要有一个主机占用了gitlab所需要的端口，就不能正常使用gitlab。
+尽量使用官方教程使用apt包管理工具进行安装。
+使用docker部署gitlab在WSL2上很麻烦。
+部署后，如果需要让别人访问部署再WSL2中的Gitlab，最好再配置一个frp服务器和一个frp客户端，使得其他人可以通过frp服务，通过公网IP进行访问WSL2（个人笔记本或台式机）上的Gitlab服务
+关于frp的部署网上有很多教程，对于AI Agent 给出的部署方案，需要一定的鉴别能力，如果行不通果断看frp的部署教程视频，不要浪费太多时间。
+"><meta property="og:type" content="article">
+<meta property="og:url" content="http://106.53.54.249:20683/deploy/%E5%9C%A8wsl2%E6%9E%84%E5%BB%BA-gitlab-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">
+<meta property="og:image" content="http://106.53.54.249:20683/deploy/%E5%9C%A8wsl2%E6%9E%84%E5%BB%BA-gitlab-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/8_hu_2afac474170a33a2.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="600">
+  
+    <meta property="article:section" content="deploy">
+  
+  
+    <meta property="article:published_time" content="2025-03-01T20:49:37+08:00">
+  
+  
+    <meta property="article:modified_time" content="2026-04-01T20:58:25+08:00">
+  
+  <meta property="og:locale" content="zh">
+
+  <meta property="og:site_name" content="于鹏飞的个人主页">
+
+
+
+
+
+
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://106.53.54.249:20683/deploy/%E5%9C%A8wsl2%E6%9E%84%E5%BB%BA-gitlab-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/8_hu_2b3abfbb7449de10.jpg">
+
+<meta name="twitter:title" content="在WSL2构建 GitLab 私有仓库">
+<meta name="twitter:description" content="
+如果WSL2有多个ubuntu，如ubuntu22和ubunut24，只要有一个主机占用了gitlab所需要的端口，就不能正常使用gitlab。
+尽量使用官方教程使用apt包管理工具进行安装。
+使用docker部署gitlab在WSL2上很麻烦。
+部署后，如果需要让别人访问部署再WSL2中的Gitlab，最好再配置一个frp服务器和一个frp客户端，使得其他人可以通过frp服务，通过公网IP进行访问WSL2（个人笔记本或台式机）上的Gitlab服务
+关于frp的部署网上有很多教程，对于AI Agent 给出的部署方案，需要一定的鉴别能力，如果行不通果断看frp的部署教程视频，不要浪费太多时间。
+">
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","dateModified":"2026-04-01T20:58:25+08:00","datePublished":"2025-03-01T20:49:37+08:00","description":" 如果WSL2有多个ubuntu，如ubuntu22和ubunut24，只要有一个主机占用了gitlab所需要的端口，就不能正常使用gitlab。 尽量使用官方教程使用apt包管理工具进行安装。 使用docker部署gitlab在WSL2上很麻烦。 部署后，如果需要让别人访问部署再WSL2中的Gitlab，最好再配置一个frp服务器和一个frp客户端，使得其他人可以通过frp服务，通过公网IP进行访问WSL2（个人笔记本或台式机）上的Gitlab服务 关于frp的部署网上有很多教程，对于AI Agent 给出的部署方案，需要一定的鉴别能力，如果行不通果断看frp的部署教程视频，不要浪费太多时间。 ","headline":"在WSL2构建 GitLab 私有仓库","image":["http://106.53.54.249:20683/deploy/%E5%9C%A8wsl2%E6%9E%84%E5%BB%BA-gitlab-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/8.jpg"],"inLanguage":"zh","mainEntityOfPage":"http://106.53.54.249:20683/deploy/%E5%9C%A8wsl2%E6%9E%84%E5%BB%BA-gitlab-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://106.53.54.249:20683/images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg"},"name":"于鹏飞的个人主页"},"wordcount":290}
+</script>
+
+
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"http://106.53.54.249:20683/","name":"于鹏飞的个人主页","position":1},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/","name":"项目配置攻略","position":2},{"@type":"ListItem","item":"http://106.53.54.249:20683/deploy/%E5%9C%A8wsl2%E6%9E%84%E5%BB%BA-gitlab-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/","name":"在WSL2构建 GitLab 私有仓库","position":3}]}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="icon" type="image/svg+xml" href="http://106.53.54.249:20683/favicon.svg"><link rel="icon" type="image/png" href="http://106.53.54.249:20683/favicon.png"><link rel="shortcut icon" href="http://106.53.54.249:20683/favicon.ico">
+  <meta name="theme-color" content="#fff">
+</head>
+
+
+
+<body class="deploy single d-flex flex-column min-vh-100"><header class="main-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="../../">
+        <img src="../../images/logo.efeebf75f9a5cc2484cdd2f1c17ed632877a7f52c51d22ad2251ff595d8c1a01.svg" alt="logo" width="30" height="24"
+          class="d-inline-block align-text-top">
+        于鹏飞的个人主页
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="menu-main navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../method">方法论</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../note">论文笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../deploy">工程笔记</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../program">开源项目</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../notice">最新通知</a>
+          </li>
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="../../contact">联系方式</a>
+          </li>
+          
+          </ul>
+
+        
+        
+        
+
+      </div>
+    </div>
+  </nav>
+</header><main id="content">
+        <nav class="header-breadcrumb my-2" aria-label="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb my-0">
+            
+            
+                
+                
+                    
+                
+                    
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../">Home</a> </li>
+                
+            
+                    <li class="breadcrumb-item"> <a href="../../deploy/">项目配置攻略</a> </li>
+                
+            
+                <li class="breadcrumb-item active" aria-current="page">  在WSL2构建 GitLab 私有仓库</li>
+            
+        </ol>
+    </div>
+</nav>
+
+
+<div class="container py-3">
+
+ 
+  <ol>
+<li>如果WSL2有多个ubuntu，如ubuntu22和ubunut24，只要有一个主机占用了gitlab所需要的端口，就不能正常使用gitlab。</li>
+<li>尽量使用官方教程使用apt包管理工具进行安装。</li>
+<li>使用docker部署gitlab在WSL2上很麻烦。</li>
+<li>部署后，如果需要让别人访问部署再WSL2中的Gitlab，最好再配置一个frp服务器和一个frp客户端，使得其他人可以通过frp服务，通过公网IP进行访问WSL2（个人笔记本或台式机）上的Gitlab服务</li>
+<li>关于frp的部署网上有很多教程，对于AI Agent 给出的部署方案，需要一定的鉴别能力，如果行不通果断看frp的部署教程视频，不要浪费太多时间。</li>
+</ol>
+
+
+</div>
+
+
+    </main>
+    <footer class="py-3 mt-auto bg-light">
+  <div class="container py-1 my-1">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <p class="col-md mb-0 text-muted">Open-source <a class="text-muted text-decoration-none">MIT</a> Licensed.</p>
+      <ul class="nav col-md-auto justify-content-end">
+        <li class="nav-item"><a href="../../privacy-policy/" class="nav-link px-2 text-muted" title='隐私政策' aria-label='隐私政策'>隐私政策</a></li>
+        </ul>
+    </div>
+  </div>
+</footer>
+    
+
+
+
+
+<script src="../../js/bootstrap/bootstrap.bundle.min.min.7620f70f6a288d4f1a662439d8772846a2d2084a9466d8d25b3b246d986b3c96e31aae489aaa01a1961bd6f4ad9842e677b02848d0aae0a3fb74b76a522f9e80.js" integrity="sha512-diD3D2oojU8aZiQ52HcoRqLSCEqUZtjSWzskbZhrPJbjGq5ImqoBoZYb1vStmELmd7AoSNCq4KP7dLdqUi&#43;egA==" crossorigin="anonymous" defer></script>
+  
+    <script src="../../js/main.min.ac5210659ceeef8804aea6c4ac26da40fbe24410172a60acc12162dc7e45d73db009b44210942a4f510297b8d8dc90ea55a174f0b052871802c3682587fd41a1.js" integrity="sha512-rFIQZZzu74gErqbErCbaQPviRBAXKmCswSFi3H5F1z2wCbRCEJQqT1ECl7jY3JDqVaF08LBShxgCw2glh/1BoQ==" crossorigin="anonymous" defer></script>
+  
+  
+
+
+
+</body>
+</html>
