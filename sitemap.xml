@@ -2,48 +2,53 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://106.53.54.249:20683/tags/</loc>
+    <lastmod>2026-10-10T11:13:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>http://106.53.54.249:20683/authors/</loc>
-    <lastmod>2026-10-06T19:32:54+08:00</lastmod>
+    <lastmod>2026-10-10T11:35:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://106.53.54.249:20683/tags/featured/</loc>
-    <lastmod>2026-10-06T19:33:27+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://106.53.54.249:20683/tags/pilot/</loc>
-    <lastmod>2026-10-06T19:33:27+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://106.53.54.249:20683/program/pilot-kg-genshin_3.8/</loc>
-    <lastmod>2026-10-06T19:32:10+08:00</lastmod>
+    <lastmod>2026-10-10T11:35:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://106.53.54.249:20683/tags/</loc>
-    <lastmod>2026-10-06T19:33:27+08:00</lastmod>
+    <lastmod>2026-10-10T11:35:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://106.53.54.249:20683/deploy/%E8%AE%BE%E7%BD%AEhugo%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%9B%BE%E7%89%87%E5%AE%BD%E5%BA%A6/</loc>
+    <lastmod>2026-10-10T11:13:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://106.53.54.249:20683/authors/%E4%BA%8E%E9%B9%8F%E9%A3%9E/</loc>
-    <lastmod>2026-10-06T19:32:54+08:00</lastmod>
+    <lastmod>2026-10-10T11:35:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://106.53.54.249:20683/</loc>
-    <lastmod>2026-10-06T19:33:27+08:00</lastmod>
+    <lastmod>2026-10-10T11:35:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://106.53.54.249:20683/tags/pilot/</loc>
+    <lastmod>2026-10-10T11:35:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://106.53.54.249:20683/program/pilot-kg-genshin_3.8.3/</loc>
+    <lastmod>2026-10-10T11:35:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://106.53.54.249:20683/program/pilot-kg-genshin_3.2/</loc>
     <lastmod>2026-10-06T19:32:54+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://106.53.54.249:20683/tags/</loc>
-    <lastmod>2026-10-02T20:13:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
