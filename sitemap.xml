@@ -8,7 +8,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://106.53.54.249:20683/authors/</loc>
-    <lastmod>2026-10-13T11:24:04+08:00</lastmod>
+    <lastmod>2026-10-13T12:03:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -18,7 +18,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://106.53.54.249:20683/tags/</loc>
-    <lastmod>2026-10-13T11:24:04+08:00</lastmod>
+    <lastmod>2026-10-13T12:03:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -28,12 +28,12 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://106.53.54.249:20683/authors/%E4%BA%8E%E9%B9%8F%E9%A3%9E/</loc>
-    <lastmod>2026-10-13T11:24:04+08:00</lastmod>
+    <lastmod>2026-10-13T12:03:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://106.53.54.249:20683/</loc>
-    <lastmod>2026-10-13T11:24:04+08:00</lastmod>
+    <lastmod>2026-10-13T12:03:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -177,11 +177,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>http://106.53.54.249:20683/program/virtual-partners/</loc>
-    <lastmod>2026-10-06T19:33:27+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>http://106.53.54.249:20683/deploy/%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE-gitlab-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/</loc>
     <lastmod>2026-04-01T20:58:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -197,16 +192,11 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://106.53.54.249:20683/tags/index/</loc>
-    <lastmod>2026-09-13T20:15:34+08:00</lastmod>
+    <lastmod>2026-10-13T12:03:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://106.53.54.249:20683/series/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://106.53.54.249:20683/program/</loc>
-    <lastmod>2026-09-13T19:28:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -217,6 +207,11 @@
   </url><url>
     <loc>http://106.53.54.249:20683/note/</loc>
     <lastmod>2026-09-13T19:27:57+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://106.53.54.249:20683/program/</loc>
+    <lastmod>2026-10-13T12:03:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
