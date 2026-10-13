@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Index on 于鹏飞的个人主页</title>
-		<link>http://106.53.54.249:20683/tags/index/</link>
+		<link>https://example.org/tags/index/</link>
 		<description>Recent content in Index on 于鹏飞的个人主页</description>
 		<generator>Hugo</generator>
 		<language>zh</language>
@@ -16,33 +16,33 @@
 			<copyright>Open-source &lt;a class=&#34;text-muted text-decoration-none&#34;&gt;MIT&lt;/a&gt; Licensed.</copyright>
 		
 		
-			<atom:link href="http://106.53.54.249:20683/tags/index/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="https://example.org/tags/index/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>论文分享</title>
-				<link>http://106.53.54.249:20683/note/</link>
+				<link>https://example.org/note/</link>
 				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
-				<guid>http://106.53.54.249:20683/note/</guid>
+				<guid>https://example.org/note/</guid>
 				<description></description>
 			</item>
 			<item>
 				<title>项目分享</title>
-				<link>http://106.53.54.249:20683/program/</link>
+				<link>https://example.org/program/</link>
 				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
-				<guid>http://106.53.54.249:20683/program/</guid>
+				<guid>https://example.org/program/</guid>
 				<description></description>
 			</item>
 			<item>
 				<title>项目配置攻略</title>
-				<link>http://106.53.54.249:20683/deploy/</link>
+				<link>https://example.org/deploy/</link>
 				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
-				<guid>http://106.53.54.249:20683/deploy/</guid>
+				<guid>https://example.org/deploy/</guid>
 				<description></description>
 			</item>
 			<item>
 				<title>最新通知</title>
-				<link>http://106.53.54.249:20683/notice/</link>
+				<link>https://example.org/notice/</link>
 				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
-				<guid>http://106.53.54.249:20683/notice/</guid>
+				<guid>https://example.org/notice/</guid>
 				<description></description>
 			</item>
 	</channel>
