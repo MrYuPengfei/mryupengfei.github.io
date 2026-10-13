@@ -16,7 +16,7 @@
 			<copyright>Open-source &lt;a class=&#34;text-muted text-decoration-none&#34;&gt;MIT&lt;/a&gt; Licensed.</copyright>
 		
 		
-			<lastBuildDate>Tue, 13 Oct 2026 12:03:39 +0800</lastBuildDate>
+			<lastBuildDate>Tue, 13 Oct 2026 21:52:32 +0800</lastBuildDate>
 		
 			<atom:link href="https://example.org/authors/%E4%BA%8E%E9%B9%8F%E9%A3%9E/index.xml" rel="self" type="application/rss+xml" />
 			<item>
@@ -171,6 +171,13 @@
 				<link>https://example.org/deploy/</link>
 				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
 				<guid>https://example.org/deploy/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>学术论文</title>
+				<link>https://example.org/paper/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mr_yupengfei@mails.ccnu.edu.com (MrYuPengfei)</author>
+				<guid>https://example.org/paper/</guid>
 				<description></description>
 			</item>
 			<item>

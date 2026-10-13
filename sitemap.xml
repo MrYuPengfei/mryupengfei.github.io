@@ -8,7 +8,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://example.org/authors/</loc>
-    <lastmod>2026-10-13T12:03:39+08:00</lastmod>
+    <lastmod>2026-10-13T21:52:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -18,7 +18,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://example.org/tags/</loc>
-    <lastmod>2026-10-13T12:03:39+08:00</lastmod>
+    <lastmod>2026-10-13T21:52:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -28,12 +28,12 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://example.org/authors/%E4%BA%8E%E9%B9%8F%E9%A3%9E/</loc>
-    <lastmod>2026-10-13T12:03:39+08:00</lastmod>
+    <lastmod>2026-10-13T21:52:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://example.org/</loc>
-    <lastmod>2026-10-13T12:03:39+08:00</lastmod>
+    <lastmod>2026-10-13T21:52:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -217,6 +217,16 @@
   </url><url>
     <loc>https://example.org/deploy/</loc>
     <lastmod>2026-09-13T20:15:34+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://example.org/paper/</loc>
+    <lastmod>2026-10-13T21:52:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://example.org/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/</loc>
+    <lastmod>2026-10-13T21:52:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
