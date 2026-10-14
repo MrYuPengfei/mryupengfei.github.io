@@ -8,17 +8,17 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://example.org/authors/</loc>
-    <lastmod>2026-10-13T21:52:32+08:00</lastmod>
+    <lastmod>2026-10-14T22:05:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://example.org/tags/featured/</loc>
-    <lastmod>2026-10-13T11:24:04+08:00</lastmod>
+    <lastmod>2026-10-10T11:13:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://example.org/tags/</loc>
-    <lastmod>2026-10-13T21:52:32+08:00</lastmod>
+    <lastmod>2026-10-14T22:05:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -28,22 +28,32 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://example.org/authors/%E4%BA%8E%E9%B9%8F%E9%A3%9E/</loc>
-    <lastmod>2026-10-13T21:52:32+08:00</lastmod>
+    <lastmod>2026-10-14T22:05:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://example.org/</loc>
-    <lastmod>2026-10-13T21:52:32+08:00</lastmod>
+    <lastmod>2026-10-14T22:05:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://example.org/tags/pilot/</loc>
-    <lastmod>2026-10-13T11:24:04+08:00</lastmod>
+    <loc>https://example.org/tags/gui%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2026-10-14T22:05:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://example.org/program/pilot-kg-genshin_5.0.0/</loc>
-    <lastmod>2026-10-13T11:24:04+08:00</lastmod>
+    <loc>https://example.org/program/pilot-kg-genshin_3.8.4/</loc>
+    <lastmod>2026-10-14T22:05:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://example.org/tags/pygame/</loc>
+    <lastmod>2026-10-14T22:05:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://example.org/tags/qt/</loc>
+    <lastmod>2026-10-14T22:05:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
